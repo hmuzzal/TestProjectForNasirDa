@@ -1,0 +1,6 @@
+2023-03-28 16:36:44,975 [84] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.BankStatement(Nullable`1 id) in D:\Digital Decoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 106
+2023-03-28 22:24:10,436 [21] FATAL MoneyExchanger.Controllers.UserController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.UserController.Logout() in D:\Digital Decoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\UserController.cs:line 1867

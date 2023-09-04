@@ -1,0 +1,808 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon"
+          type="image/x-icon"
+          href="~/Content/assets/img/icon/icon.png" />
+    <title>Max United</title>
+
+    <link href="~/Content/assets/bootstrap/dist/css/bootstrap5.2.min.css" rel="stylesheet" />
+    <link href="~/Content/login/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <link rel="stylesheet" href="~/Content/assets/css/style.css" />
+
+    <link href="~/Content/assets/datatable/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" />
+    @*<script src="~/Content/assets/datatable/jquery-3.2.1.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="~/Content/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <link href="~/Content/assets/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/multiselect/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+    <script src="~/Content/assets/js/HotelBooking.js"></script>
+
+
+    <style>
+
+        .ledger-table-head tr th {
+            color: white !important;
+            border: 2px solid white !important;
+            word-spacing: 1px;
+            font-weight: normal !important;
+        }
+
+        .ledger-table tr {
+            border: 1px solid white !important;
+            word-spacing: 1px;
+        }
+
+            .ledger-table tr td {
+                border: 2px solid white !important;
+                word-spacing: 1px;
+            }
+
+        /*tr:nth-child(even) {
+                    background-color: #f2f2f2;
+                    word-spacing: 1px;
+                }
+        */
+        .card-body.dark-mode-black tr:nth-child(even) {
+            background-color: #242526;
+            word-spacing: 1px;
+        }
+
+        .profile-login-img {
+            border: 1px solid #adb5bd;
+            margin: 0 auto;
+            background: #fff;
+            padding: 1px;
+            height: 34px;
+            width: 34px;
+            display: inline-block;
+        }
+
+        .title {
+            text-align: left !important;
+        }
+
+        .table-bordered > :not(caption) > * {
+            border-width: 0;
+        }
+
+        .table-striped > tbody > tr:nth-of-type(odd) > * {
+            --bs-table-accent-bg: transparent;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .dtp-picker-month {
+            color: #212529;
+        }
+
+        button.dtp-btn-cancel.btn.btn-inverse.m-r-10:focus,
+        button.dtp-btn-cancel.btn.btn-inverse.m-r-10:active,
+        button.dtp-btn-cancel.btn.btn-inverse.m-r-10:hover {
+            color: #000;
+        }
+
+        .select2-results {
+            color: #212529 !important;
+        }
+    </style>
+    <style>
+        .dropdown.dselect-wrapper .dropdown-menu {
+            width: 100%;
+            padding: 0;
+        }
+
+        .card-body.dark-mode-black button.form-select {
+            background: transparent;
+            color: #fff;
+        }
+
+        .card-body.dark-mode-black button.dropdown-item {
+            color: #fb9678;
+        }
+
+        .card-body.dark-mode-black .dropdown-item:focus,
+        .card-body.dark-mode-black .dropdown-item:hover {
+            color: inherit;
+        }
+
+        .dropdown.dselect-wrapper .dropdown-menu input {
+            width: 96%;
+            margin: 5px;
+        }
+
+        .return-tbody > tr > th {
+            background: #f2f2f2;
+            width: 50%;
+        }
+
+        .return-tbody > tr > td {
+            background: #fff;
+            width: 50%;
+        }
+
+        .card.dark-mode .return-tbody > tr > th {
+            background: #1f2937;
+        }
+
+        .card.dark-mode .return-tbody > tr > td {
+            background: #242526;
+        }
+
+        .table-condensed thead tr:nth-child(even) {
+            background-color: #458dd2 !important;
+            word-spacing: 1px;
+        }
+
+        .xmark-btn-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 55;
+        }
+
+            .xmark-btn-close a {
+                display: block;
+                padding: 20px;
+            }
+
+                .xmark-btn-close a i {
+                    font-size: 30px;
+                    color: #458dd2;
+                }
+
+        .daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
+            border: 1px solid #ccc !important;
+            border-radius: 0 !important;
+        }
+
+        body.light.dark-mode .daterangepicker.show-calendar .drp-buttons {
+            background: #2f3f61;
+        }
+
+        body.light.dark-mode .daterangepicker.ltr.show-ranges.opensright.show-calendar {
+            background: #1f2937;
+        }
+
+        .daterangepicker .ranges li:hover {
+            background-color: #458dd2 !important;
+        }
+
+        body.light.dark-mode .ranges {
+            background: #1f2937;
+        }
+    </style>
+
+
+    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+    <script src="~/Content/assets/datatable/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="~/Content/assets/datatable/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js"></script>
+    @{
+        //get user session.
+        var session = Session["OrganizationName"];
+        if (session == null)
+        {
+            Response.Redirect("~/User/Login");
+        }
+    }
+</head>
+
+<body>
+    <div class="sidebar">
+        <div id="organizationdate" style="display:none;"> @Session["OrganizationDate"]?.ToString()</div>
+
+        <div class="logo-details">
+            <a href="@Url.Action("Index", "Home")"
+               class="brand-link router-link-exact-active router-link-active"
+               aria-current="page">
+                @if (Session["OrganizationLogo"]?.ToString() != null && Session["OrganizationLogo"]?.ToString() != "None")
+                {
+                    <img id="logoBlack"
+                         src="@Session["OrganizationLogo"]?.ToString()"
+                         @*src="../../Content/logo-2.png"*@
+                         alt="Max United"
+                         class="lg-logo light-logo" />
+
+                    <img id="logoWhite"
+                         src="@Session["OrganizationLogo"]?.ToString()"
+                         @*src="../../Content/logo-2.png"*@
+                         alt="Max United"
+                         class="lg-logo light-logo d-none" />
+                }
+                else
+                {
+                    <h1 class="p-2" id="logoBlack" style="font-family: Britannic;font-size:24px; color: #83EEFD">@Session["OrganizationName"]?.ToString()</h1>
+                }
+
+            </a>
+        </div>
+        <ul class="nav-links">
+
+            <li class="">
+                <a href="@Url.Action("Index", "Home")" class="dash-link">
+                    <span class="dash-micon"><i class="nav-icon fas fa-home"></i></span>
+                    <span class="dash-mtext">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="">
+                <a href="@Url.Action("AllItems", "Configuration")" class="dash-link">
+                    <span class="dash-micon"><i class="nav-icon fas fa-home"></i></span>
+                    <span class="dash-mtext">Profiles</span>
+                </a>
+            </li>
+
+            <li class="">
+                <a href="javascript:void(0)" class="dash-link">
+                    <span class="dash-micon"><i class="fa-solid fa-building-columns"></i></span>
+                    <span class="dash-mtext"> Banking</span>
+                    <span class="dash-arrow">
+                        <i class="fas fa-angle-right arrow"></i>
+                    </span>
+                </a>
+
+                <ul class="sub-menu">
+                    <li class="dash-item">
+                        <a href="@Url.Action("Index", "Banking")" class="dash-link">
+                            <span><i class="fas fa-sliders-h nav-icon"></i></span>
+                            All Banks
+                        </a>
+                    </li>
+
+                    <li class="dash-item">
+                        <a class="dash-link" href="javascript:void(0)">
+                            <span><i class="fas fa-grip-horizontal nav-icon"></i></span>
+                            Reports
+                            <i class="fas fa-angle-right arrow"></i>
+                        </a>
+
+                        <ul class="sub-menu">
+                            <li class="dash-item">
+                                <a href="@Url.Action("BankStatement", "Report")" class="dash-link">
+                                    <span><i class="fas fa-sliders-h nav-icon"></i></span>
+                                    Bank Statement
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="@Url.Action("Index", "Customer")" class="dash-link">
+                    <span class="dash-micon"><i class="nav-icon fas fa-user"></i></span>
+                    <span class="dash-mtext">Manage Customers</span>
+                </a>
+            </li>
+
+            <li class="">
+                <a href="@Url.Action("PaymentReceived", "Home")" class="dash-link">
+                    <span class="dash-micon"><i class="nav-icon fas fa-user"></i></span>
+                    <span class="dash-mtext">Received Payments</span>
+                </a>
+            </li>
+
+            <li class="">
+                <a href="javascript:void(0)" class="dash-link">
+                    <span class="dash-micon">
+                        <i class="nav-icon fas fa-users-cog"></i>
+                    </span>
+                    <span class="dash-mtext"> Administrator </span>
+                    <span class="dash-arrow">
+                        <i class="fas fa-angle-right arrow"></i>
+                    </span>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li class="dash-item">
+                        <a class="dash-link" href="@Url.Action("AllUserType", "User")">
+                            <span>
+                                <i class="fas fa-server nav-icon"></i>
+                            </span>
+                            User Role (ACL)
+                        </a>
+                    </li>
+
+                    <li class="dash-item">
+                        <a class="dash-link" href="@Url.Action("Index", "User")">
+                            <span>
+                                <i class="fas fa-users nav-icon"></i>
+                            </span>
+                            Manage User
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+
+            <li class="">
+                <a href="javascript:void(0)" class="dash-link">
+                    <span class="dash-micon">
+                        <i class="nav-icon fas fa-user"></i>
+                    </span>
+                    <span class="dash-mtext"> Account </span>
+                    <span class="dash-arrow">
+                        <i class="fas fa-angle-right arrow"></i>
+                    </span>
+                </a>
+
+                <ul class="sub-menu">
+                    <li class="dash-item">
+                        <a class="dash-link" href="@Url.Action("MyProfile", "User")">
+                            <span>
+                                <i class="nav-icon fas fa-user-circle"></i>
+                            </span>
+                            Profile
+                        </a>
+                    </li>
+                    <li class="dash-item">
+                        <a class="dash-link" href="@Url.Action("Logout", "User")">
+                            <span>
+                                <i class="nav-icon fas fa-power-off"></i>
+                            </span>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+
+            </li>
+            <li class="dash-item">
+                <a class="dash-link" href="javascript:void(0)">
+                    <span><i class="fas fa-grip-horizontal nav-icon"></i></span>
+                    Hotel
+                    <i class="fas fa-angle-right arrow"></i>
+                </a>
+
+                <ul class="sub-menu">
+                    <li class="dash-item">
+                        <a href="@Url.Action("Index", "Hotel")" class="dash-link">
+                            <span><i class="fas fa-sliders-h nav-icon"></i></span>
+                            Room
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <div class="home-content">
+            <i class="fa-solid fa-bars bx-menu d-lg-block d-none"></i>
+            <div class="nav-logo-details d-md-none d-flex h-100" style="width:110px;">
+                <a href="@Url.Action("Index", "Home")"
+                   class="brand-link router-link-exact-active router-link-active"
+                   aria-current="page">
+                    @if (Session["OrganizationLogo"]?.ToString() != null && Session["OrganizationLogo"]?.ToString() != "None")
+                    {
+                        <img id="logoBlack"
+                             src="@Session["OrganizationLogo"].ToString()"
+                             @*src="../../Content/logo-2.png"*@
+                             alt="Max United"
+                             class="lg-logo light-logo" />
+
+                        <img id="logoWhite"
+                             src="@Session["OrganizationLogo"].ToString()"
+                             @*src="../../Content/logo-2.png"*@
+                             alt="Max United"
+                             class="lg-logo light-logo d-none" />
+                    }
+                    else
+                    {
+                        <h1 class="" id="logoBlack" style="font-family: Britannic;font-size:24px; color: #83EEFD">@Session["OrganizationName"].ToString()</h1>
+                    }
+
+                </a>
+            </div>
+            <div class="profile-login-content d-lg-block d-none">
+                <div id="profileDrpdwnBtn" class="profile-login-wrap profile-drpdwn">
+                    <div class="profile-img-show">
+                        <img class="profile-login-img img-circle" src="@Session["UserImage"].ToString()" alt="profile" />
+                    </div>
+                    <div class="profile-name-show d-md-block d-none">
+                        <h6>@Session["UserName"].ToString()</h6>
+                    </div>
+                    <div class="profile-dropdown-icon">
+                        <i class="fas fa-angle-down"></i>
+                    </div>
+                </div>
+                <div class="profile-dropdown-list">
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("MyProfile", "User")">
+                                <i class="fa-solid fa-user"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Logout", "User")">
+                                <i class="fa-solid fa-power-off"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="d-md-block d-none mx-2">
+                <div class="search-input-wrap">
+                    <input id="speechtext" type="search" placeholder="Type Here..." />
+                    <label for="speechtext" class="search-input-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="d-flex align-items-center ms-auto">
+
+                
+                <a class="btn" title="Emergency Contact"
+                   href="@Url.Action("EmergencyContact", "User")" style="margin-right:5px;">
+
+                    <img src="~/Content/assets/img/icon/alert.png" style="width:24px;height:24px;" />
+                </a>
+                <a href="https://www.flaticon.com/free-icons/alert" style="display:none" title="alert icons">Alert icons created by Pixel perfect - Flaticon</a>
+                <span id="light"
+                      class="btn-mode sun d-none order-2 order-md-1"
+                      title="Light Mode"
+                      onclick="light()">
+                    <img src="~/Content/assets/img/icon/sun.png" alt="icon" />
+                </span>
+                <span id="dark"
+                      class="btn-mode moon order-2 order-md-1"
+                      title="Dark Mode"
+                      onclick="dark()">
+                    <img src="~/Content/assets/img/icon/moon.png" alt="icon" />
+                </span>
+               
+            </div>
+
+            <i class="fa-solid fa-bars bx-menu mbl-bx d-lg-none d-block me-2"></i>
+        </div>
+
+        <div class="main-content">
+
+            <a target="_blank" style="display:none;" href="https://icons8.com/icon/vUnKBMvvrobK/eyebrow">Eyebrow</a> <a style="display:none;" target="_blank" href="https://icons8.com">Icons8</a>
+            @RenderBody()
+
+            
+        </div>
+        <div class="footer-content">
+            <span> © Copyright by</span>
+            <a href="https://gurucrafts.net/" class="me-1">
+                <img src="~/Content/logo.png"
+                     alt="logo"
+                     style="width: 30px; margin: 0 4px" />
+                Max United
+            </a>
+            <span> 2023</span>
+        </div>
+    </section>
+
+    @Html.Partial("_table_statement_javascript")
+    @Html.Partial("_table_statement_javascript_whatsapp")
+
+    @* datatable export print script start*@
+    @Html.Partial("_printdatatable")
+    @* datatable export print script end*@
+
+    @*action button dropdown show/hide script start*@
+    @Html.Partial("_dropdownfunctions")
+    @*action button dropdown show/hide script end*@
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        function downlaodpdf() {
+            var element = document.getElementById('invoice');
+
+            const h2 = document.querySelectorAll('h2');
+            const h4 = document.querySelectorAll('h4');
+
+            for (let i = 0; i < h2.length; i++) {
+                h2[i].style.fontSize = '30px';
+            }
+         
+            for (let i = 0; i < h4.length; i++) {
+                h4[i].style.fontSize = '15px';
+                h4[i].style.marginLeft = '12px';
+            }
+
+            const compdetails = document.querySelector('.company-details');
+
+            const compdetailsli = compdetails.querySelectorAll('li');
+
+            const li = document.querySelectorAll('li');
+
+            for (let i = 0; i < li.length; i++) {
+                li[i].style.fontSize = '12px';
+            }
+            for (let i = 0; i < compdetailsli.length; i++) {
+                compdetailsli[i].style.fontSize = '14px';
+            }
+
+            const billTo = document.querySelectorAll('.bill-to');
+
+            for (let i = 0; i < billTo.length; i++) {
+                billTo[i].style.fontSize = '12px';
+            }
+            const td = document.querySelectorAll('td');
+
+            for (let i = 0; i < td.length; i++) {
+                /*td[i].style.padding = '0';*/
+                td[i].style.height = '30px';
+            }
+            const th = document.querySelectorAll('th');
+
+            for (let i = 0; i < th.length; i++) {
+                th[i].style.padding = '0';
+            }
+
+            const companynamearabic = document.querySelector('.companynamearabic');
+            companynamearabic.style.width = '75%';
+
+            const compLogoImg = document.querySelector('.company-logo-img');
+            const invoicearea = document.querySelector('.invoice-area');
+            invoicearea.style.border = "none";
+            compLogoImg.style.width = '65%';
+
+            const footerAddress = document.querySelector('.footer-address').querySelector('h3');
+
+            footerAddress.style.fontSize = '20px'
+
+            const qrcode = document.getElementById('qrcode');
+
+            qrcode.style.width = '130px';
+            qrcode.style.margin = 'auto';
+
+            const tr = document.querySelector('thead').querySelectorAll('tr');
+
+            for (let i = 0; i < tr.length; i++) {
+                tr[i].style.border = '0';
+            }
+
+
+            const signWrap = document.querySelectorAll('.sign-wrap');
+
+            for (let i = 0; i < signWrap.length; i++) {
+                signWrap[i].style.fontSize = '14px';
+            }
+
+            const pseudo = document.querySelector('.company-details').querySelector('h2');
+
+            pseudo.classList.add('pseudo');
+
+            const bgInvoiceWatermark = document.querySelector('.bg-invoice-watermark');
+
+            bgInvoiceWatermark.style.marginTop = '50px';
+
+            var doc = new window.jsPDF("p", "mm", "a4");
+
+           
+            var orderno = document.getElementById('orderno').innerText;
+            doc.html(element, {
+                callback: function (doc) {
+
+                    doc.save(orderno + ".pdf");
+                },
+                margin: [0, 4, 0, 4],
+                autoPaging: "slice",
+                x: 0,
+                y: 0,
+                width: 202, // Target width in the PDF document
+                windowWidth: 930, // Window width in CSS pixels
+            });
+
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        }
+
+ 
+        function printDiv() {
+
+            var element = document.getElementById('invoice');
+
+            const h2 = document.querySelectorAll('h2');
+            const h4 = document.querySelectorAll('h4');
+
+            for (let i = 0; i < h2.length; i++) {
+                h2[i].style.fontSize = '30px';
+            }
+
+
+
+
+            for (let i = 0; i < h4.length; i++) {
+                h4[i].style.fontSize = '15px';
+                h4[i].style.marginLeft = '12px';
+            }
+
+
+
+
+            const compdetails = document.querySelector('.company-details');
+
+            const compdetailsli = compdetails.querySelectorAll('li');
+
+            const li = document.querySelectorAll('li');
+
+            for (let i = 0; i < li.length; i++) {
+                li[i].style.fontSize = '12px';
+            }
+            for (let i = 0; i < compdetailsli.length; i++) {
+                compdetailsli[i].style.fontSize = '14px';
+            }
+
+            const billTo = document.querySelectorAll('.bill-to');
+
+            for (let i = 0; i < billTo.length; i++) {
+                billTo[i].style.fontSize = '12px';
+            }
+            const td = document.querySelectorAll('td');
+
+            for (let i = 0; i < td.length; i++) {
+                td[i].style.padding = '0';
+                td[i].style.height = '30px';
+            }
+            const th = document.querySelectorAll('th');
+
+            for (let i = 0; i < th.length; i++) {
+                th[i].style.padding = '0';
+            }
+
+            const companynamearabic = document.querySelector('.companynamearabic');
+            companynamearabic.style.width = '75%';
+
+            const compLogoImg = document.querySelector('.company-logo-img');
+            const invoicearea = document.querySelector('.invoice-area');
+            invoicearea.style.border = "none";
+            compLogoImg.style.width = '65%';
+
+            const footerAddress = document.querySelector('.footer-address').querySelector('h3');
+
+            footerAddress.style.fontSize = '20px'
+
+            const qrcode = document.getElementById('qrcode');
+
+            qrcode.style.width = '130px';
+            qrcode.style.margin = 'auto';
+
+            const tr = document.querySelector('thead').querySelectorAll('tr');
+
+            for (let i = 0; i < tr.length; i++) {
+                tr[i].style.border = '0';
+            }
+
+
+            const signWrap = document.querySelectorAll('.sign-wrap');
+
+            for (let i = 0; i < signWrap.length; i++) {
+                signWrap[i].style.fontSize = '14px';
+            }
+
+            const pseudo = document.querySelector('.company-details').querySelector('h2');
+
+            pseudo.classList.add('pseudo');
+
+            const bgInvoiceWatermark = document.querySelector('.bg-invoice-watermark');
+
+            bgInvoiceWatermark.style.marginTop = '50px';
+
+
+            var doc = new window.jsPDF("p", "mm", "a4");
+
+            var orderno = document.getElementById('orderno').innerText;
+            doc.html(element, {
+                callback: function (doc) {
+
+                    doc.autoPrint();
+                    window.open(doc.output('bloburl'), '_blank');
+                    window.close();
+                },
+                margin: [0, 4, 0, 4],
+                autoPaging: "slice",
+                x: 0,
+                y: 0,
+                width: 202, // Target width in the PDF document
+                windowWidth: 930, // Window width in CSS pixels
+            });
+
+            setTimeout(() => {
+                //location.reload();
+            }, 3000);
+            
+        }
+
+
+    </script>
+
+    <script>
+        function showorhidenextelementsreports(name) {
+            var allclass = document.querySelectorAll('.levelreports' + name);
+            allclass.forEach(item => {
+                if (item.style.visibility == 'visible')
+                    item.style.visibility = 'collapse';
+                else
+                    item.style.visibility = 'visible';
+            });
+
+        }
+
+    </script>
+
+    <link href="~/Content/assets/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+
+    <script src="~/Content/assets/js/perfect-scrollbar.jquery.min.js"></script>
+
+    <script src="~/Content/assets/date/moment/moment.js"></script>
+    <script src="~/Content/assets/date/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script>
+        $('.date-format').bootstrapMaterialDatePicker({ format: 'MMMM DD, YYYY', time: false });
+    </script>
+    <link href="~/Content/assets/date/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="~/Content/assets/css/responsive.css" rel="stylesheet">
+    <script src="~/Content/assets/js/script.js"></script>
+    <script src="~/Content/assets/multiselect/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/Content/assets/multiselect/bootstrap-select/bootstrap-select.min.js"></script>
+    <style>
+        .form-select {
+            text-align: left !important;
+        }
+    </style>
+
+    <script>
+        $(function () {
+
+            // For select 2
+            $(".select2").select2();
+
+            $(".ajax").select2({
+                ajax: {
+                    url: "https://api.github.com/search/repositories",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        // parse the results into the format expected by Select2
+                        // since we are using custom formatting functions we do not need to
+                        // alter the remote JSON data, except to indicate that infinite
+                        // scrolling can be used
+                        params.page = params.page || 1;
+                        return {
+                            results: data.items,
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }, // let our custom formatter work
+                minimumInputLength: 1,
+                //templateResult: formatRepo, // omitted for brevity, see the source of this page
+                //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+            });
+        });
+    </script>
+</body>
+
+
+</html>

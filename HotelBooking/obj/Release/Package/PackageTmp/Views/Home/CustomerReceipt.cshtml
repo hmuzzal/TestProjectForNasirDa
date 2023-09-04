@@ -1,0 +1,339 @@
+﻿@model InvoiceSoftware.DataLayer.ViewModels.InvoiceReceipt.InvoiceReceiptViewModel
+@{
+    ViewBag.Title = "Invoices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .ledger-table tfoot tr {
+        border-top: 2px solid #073763 !important;
+        border-bottom: 2px solid #073763 !important;
+    }
+</style>
+
+
+
+<link href="~/Content/assets/invoicedesign.css" rel="stylesheet" />
+
+<div class="content-heading-wrap">
+    <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+        <div class="col-lg-4 col-md-3 align-self-center">
+            <h5 class="text-themecolor">Invoice Receipt</h5>
+        </div>
+        <div class="col-lg-8 col-md-9 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ul class="mx-2 path-link">
+                    <li class="d-inline-block">
+                        <a href="@Url.Action("Index", "Home")"> Dashboard</a>
+                    </li>
+                    &nbsp; &gt; &nbsp;
+                    <li class="d-inline-block active">Invoice Receipt</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cards-body">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6 text-md-start text-center mb-md-0 mb-2">
+
+        </div>
+        <div class="col-lg-7 col-md-6 text-md-end text-center">
+            <div id="printBtn" class="hideArea">
+                <a class="btn btn-primary mx-2"
+                   onclick="downlaodpdf()">
+                    <i class="fas fa-file-pdf"></i> <span class="hide-md">Pdf</span>
+                </a>
+
+                <a class="btn btn-primary mx-2"
+                   onclick="printDiv()">
+                    <i class="fas fa-file-pdf"></i> <span class="hide-md">Print</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .company-name h2 span {
+        position: absolute;
+        font-size: 18px;
+        bottom: -15px;
+        right: 100px;
+    }
+</style>
+<div class="content-wrap overflow-hidden position-relative invoice-area" id="invoice">
+    <div class="bg-invoice-watermark">
+        <img src="~/Resources/Organization/Organization - Copy.jpg" />
+    </div>
+    <div id="contentToPrint" class="">
+
+        <div class="border-bolder"></div>
+        <div class="row">
+            <div class="col-md-4 ">
+                <div class="company-name" style="position: relative;">
+                    <h2>max united
+                        <span>
+                            aluminium Profiles
+                        </span>
+                    </h2>
+                    
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="company-name mx-auto companynamearabic">
+                    <img src="~/Content/ar-font-name.jpg" />
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="company-logo-img" style="width:70%;">
+                    <img src="~/Resources/Organization/Organization.jpg" />
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-5 col-lg-4">
+                <div class="company-details">
+                    <h2 id="company-details">
+                        invoice 
+                        <span>
+                            @Model.Invoice.PaymentType
+                        </span>
+                    </h2>
+
+                    <ul>
+                        <li>
+                            <span>
+                                <img src="~/Content/tele.png" />
+                            </span>
+                            <span>+96555349455 - 98984100</span>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Content/instagram.png" />
+                            </span>
+                            <span>maxunited.q8</span>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Content/Gmail_Logo_512px.png" />
+                            </span>
+                            <span>maxunited.q8@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-2 col-lg-3">
+                <div class="qr-photo-upload-dialog--qr--image">
+                    <div id="qrcode">
+                        <span class="barcode-img">
+                            <img src="~/Content/assets/logo-MU-barcode.jpg" />
+                        </span>
+                    </div>
+                </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+                <script>
+                    var qrcode = new QRCode("qrcode",
+                        "https://poplme.co/hash/4De7UuUG/1/a");
+                </script>
+            </div>
+            <div class="col-md-5 col-lg-4">
+                <div class="invoice-form">
+                    <div id="orderno" style="display:none;"> @Model.Invoice.InvoiceNo</div>
+                    <ul>
+
+                        <li style="display:flex;"><span>invoice no. </span> <span style="color:red;margin-left:5px;"> @Model.Invoice.InvoiceNo</span></li>
+                        <li style="display:flex;"><span>date: </span><span style="margin-left: 5px;"> @Model.Invoice.InvoiceDate.ToString("dd-MM-yyyy")</span></li>
+                        <li style="display:flex;">
+                            <span>reference no. </span> <span style="margin-left: 5px;"> @Model.Invoice.Reference</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-8 col-md-7">
+                <div class="bill-to" style="display:flex;">
+                    <p class="">Customer Code:</p>
+                    <div style="margin-left:10px;">
+                        @if (Model.Invoice.CustomerCode != null && Model.Invoice.CustomerCode != "")
+                        {
+                            @Model.Invoice.CustomerCode
+                        }
+                        else
+                        {
+                            @Model.customerinfo.CustomerCode
+                        }
+
+
+                    </div>
+                </div>
+                <div class="bill-to" style="display:flex;">
+                    <p class="">bill to:</p>
+                    <div style="margin-left:10px;">
+                        @Model.customerinfo.Name
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5 col-lg-4">
+
+                <div class="bill-to" style="display:flex;">
+                    <p class="">Customer Contact No: </p>
+                    <div style="margin-left:10px;">
+                        @if (Model.Invoice.CustomerMobile != null && Model.Invoice.CustomerMobile != "")
+                        {
+                            @Model.Invoice.CustomerMobile
+                        }
+                        else
+                        {
+                            @Model.customerinfo.Mobile
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class=" table-parent">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>no.</th>
+                                <th class="text-center" style="width: 12%;">Profile No</th>
+                                <th style="text-align: center !important">description</th>
+                                <th class="text-center" style="width: 10%;">qty/kg</th>
+                                <th class="text-center" style="width: 12%;">unit price</th>
+                                <th class="text-center" style="width: 10%;">total</th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @for (var item = 0; item < Model.InvoiceDetails.Count; item++)
+                            {
+                                var index = item + 1;
+                                <tr style="visibility: visible;" class="valued-row">
+                                    <td style="width: 50px;">@index</td>
+
+                                    <td class="text-right" style="padding-right:10px!important;">
+                                        @Model.InvoiceDetails[item].service.ProfileNo
+                                    </td>
+                                    <td style="text-align:left!important">
+                                        @Model.InvoiceDetails[item].service.ProfileName
+                                    </td>
+                                    <td class="text-right" style="padding-right:10px!important;">
+                                        @Model.InvoiceDetails[item].Quantity
+                                    </td>
+                                    <td class="text-right" style="padding-right:10px!important;">
+                                        @Model.InvoiceDetails[item].SellingPrice.ToString("#,##0.000")
+
+                                    </td>
+
+
+                                    <td class="text-right" style="padding-right:10px!important;">
+                                        @Model.InvoiceDetails[item].TotalAmount.ToString("#,##0.000")
+                                    </td>
+
+
+                                </tr>
+                            }
+
+                            @for (var item = Model.InvoiceDetails.Count + 1; item < 21; item++)
+                            {
+                                <tr>
+                                    <td style="width: 50px;">@item</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                </tr>
+                            }
+
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td style="border: 0;vertical-align: top;text-align: start;" colspan="4">
+                                    We received the material in good conditon <br>
+                                    Weight or thickness subject to change ± 10%
+                                </td>
+                                <td class="footer-blod-text">subtotal</td>
+                                <td class="text-right" style="padding-right:10px!important;">
+                                    @Model.Invoice.SubTotalAmount.ToString("#,##0.000")
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="footer-blod-text" colspan="5">discount</td>
+                                <td class="text-right" style="padding-right:10px!important;">
+                                    @Model.Invoice.DiscountAmount.ToString("#,##0.000")
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="footer-blod-text" style="font-size: 18px;" colspan="5">balance</td>
+                                <td class="text-right" style="padding-right:10px!important;">
+                                    @Model.Invoice.TotalAmount.ToString("#,##0.000")
+                                </td>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-between">
+            <div class="sign-wrap">
+                <span style="font-weight:bold;">Amount in Word: @Model.AmountinWords Dinar</span>
+                <span class="text-decoration-underline w-50 d-inline-block"></span>
+            </div>
+
+            <div class="col-md-8 col-xl-8">
+                <div class="sign-wrap">
+                    <span>Receiver Sign: </span>
+                    <span class="text-decoration-underline w-50 d-inline-block"></span>
+                </div>
+                <div class="sign-wrap">
+                    <span>Receiver Name:</span>
+                    <span class="text-decoration-underline w-75 d-inline-block"></span>
+                </div>
+                <div class="sign-wrap">
+                    <span>Receiver Contact:</span>
+                    <span class="text-decoration-underline w-75 d-inline-block"></span>
+                </div>
+
+            </div>
+            <div class="col-md-4 col-xl-4">
+                <div class="sign-wrap">
+                    <br /><span>Salesman</span><br />
+                    <span class="text-decoration-underline w-75 d-inline-block">@Model.Invoice.CreatedBy</span>
+                </div>
+            </div>
+        </div>
+        <div class="fotter-bottom-fixed">
+            <div class="border-bolder"></div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="footer-address">
+                        <h3>Khalifa Al-Jasim Street - Homaizi Complex - Shop No. 6,7 - Behind Global Hardware, Shuwaikh</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="printimage" style="display:none">
+    <img src="" id="imagesource" />
+</div>
+
+<span class="text-right text-bold" id="CustomerName" style="display:none;">Invoice Receipt</span>
+
+

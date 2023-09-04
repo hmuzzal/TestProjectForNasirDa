@@ -1,0 +1,620 @@
+/* Laptop layout min 1200px */
+
+@media (min-width: 1200px) and (max-width: 1599px) {
+    .fc-scroller.fc-day-grid-container {
+        height: 336px !important;
+        overflow: hidden !important;
+    }
+
+    .cards-body.fixed-height {
+        height: 475px;
+    }
+
+    #bar-chart-grouped {
+        height: 335px !important;
+        margin: 20px 0;
+    }
+
+    .social-link a {
+        margin: 0;
+    }
+
+    .loader span {
+        margin: -280px 0px 0 -35px;
+    }
+
+    .search-input-wrap input {
+        width: 190px
+    }
+
+    canvas#test {
+        width: 100px;
+    }
+}
+
+
+
+/* Mini laptop layout min 992px */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .fc-scroller.fc-day-grid-container {
+        height: 336px !important;
+        overflow: hidden !important;
+    }
+
+    #bar-chart-grouped {
+        margin: 50px 0;
+        height: 336px !important;
+    }
+
+    .search-input-wrap input {
+        width: 290px;
+    }
+
+    .cards-body.fixed-height {
+        height: 505px;
+    }
+
+    .fixed-table-footer, .fixed-table-header, .fixed-table-body {
+        width: 1300px !important;
+    }
+
+    .fixed-table-container {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+    }
+
+    .social-link a {
+        margin: 0 3px;
+    }
+
+    .login-area {
+        width: 80%;
+    }
+
+    .ledger-table {
+        width: 1200px;
+    }
+
+    .loader span {
+        margin: -280px -25px 0 -20px;
+    }
+
+    h5.cards-title {
+        font-size: 18px;
+    }
+
+    .react-reveal {
+        font-size: 22px;
+    }
+
+    .fc-scroller.fc-day-grid-container {
+        height: 336px !important;
+        overflow: hidden !important;
+    }
+
+    .cards-body.fixed-height {
+        height: 480px;
+    }
+
+    .search-input-wrap input {
+        width: 125px
+    }
+
+    table#ledger-table {
+        width: 1000px;
+    }
+
+    canvas#test {
+        width: 40px;
+    }
+
+    a[data-toggle="modal"] {
+        font-size: 14px;
+    }
+
+    h5.text-themecolor {
+        font-size: 16px;
+    }
+
+    .fixed-table-footer, .fixed-table-header, .fixed-table-body {
+        width: 1300px !important;
+    }
+
+    .fixed-table-container {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+    }
+
+    .profile-login-content {
+        margin-left: 0;
+    }
+
+
+    /*
+    .social-link {
+        text-align: left;
+    }*/
+
+    .social-link a {
+        margin: 8px;
+    }
+
+    .login-area {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .ledger-table {
+        width: 1200px;
+    }
+
+    .loader span {
+        margin: -280px -25px 0 -30px;
+    }
+}
+
+
+/* Tablet Layout wide min 768px. */
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+    table#ledger-table {
+        width: 1000px;
+    }
+
+    canvas#test {
+        width: 140px;
+    }
+
+
+    .hide-md {
+        display: none;
+    }
+
+    .search-input-wrap input {
+        width: 225px
+    }
+
+    .company-address.company-address-white {
+        margin-left: 0;
+    }
+
+    /*siderbard mobile responsive css start */
+
+    .sidebar {
+        width: 78px;
+    }
+
+        .sidebar .nav-links li a .dash-mtext {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sidebar .nav-links i.arrow {
+            display: none;
+        }
+
+        .sidebar .nav-links li .sub-menu {
+            margin-top: 0;
+            padding: 10px 20px;
+            border-radius: 0 6px 6px 0;
+            opacity: 0;
+            display: none;
+            pointer-events: none;
+        }
+
+        .sidebar .nav-links li:hover .sub-menu {
+            top: 0;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sidebar .nav-links li .sub-menu .dash-mtext {
+            font-size: 18px;
+            opacity: 1;
+            display: block;
+        }
+
+        .sidebar .profile-details {
+            background: none;
+        }
+
+        .sidebar .profile-details {
+            width: 78px;
+        }
+
+            .sidebar .profile-details img {
+                padding: 10px;
+            }
+
+            .sidebar .profile-details i,
+            .sidebar .profile-details .profile_name,
+            .sidebar .profile-details .job {
+                display: none;
+            }
+
+        .sidebar ~ .home-section {
+            width: calc(100% - 78px);
+            margin-left: 78px;
+        }
+
+            .sidebar ~ .home-section .home-content {
+                width: calc(100% - 78px);
+                margin-left: 78px;
+            }
+
+            .sidebar ~ .home-section .footer-content {
+                width: calc(100% - 78px);
+                margin-left: 78px;
+            }
+
+
+        .sidebar.open .nav-links li.showMenu > .sub-menu {
+            position: initial;
+            opacity: 1;
+            display: block;
+        }
+
+        .sidebar.open {
+            width: 260px;
+        }
+
+            .sidebar.open .nav-links i.arrow {
+                display: block;
+            }
+
+            .sidebar.open .nav-links li a .dash-mtext {
+                opacity: 1;
+                pointer-events: none;
+            }
+
+    /*siderbard mobile responsive css end */
+
+    .cards-body.fixed-height {
+        height: 530px;
+    }
+
+        .cards-body.fixed-height.for-mobile {
+            height: 470px;
+        }
+
+    .fc-scroller.fc-day-grid-container {
+        height: auto !important;
+    }
+}
+
+/* Mobile layout max 767px */
+
+@media screen and (max-width: 767px) {
+
+    .fc-scroller.fc-day-grid-container {
+        height: auto !important;
+    }
+
+
+    .cards-body.fixed-height.for-mobile {
+        height: 300px;
+    }
+
+
+    .nav-logo-details {
+        height: 45px;
+        border-bottom: 0;
+    }
+
+    .sidebar .logo-details {
+        visibility: hidden;
+        background: transparent;
+    }
+
+    .sidebar {
+        border-right: 0;
+        background: none;
+    }
+
+        .sidebar.open.dark-mode {
+            border-right: 0;
+            background: none !important;
+        }
+
+        .sidebar .nav-links {
+            background: #fff;
+            border-right: 1px solid #dee2e6;
+        }
+
+    body.light.dark-mode .sidebar .nav-links {
+        background: #1f2937;
+        border-right: 1px solid #dee2e6;
+    }
+
+    .claculator-icon {
+        margin-left: 35px;
+    }
+
+    table#ledger-table {
+        width: 1000px;
+    }
+
+    .div-box-shadow {
+        padding: 0;
+    }
+
+    canvas#test {
+        width: 30px;
+    }
+
+    .home-section .home-content {
+        padding: 15px 4px;
+    }
+
+    .company-address.company-address-white {
+        margin-left: 0;
+    }
+
+    .client-Details.client-details-white h5 {
+        font-size: 18px;
+    }
+
+    .main-content {
+        padding: 68px 8px;
+        overflow: hidden;
+    }
+
+    .content-heading-wrap {
+        margin-bottom: 8px;
+    }
+
+    .content-wrap .card-body {
+        padding: 8px;
+    }
+
+    .cards-body.fixed-height.b-l.calender-sidebar {
+        padding: 5px;
+    }
+
+    .fc-toolbar.fc-header-toolbar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .fc-toolbar .fc-left {
+        order: 1;
+        margin-bottom: 20px;
+    }
+
+    .fc-toolbar .fc-center {
+        order: 2;
+        margin-bottom: 20px;
+    }
+
+    .cards-body.fixed-height {
+        height: 535px;
+    }
+
+    .fc-toolbar .fc-right {
+        order: 3;
+    }
+
+    h5.text-themecolor {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    h5.cards-title {
+        font-size: 14px;
+    }
+
+    .float-right.search {
+        width: 100%;
+    }
+
+    .path-link {
+        display: none;
+    }
+
+    .create-btn {
+        display: none;
+    }
+
+    .modal-content td {
+        max-width: 72px;
+        padding: 3px;
+    }
+
+
+
+    .invoice-area {
+        padding: 16px 0;
+    }
+
+    .hide-md {
+        display: none;
+    }
+
+    .cards-body.box-profile .profile-username {
+        font-size: 16px;
+    }
+
+    .social-link a {
+        margin: 0 8px;
+        height: 30px;
+        width: 30px;
+        line-height: 30px;
+    }
+
+        .social-link a i {
+            font-size: 14px;
+            height: 30px;
+            width: 30px;
+            line-height: 30px;
+        }
+
+    .profile-login-content {
+        margin-left: 0;
+    }
+
+    .offset-sm-3.col-sm-9 button.btn.btn-primary {
+        width: 100%;
+    }
+
+    .login-area {
+        width: 94% !important;
+        padding: 0px;
+    }
+
+    .bg-true {
+        width: 110%;
+        height: 107%;
+        border-radius: 30px 30px 0 0;
+    }
+
+    .login-title h1 {
+        font-size: 20px;
+    }
+
+
+
+    .login-submit-btn button {
+        width: 100%;
+    }
+
+    .login-reg-wrap {
+        padding-top: 40px;
+    }
+
+    .ledger-table {
+        width: 1200px;
+    }
+
+    .loader {
+        text-align: left;
+    }
+
+        .loader span {
+            margin: -280px -35px 0 -40px;
+        }
+
+    .react-reveal {
+        font-size: 18px;
+    }
+
+    .content-heading-wrap {
+        padding: 15px 8px;
+    }
+
+    /*siderbard mobile responsive css start */
+
+    .sidebar {
+        width: 0;
+    }
+
+        .sidebar .nav-links li a .dash-mtext {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sidebar .nav-links i.arrow {
+            display: none;
+        }
+
+        .sidebar .nav-links li .sub-menu {
+            margin-top: 0;
+            padding: 10px 20px;
+            border-radius: 0 6px 6px 0;
+            opacity: 0;
+            display: none;
+            pointer-events: none;
+        }
+
+        .sidebar .nav-links li:hover .sub-menu {
+            top: 0;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sidebar .nav-links li .sub-menu .dash-mtext {
+            font-size: 18px;
+            opacity: 1;
+            display: block;
+        }
+
+        .sidebar .profile-details {
+            background: none;
+        }
+
+        .sidebar .profile-details {
+            width: 78px;
+        }
+
+            .sidebar .profile-details img {
+                padding: 10px;
+            }
+
+            .sidebar .profile-details i,
+            .sidebar .profile-details .profile_name,
+            .sidebar .profile-details .job {
+                display: none;
+            }
+
+        .sidebar ~ .home-section {
+            width: calc(100% - 0px);
+            margin-left: 0;
+        }
+
+            .sidebar ~ .home-section .home-content {
+                width: calc(100% - 0px);
+                margin-left: 0;
+            }
+
+            .sidebar ~ .home-section .footer-content {
+                width: calc(100% - 0px);
+                margin-left: 0;
+            }
+
+
+        .sidebar.open .nav-links li.showMenu > .sub-menu {
+            position: initial;
+            opacity: 1;
+            display: block;
+        }
+
+        .sidebar.open {
+            width: 260px;
+        }
+
+            .sidebar.open .nav-links i.arrow {
+                display: block;
+            }
+
+            .sidebar.open .nav-links li a .dash-mtext {
+                opacity: 1;
+                pointer-events: none;
+            }
+
+    /*siderbard mobile responsive css end */
+}
+
+
+/*others layout css*/
+
+@media (width: 1600px) {
+    .fc-scroller.fc-day-grid-container {
+        height: 408px !important;
+        overflow: hidden !important;
+    }
+
+    .cards-body.fixed-height {
+        height: 520px;
+    }
+}
+
+
+@media (width: 1440px) {
+    .fc-scroller.fc-day-grid-container {
+        height: 350px !important;
+        overflow: hidden !important;
+    }
+}

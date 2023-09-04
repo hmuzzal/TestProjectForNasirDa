@@ -1,0 +1,19 @@
+2023-03-06 14:39:10,252 [13] FATAL MoneyExchanger.Controllers.BankingController [(null)] - log4net Fatal Bank Level
+System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'dbo.BackUp'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   at System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.NonQuery(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass59.<ExecuteStoreCommand>b__57()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at MoneyExchanger.Controllers.DatabaseBackupController.Index() in D:\Digital Decoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\DatabaseBackupController.cs:line 81
+ClientConnectionId:7b3bea7e-5c0e-4cb6-b18e-3468ceb82652
+Error Number:2812,State:62,Class:16
+2023-03-06 17:12:02,185 [43] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.BankStatement(Nullable`1 id) in D:\Digital Decoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 103

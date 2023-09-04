@@ -1,0 +1,256 @@
+﻿@model InvoiceSoftware.DataLayer.ViewModels.InvocieView.InvocieViewModel
+@{
+    ViewBag.Title = "Invoices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/Content/assets/js/InvoiceSoftware.js"></script>
+
+
+
+
+<style>
+    .fixed-table-container {
+        /*height: auto !important;*/
+        padding-bottom: 0 !important;
+    }
+
+    .fixed-table-header {
+        margin-right: 0px !important;
+    }
+</style>
+
+@* datatable export to pdf script start*@
+@Html.Partial("_succesorfailuremodal")
+@* datatable export to pdf script end*@
+<div class="content-heading-wrap">
+    <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+        <div class="col-lg-4 col-md-3 align-self-center">
+            <h5 class="text-themecolor">All Invoices</h5>
+        </div>
+        <div class="col-lg-8 col-md-9 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ul class="mx-2 path-link">
+                    <li class="d-inline-block">
+                        <a href="@Url.Action("Index", "Home")"> Dashboard</a>
+                    </li>
+                    &nbsp; &gt; &nbsp;
+                    <li class="d-inline-block active">Invoices</li>
+                </ul>
+                <a class="btn btn-primary"
+                   href="@Url.Action("CreateInvoice", "Home")">
+                    <i class="fa fa-plus-circle"></i> <span class="create-btn">Create New</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+
+    <div class="row " id="printhide">
+        <div class="col-lg-12">
+            <div class="div-box-shadow">
+                <div class="cards">
+                    <form role="form">
+                        <div class="cards-body">
+                            <div class=" align-items-center">
+                                <h3 style="width: 100%;text-align:center;font-weight:bold;text-decoration:underline">All Invoice History</h3>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-xl-6 col-lg-6 col-12">
+
+                                    @Html.Partial("_dateranger")
+
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Customer : </label>
+
+                                        @Html.DropDownListFor(model => model.LedgerID, Model.AllCustomers, "Customer", new { @class = "select2 form-control" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.LedgerID) </small>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-12">
+                                    <div class="form-group">
+
+                                        <label class="col-form-label">Search</label>
+                                        @Html.TextBoxFor(model => model.SearchString, new { @class = "form-control", @type = "text", @placeholder = "Search..", @style = "background-color: white" })
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-12">
+                                    <div class="form-group" style="margin-top:4%">
+
+
+                                        <button id="viewReport" type="submit"
+                                                class="btn btn-primary me-2">
+                                            <i class="fas fa-eye"></i> <span class="create-btn">View Report</span>
+                                        </button>
+                                        <button type="reset"
+                                                class="btn btn-dark">
+                                            <i class="fas fa-power-off"></i> <span class="create-btn">Reset</span>
+                                        </button>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+
+    <div class="content-wrap">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="invoice" class="invoice-area">
+                            <div class="container-fluid" id="contentToPrint">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        
+                                        <br />
+                                        <div id="toolbar">
+
+
+                                        </div>
+
+                                        @*data table name.pdf start*@
+
+                                        <div id="dataTableName" style="display:none;">Receivables</div>
+
+                                        @*data table name.pdf end*@
+
+                                        <div class="table-responsive">
+                                            <table class="table display table-bordered table-striped no-wrap no-wrap table-bordered table-hover table" id="ledger-table" data-toolbar="#toolbar" data-search="true"
+                                                   data-show-refresh="true" data-show-toggle="true" data-show-fullscreen="true" data-show-print="true"
+                                                   data-show-columns="true" data-show-export="true"
+                                                   data-detail-formatter="detailFormatter" data-minimum-count-columns="2"
+                                                   data-show-pagination-switch="true" data-pagination="true" data-id-field="id"
+                                                   data-show-footer="false">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="border">
+                                                            SL
+                                                        </th>
+                                                        <th scope="col" class="border text-start">
+                                                            Date
+
+                                                        </th>
+                                                        <th scope="col" class="border text-start">
+                                                            Invoice#
+                                                        </th>
+                                                        <th scope="col" class="border text-start">
+                                                            Reference
+                                                        </th>
+                                                        <th scope="col" class="border text-start">Customer</th>
+
+                                                       
+                                                       
+                                                        <th scope="col" class="border text-end">Total Amount</th>
+                                                        
+
+                                                        <th scope="col" class="border hideArea">Operations</th>
+
+                                                    </tr>
+                                                </thead>
+                                                @{
+                                                    int i = 0;
+                                                }
+                                                <tbody>
+                                                    @foreach (var item in Model.allinvoices)
+                                                    {
+                                                        i++;
+                                                        <tr>
+                                                            <td scope="col" class="border">
+                                                                @i
+                                                            </td>
+                                                            <td scope="col" class="border text-start">
+                                                                <a href="javascript:void(0)">@item.singleinvoice.InvoiceDate.ToString("dd-MM-yyyy")</a>
+                                                            </td>
+                                                            <td scope="col" class="border text-start">@item.singleinvoice.InvoiceNo</td>
+                                                            <td scope="col" class="border text-start">@item.singleinvoice.Reference</td>
+
+
+                                                            <td scope="col" class="border text-start">@item.singleinvoice.debitledger.LedgerName</td>
+
+                                                           
+
+                                                            <td scope="col" class="border text-end">@item.singleinvoice.TotalAmount</td>
+                                                            
+
+                                                            <td scope="col" class="border hideArea">
+                                                                <div class="action-btn-dropdown">
+                                                                    <span onclick="showorhidenextelements(@i)"
+                                                                          class="showorhidenextelements">
+                                                                        <i class="fa fa-tasks dropbtnstas" aria-hidden="true"></i>
+                                                                    </span>
+                                                                    <ul class="action-dropdown" id="level@(i)">
+                                                                        <li>
+                                                                            <a title="update"
+                                                                               href="@Url.Action("UpdateInvoice", "Home", new { id = item.singleinvoice.PkInvoiceId })">
+                                                                                <img src="~/Content/assets/img/icon/edit.png" /> Update
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a title="delete" href="javascript:void(0)" onclick="deleteItem(@i)">
+                                                                                <img src="~/Content/assets/img/icon/delete.png" />  Delete
+                                                                            </a>
+                                                                            <a id="deleteitem@(i)"
+                                                                               href="@Url.Action("DeleteInvoice", "Home", new { id = item.singleinvoice.PkInvoiceId })" style="display:none;">
+                                                                            </a>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <a title="Invoice" href="@Url.Action("CustomerReceipt", "Home", new { id = item.singleinvoice.PkInvoiceId })">
+                                                                                <img src="~/Content/assets/img/icon/receipt.png" />  Invoice
+                                                                            </a>
+                                                                        </li>
+
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+
+<span class="text-right text-bold" id="CustomerName" style="display:none;">Invoice</span>
+<script src="~/Content/assets/js/invoice-table.init.js"></script>
+

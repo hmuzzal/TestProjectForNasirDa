@@ -1,0 +1,24 @@
+2023-08-12 17:02:30,356 [293] FATAL InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess.GetLastBankNumber() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\DataLayer\InvoiceSoftwareDBAccess.cs:line 66
+2023-08-12 17:04:42,455 [267] FATAL InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess.GetLastBankNumber() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\DataLayer\InvoiceSoftwareDBAccess.cs:line 66
+2023-08-12 17:07:06,150 [272] FATAL InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess.GetLastBankNumber() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\DataLayer\InvoiceSoftwareDBAccess.cs:line 66
+2023-08-12 17:07:15,010 [318] FATAL WasteManagement.Controllers.BankingController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at WasteManagement.Controllers.BankingController.Index(BankAccountsViewModel supp, String Create, String Update) in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\Controllers\BankingController.cs:line 160
+2023-08-12 17:07:15,023 [297] FATAL InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess.GetLastBankNumber() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\DataLayer\InvoiceSoftwareDBAccess.cs:line 66
+2023-08-12 17:07:45,862 [9] FATAL InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess.GetLastBankNumber() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\DataLayer\InvoiceSoftwareDBAccess.cs:line 66
+2023-08-12 17:11:36,715 [24] FATAL InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess.GetLastBankNumber() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\DataLayer\InvoiceSoftwareDBAccess.cs:line 66
+2023-08-12 17:12:16,840 [25] FATAL InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess.LastCustomerCode() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\DataLayer\InvoiceSoftwareDBAccess.cs:line 2820

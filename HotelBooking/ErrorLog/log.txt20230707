@@ -1,0 +1,28 @@
+2023-07-07 08:49:25,232 [17] FATAL WasteManagement.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at WasteManagement.Controllers.ReportController.BankStatement(AccountStatement alltransactions) in D:\WasteManagement\WasteManagement\Controllers\ReportController.cs:line 318
+2023-07-07 08:50:37,473 [10] FATAL WasteManagement.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at WasteManagement.Controllers.ReportController.BankStatement(AccountStatement alltransactions) in D:\WasteManagement\WasteManagement\Controllers\ReportController.cs:line 318
+2023-07-07 08:50:46,356 [17] FATAL WasteManagement.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at WasteManagement.Controllers.ReportController.BankStatement(AccountStatement alltransactions) in D:\WasteManagement\WasteManagement\Controllers\ReportController.cs:line 318
+2023-07-07 08:50:56,943 [8] FATAL WasteManagement.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at WasteManagement.Controllers.ReportController.BankStatement(AccountStatement alltransactions) in D:\WasteManagement\WasteManagement\Controllers\ReportController.cs:line 318
+2023-07-07 08:52:39,973 [17] FATAL WasteManagement.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at WasteManagement.Controllers.ReportController.AccountStatement(AccountStatement alltransactions) in D:\WasteManagement\WasteManagement\Controllers\ReportController.cs:line 1441
+2023-07-07 08:52:43,379 [5] FATAL WasteManagement.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at WasteManagement.Controllers.ReportController.AccountStatement(AccountStatement alltransactions) in D:\WasteManagement\WasteManagement\Controllers\ReportController.cs:line 1441
+2023-07-07 09:01:26,793 [42] FATAL WasteManagement.DataLayer.WasteManagementTransactions [(null)] - Check Transaction: PR-772023-001: Opening: 1298 :Closing: 160
+2023-07-07 09:12:25,329 [68] FATAL WasteManagement.DataLayer.WasteManagementTransactions [(null)] - Check Transaction: PR-772023-002: Opening: 400 :Closing: 560
+2023-07-07 09:12:25,342 [68] FATAL WasteManagement.DataLayer.WasteManagementTransactions [(null)] - Check Transaction: PV-772023-001: Opening: 560 :Closing: -320
+2023-07-07 09:12:25,349 [68] FATAL WasteManagement.DataLayer.WasteManagementTransactions [(null)] - Check Transaction: PR-772023-002: Opening: 1298 :Closing: 1138
+2023-07-07 09:12:30,032 [68] FATAL WasteManagement.DataLayer.WasteManagementTransactions [(null)] - Check Transaction: PV-772023-001: Opening: 400 :Closing: -480
+2023-07-07 09:15:30,379 [33] FATAL WasteManagement.DataLayer.WasteManagementTransactions [(null)] - Check Transaction: PV-772023-001: Opening: 400 :Closing: -480
+2023-07-07 09:16:17,122 [28] FATAL WasteManagement.DataLayer.WasteManagementTransactions [(null)] - Check Transaction: PV-772023-001: Opening: 400 :Closing: -480
+2023-07-07 09:21:54,852 [35] FATAL WasteManagement.DataLayer.WasteManagementTransactions [(null)] - Check Transaction: PV-772023-001: Opening: 400 :Closing: -480
+2023-07-07 09:25:45,695 [67] FATAL WasteManagement.DataLayer.WasteManagementTransactions [(null)] - Check Transaction: PV-772023-001: Opening: 400 :Closing: -480
+2023-07-07 09:29:13,346 [11] FATAL WasteManagement.DataLayer.WasteManagementTransactions [(null)] - Check Transaction: PV-772023-001: Opening: 400 :Closing: -480

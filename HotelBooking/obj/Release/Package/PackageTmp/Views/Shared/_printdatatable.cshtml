@@ -1,0 +1,43 @@
+﻿<script>
+    function invoicePrint() {
+        var restorepage = document.body.innerHTML;
+        document.querySelector(".fixed-table-toolbar").style.display = "none";
+        let fhtCell = document.querySelectorAll(".fht-cell");
+
+        for (let i = 0; i < fhtCell.length; i++) {
+            fhtCell[i].style.display = "none";
+        }
+
+        let thTitle = document.querySelectorAll("th");
+
+        for (let i = 0; i < thTitle.length; i++) {
+            thTitle[i].style.fontSize = "14px";
+
+        }
+        let tdTitle = document.querySelectorAll("td");
+
+        for (let i = 0; i < tdTitle.length; i++) {
+            tdTitle[i].style.fontSize = "14px";
+        }
+
+        //var tdLastChild = document.querySelectorAll("td.title:last-child");
+
+        //for (let i = 0; i < tdLastChild.length; i++) {
+        //    tdLastChild[i].style.display = 'none';
+        //}
+
+        //var thLastChild = document.querySelectorAll("th.border:last-child");
+
+        //for (let i = 0; i < thLastChild.length; i++) {
+        //    thLastChild[i].style.display = 'none';
+        //}
+
+
+
+        var printcontent = document.querySelector(".table-responsive").innerHTML;
+        document.body.innerHTML = printcontent;
+        window.print();
+        document.body.innerHTML = restorepage;
+        location.reload();
+    }
+</script>

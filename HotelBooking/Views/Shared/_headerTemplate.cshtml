@@ -1,0 +1,123 @@
+﻿
+<div class="row" id="headertemplate">
+    <div class="col-lg-12">
+        <div class="invoice-header-top mb-5">
+            <div class="invoice-header-bg">
+                @*<img src="~/Content/bg-statement.jpg" />*@
+               
+                <img src="~/Content/header.png" />
+            </div>
+            <div class="row justify-content-between py-2 header-top-polygen">
+                <div class="col-lg-6 col-md-6">
+                    
+                    <div class="company-address company-address-white px-3" style="margin-left:0;margin-top:0">
+                        
+                        <ul>
+                           
+                            <li style="color: #3887c2;"><strong>Customer Name:</strong> <span id="CustomerName">@Model.CustomerName</span></li>
+
+                            <li style="color: #3887c2;">
+                                <strong>Mobile:</strong> @Model.CustomerPhone
+                            </li>
+                            <li style="color: #3887c2;">
+                                <strong>Address:</strong> @Model.CustomerAddress
+
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <div id="clientDetails"
+                         class=" col-12 text-end">
+                        <div class="client-Details client-details-white">
+                            <h5 style="color: #3887c2;">Statements of Accounts</h5>
+                            <div class="row my-1">
+                                <div class="col text-end account-period-border"><span class="" style="color: #3887c2;">@Model.DateFrom.ToString("dd-MMM-yy") to @Model.Dateto.ToString("dd-MMM-yy")</span></div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-5 col-7 text-start" style="color: #3887c2;"><span class="text-bold">Opening Balance :</span></div>
+                                <div class="col-md-7 col-5 text-end" style="color: #3887c2;"><span class="">@Model.OpeningBalance </span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-7 text-start" style="color: #3887c2;">  <span class="text-bold">Invoice Amount :</span></div>
+                                <div class="col-md-7 col-5 text-end" style="color: #3887c2;"><span class=""> @string.Format("{0:n}", Model.TotalDebit) </span></div>
+
+                            </div>
+                            <div style="border-bottom:2px solid #aaa;">
+                                <div class="row">
+                                    <div class="col-md-5 col-7 text-start" style="color: #3887c2;"> <span class="text-bold">Paid Amount :</span></div>
+                                    <div class="col-md-7 col-5 text-end" style="color: #3887c2;"> <span class="">@string.Format("{0:n}", Model.TotalCredit) </span></div>
+
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-7 text-start" style="color: #3887c2;">   <span class="text-bold">Balance Due :</span></div>
+                                <div class="col-md-7 col-5 text-end" style="color: #3887c2;">  <span class="text-bold">@string.Format("{0:n}", Model.TotalDue) </span></div>
+
+
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row py-1 align-items-end justify-content-between">
+            <div id="invoiceInfo" class="col-md-5">
+                <div class="invoice-info">
+                    <div class="company-logo">
+                        @*<img id="logoImg"
+                            src="~/Content/logo-2.png"
+                            alt="logo" />*@
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+
+
+    .invoice-header-top {
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .invoice-header-bg {
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        height: 100%;
+    }
+
+        .invoice-header-bg img {
+            height: 100%;
+            width: 100%;
+        }
+
+    .invoice-header-top:before {
+        display: none;
+    }
+
+
+
+    .header-top-polygen:before {
+        display: none;
+    }
+
+    .header-top-polygen:after {
+        display: none;
+    }
+</style>
+
+
+

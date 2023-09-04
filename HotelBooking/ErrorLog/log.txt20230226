@@ -1,0 +1,26 @@
+2023-02-26 18:41:05,484 [8] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.SupplierStatementSingle(Nullable`1 id) in D:\Digital Decoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 1235
+2023-02-26 18:41:27,179 [17] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.SupplierStatementSingle(Nullable`1 id) in D:\Digital Decoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 1235
+2023-02-26 18:55:19,444 [23] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2722023-001: Opening: 297231 :Closing: 327231
+2023-02-26 18:56:02,821 [25] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2422023-001: Opening: -903481.2 :Closing: 5296518.8
+2023-02-26 18:56:02,824 [25] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2422023-002: Opening: 5296518.8 :Closing: 5916518.8
+2023-02-26 18:56:02,825 [25] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-2422023-001: Opening: 5916518.8 :Closing: 5866518.8
+2023-02-26 18:56:02,827 [25] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2522023-001: Opening: 5866518.8 :Closing: 7416518.8
+2023-02-26 18:56:02,828 [25] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2722023-001: Opening: 7416518.8 :Closing: 8346518.8
+2023-02-26 18:56:02,830 [25] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-2722023-001: Opening: 8346518.8 :Closing: 8296518.8
+2023-02-26 18:56:17,038 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2422023-001: Opening: -853476.2 :Closing: 5346523.8
+2023-02-26 18:56:17,039 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2422023-002: Opening: 5346523.8 :Closing: 5966523.8
+2023-02-26 18:56:17,041 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-2422023-001: Opening: 5966523.8 :Closing: 5916523.8
+2023-02-26 18:56:17,043 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2522023-001: Opening: 5916523.8 :Closing: 7466523.8
+2023-02-26 18:56:17,044 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2722023-001: Opening: 7466523.8 :Closing: 8396523.8
+2023-02-26 18:56:17,045 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-2722023-001: Opening: 8396523.8 :Closing: 8346523.8
+2023-02-26 18:56:32,052 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2422023-002: Opening: 77231 :Closing: 97231
+2023-02-26 18:56:32,057 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2722023-001: Opening: 97231 :Closing: 127231
+2023-02-26 18:56:32,071 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2422023-002: Opening: -853476.2 :Closing: -233476.2
+2023-02-26 18:56:32,072 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-2422023-001: Opening: -233476.2 :Closing: -283476.2
+2023-02-26 18:56:32,073 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2522023-001: Opening: -283476.2 :Closing: 1266523.8
+2023-02-26 18:56:32,076 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-2722023-001: Opening: 1266523.8 :Closing: 2196523.8
+2023-02-26 18:56:32,079 [9] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-2722023-001: Opening: 2196523.8 :Closing: 2146523.8

@@ -1,0 +1,115 @@
+﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/Content/assets/js/tableExport.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="~/Scripts/jspdf/jspdf.plugin.autotable.js"></script>
+
+<style>
+    .table > :not(caption) > * > * {
+        box-shadow: none;
+    }
+</style>
+<script>
+    // invoice pdf js start
+    window.jsPDF = window.jspdf.jsPDF;
+    function Convert_HTML_To_PDF() {
+        try {
+            document.getElementById("printBtn").style.display = "none";
+        }
+        catch {
+
+        }
+
+        var accountcolumn = document.getElementsByClassName("hide-for-pdf");
+        for (let i = 0; i < accountcolumn.length; i++) {
+            accountcolumn[i].style.display = "none";
+        }
+
+        const thList = document.querySelectorAll("th");
+        for (let i = 0; i < thList.length; i++) {
+            thList[i].style.fontSize = "10px";
+            thList[i].style.border = "1px solid white";
+            thList[i].style.padding = "1px solid black";
+        }
+        const tdList = document.querySelectorAll("td");
+        for (let i = 0; i < tdList.length; i++) {
+            tdList[i].style.fontSize = "10px";
+            tdList[i].style.border = "1px solid white";
+            tdList[i].style.padding = "1px solid black";
+        }
+
+        const trList = document.querySelectorAll(".ledger-table-body tr");
+
+
+        var doc = new window.jsPDF();
+        const headerelement = document.querySelector("#headertemplate");
+        var cname = document.getElementById("CustomerName").innerHTML;
+
+        doc.html(headerelement, {
+            callback: function (doc) {
+                doc.autoTable({
+                    startX: -5,
+                    startY: 70,
+                    html: '#ledger-table', useCss: true,
+
+                    // Default for all columns
+
+                    didDrawPage: function (data) {
+                        doc.setFontSize(9);
+
+                        // Footer
+                        var str = 'Page ' + doc.internal.getNumberOfPages();
+
+                        // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+                        var pageSize = doc.internal.pageSize
+                        var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight()
+                        doc.text(str, data.settings.margin.right, pageHeight - 10)
+                    },
+                    margin: [4, 4, 4, 4],
+                })
+                doc.save(cname + "_statement.pdf");
+            },
+            margin: [0, 0, 15, 0],
+            autoPaging: "slice",
+            x: 0,
+            y: 0,
+            width: 210, // Target width in the PDF document
+            windowWidth: 1213, // Window width in CSS pixels
+        });
+
+      setTimeout(() => {
+            location.reload();
+        }, 3000);
+    }
+    // invoice pdf js end
+</script>
+
+
+
+<script>
+    // invoice print js start
+    function invoicePrint() {
+        var restorepage = document.body.innerHTML;
+        document.getElementById("printBtn").style.display = "none";
+        // document.getElementById("logoImg").style.width = "150px";
+        document.querySelector("#invoiceInfo").classList.add("col-6");
+        document.querySelector("#clientDetails").classList.add("col-4");
+        document.querySelector(".invoice-area").style.padding = "0";
+        // document.querySelector("h5").style.fontSize = "14px";
+        // document.body.style.fontSize = "10px";
+        // const thList = document.querySelectorAll("th");
+        //  for (let i = 0; i < thList.length; i++) {
+        //   thList[i].style.fontSize = "12px";
+        //  }
+        //  const tdList = document.querySelectorAll("td");
+        //  for (let i = 0; i < tdList.length; i++) {
+        //   tdList[i].style.fontSize = "10px";
+        //  }
+        var printcontent = document.getElementById("contentToPrint").innerHTML;
+        document.body.innerHTML = printcontent;
+        window.print();
+        document.body.innerHTML = restorepage;
+        location.reload();
+    }
+      // invoice print js end
+</script>

@@ -1,0 +1,43 @@
+﻿<tfoot class="ledger-table-foot">
+    <tr class="text-left">
+
+        <th class="text-center" colspan="3">
+            End of Report
+        </th>
+        
+        <th>Grand Total >></th>
+        <th class="balance-ammount debit-amount">@string.Format("{0:n}", Model.TotalDebit)</th>
+        
+        @if (Model.TotalDue < 0)
+        {
+            <th class="balance-ammount debit-amount">
+                <span>@string.Format("{0:n}", Model.TotalDue)</span>
+            </th>
+        }
+        else if (Model.TotalDue == 0)
+        {
+            <th class="balance-ammount debit-amount">
+                <span>-</span>
+            </th>
+        }
+        else
+        {
+            <th class="balance-ammount debit-amount">
+                <span>@string.Format("{0:n}", Model.TotalDue)</span>
+            </th>
+        }
+
+    </tr>
+    <tr class="text-left">
+
+        <th class="text-center" colspan="3">
+            
+        </th>
+        <th class="title hide-for-pdf"></th>
+        <th></th>
+        <th class="balance-ammount debit-amount"></th>
+      
+
+    </tr>
+
+</tfoot>

@@ -1,0 +1,367 @@
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+}
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 0.5rem;
+    pointer-events: none;
+}
+
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+    transform: translate(0, -50px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal.fade .modal-dialog {
+        transition: none;
+    }
+}
+
+.modal.show .modal-dialog {
+    transform: none;
+}
+
+.modal-dialog-scrollable {
+    display: flex;
+    max-height: calc(100% - 1rem);
+}
+
+    .modal-dialog-scrollable .modal-content {
+        max-height: calc(100vh - 1rem);
+        overflow: hidden;
+    }
+
+    .modal-dialog-scrollable .modal-footer,
+    .modal-dialog-scrollable .modal-header {
+        flex-shrink: 0;
+    }
+
+    .modal-dialog-scrollable .modal-body {
+        overflow-y: auto;
+    }
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+    .modal-dialog-centered::before {
+        display: block;
+        height: calc(100vh - 1rem);
+        content: "";
+    }
+
+    .modal-dialog-centered.modal-dialog-scrollable {
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+    }
+
+        .modal-dialog-centered.modal-dialog-scrollable .modal-content {
+            max-height: none;
+        }
+
+        .modal-dialog-centered.modal-dialog-scrollable::before {
+            content: none;
+        }
+
+.carousel-inner::after,
+.clearfix::after,
+.embed-responsive::before,
+.popover .arrow::after,
+.popover .arrow::before,
+.stretched-link::after,
+.tooltip .arrow::before {
+    content: "";
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
+    outline: 0;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+}
+
+    .modal-backdrop.fade {
+        opacity: 0;
+    }
+
+    .modal-backdrop.show {
+        opacity: 0.5;
+    }
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+}
+
+    .modal-header .close {
+        padding: 1rem;
+        margin: -1rem -1rem -1rem auto;
+    }
+
+.modal-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 1rem;
+}
+
+.modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid #e9ecef;
+    border-bottom-right-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+}
+
+.popover,
+.popover .arrow,
+.popover .arrow::after,
+.popover .arrow::before,
+.tooltip,
+.tooltip .arrow {
+    position: absolute;
+    display: block;
+}
+
+.modal-footer > :not(:first-child) {
+    margin-left: 0.25rem;
+}
+
+.modal-footer > :not(:last-child) {
+    margin-right: 0.25rem;
+}
+
+.modal-scrollbar-measure {
+    position: absolute;
+    top: -9999px;
+    width: 50px;
+    height: 50px;
+    overflow: scroll;
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 500px;
+        margin: 1.75rem auto;
+    }
+
+    .modal-dialog-scrollable {
+        max-height: calc(100% - 3.5rem);
+    }
+
+        .modal-dialog-scrollable .modal-content {
+            max-height: calc(100vh - 3.5rem);
+        }
+
+    .modal-dialog-centered {
+        min-height: calc(100% - 3.5rem);
+    }
+
+        .modal-dialog-centered::before {
+            height: calc(100vh - 3.5rem);
+        }
+
+    .modal-sm {
+        max-width: 300px;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-lg,
+    .modal-xl {
+        max-width: 800px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .modal-xl {
+        max-width: 1140px;
+    }
+}
+
+.calendar {
+    float: left;
+    margin-bottom: 0;
+}
+
+.none-border .modal-footer {
+    border-top: none;
+}
+
+.fc-toolbar {
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+    .fc-toolbar h2 {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 30px;
+        text-transform: uppercase;
+    }
+
+.fc-day {
+    background: #fff;
+}
+
+.fc-toolbar .fc-state-active,
+.fc-toolbar .ui-state-active,
+.fc-toolbar .ui-state-hover,
+.fc-toolbar button:focus,
+.fc-toolbar button:hover {
+    z-index: 0;
+}
+
+.fc-widget-header {
+    border: 0 !important;
+}
+
+.fc-widget-content {
+    border-color: rgba(120, 130, 140, 0.13) !important;
+}
+
+.fc th.fc-widget-header {
+    color: #212529;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 20px;
+    padding: 7px 0;
+    text-transform: uppercase;
+}
+
+.fc th.fc-fri,
+.fc th.fc-mon,
+.fc th.fc-sat,
+.fc th.fc-sun,
+.fc th.fc-thu,
+.fc th.fc-tue,
+.fc th.fc-wed {
+    background: #e9ecef;
+}
+
+.fc-view {
+    margin-top: 0;
+}
+
+.fc-toolbar {
+    margin: 0;
+    padding: 24px 0;
+}
+
+.fc-button {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    color: #212529;
+    text-transform: capitalize;
+}
+
+    .fc-button:hover {
+        background: #e9ecef;
+        opacity: 0.8;
+    }
+
+.fc-text-arrow {
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.fc-state-hover {
+    background: #f8f9fa;
+}
+
+.fc-unthemed .fc-today {
+    border: 1px solid #e46a76;
+    background: #e9ecef !important;
+}
+
+.fc-cell-overlay,
+.fc-state-highlight {
+    background: #f0f0f0;
+}
+
+.calendar-event,
+.fc-event {
+    cursor: move;
+    background: #01c0c8;
+    text-align: center;
+}
+
+.fc-event {
+    border-radius: 0;
+    border: none;
+    color: #fff !important;
+    font-size: 13px;
+    margin: 1px -1px 0;
+    padding: 5px;
+}
+
+.calendar-event {
+    margin: 10px 5px 0 0;
+    padding: 6px 10px;
+    display: inline-block;
+    color: #fff;
+    min-width: 140px;
+}
+
+    .calendar-event a {
+        float: right;
+        opacity: 0.6;
+        font-size: 10px;
+        margin: 4px 0 0 10px;
+        color: #fff;
+    }
+
+.fc-basic-view td.fc-week-number span {
+    padding-right: 5px;
+}
+
+.fc-basic-view .fc-day-number {
+    padding: 10px 15px;
+    display: inline-block;
+}

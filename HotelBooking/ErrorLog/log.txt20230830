@@ -1,0 +1,10 @@
+2023-08-30 10:09:08,090 [6] FATAL HotelBooking.Controllers.HomeController [(null)] - log4net Fatal Level
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at HotelBooking.Controllers.HomeController.CreateInvoice(InvocieCreateViewModels newentry) in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\Controllers\HomeController.cs:line 437
+2023-08-30 10:11:13,686 [6] FATAL HotelBooking.Controllers.HomeController [(null)] - log4net Fatal Level
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at HotelBooking.Controllers.HomeController.CreateInvoice(InvocieCreateViewModels newentry) in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\Controllers\HomeController.cs:line 437

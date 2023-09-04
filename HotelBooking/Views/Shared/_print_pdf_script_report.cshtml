@@ -1,0 +1,145 @@
+﻿<style>
+    .table > :not(caption) > * > * {
+        box-shadow: none;
+    }
+</style>
+
+
+@*export excel file start*@
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+@*export excel file end*@
+
+
+<!-- export pdf js library start  -->
+<script src="~/Content/assets/js/html2canvas.js"></script>
+<script src="~/Content/assets/js/jspdf.min.js"></script>
+<!-- export pdf js library end  -->
+<script>
+    // invoice pdf js start
+    window.jsPDF = window.jspdf.jsPDF;
+    function Convert_HTML_To_PDF() {
+        //document.querySelector(".hideArea").style.display = "none";
+        //document.getElementById("printBtn").style.display = "none";  // temoporary js
+
+
+        var doc = new jsPDF({
+            orientation: "p",
+            format: 'a4',
+            putOnlyUsedFonts: false
+        });
+        // Source HTMLElement or a string containing HTML.
+        var elementHTML = document.querySelector("#contentToPrint");
+        var cname = document.getElementById("CustomerName").innerHTML;
+        const d = new Date();
+        var day = d.getDate();
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+
+
+        doc.html(elementHTML, {
+            callback: function (doc) {
+                var pageCount = doc.internal.getNumberOfPages(); //Total Page Number
+                for (i = 1; i <= pageCount; i++) {
+                    doc.setPage(i);
+                    let pageCurrent = doc.internal.getCurrentPageInfo().pageNumber; //Current Page
+                    doc.setFontSize(8);
+                    if (i != pageCount) {
+                        //doc.text('----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------', 13.5, doc.internal.pageSize.height - 16.5);
+                        doc.text('                                                               ', 13.5, doc.internal.pageSize.height - 16.5);
+                    }
+
+                    doc.text('Page: ' + pageCurrent + '/' + pageCount, 250, doc.internal.pageSize.height - 10);
+                }
+                // Save the PDF
+                doc.save(cname + "_" + day + "/" + month + "/" + year + ".pdf");
+            },
+            margin: [8, 0, 10, 0],
+            autoPaging: "slice",
+            x: 0,
+            y: 0,
+            width: 210, // Target width in the PDF document
+            windowWidth: 1215, // Window width in CSS pixels
+        });
+
+
+        setTimeout(() => {
+            location.reload();
+        }, 3000);
+    }
+    // invoice pdf js end
+</script>
+
+
+
+<script>
+    // invoice print js start
+    function invoicePrint() {
+        document.getElementById("printBtn").style.display = "none";
+        var tdLastChild = document.querySelectorAll("td.hideArea:last-child");
+
+
+
+        for (let i = 0; i < tdLastChild.length; i++) {
+
+            tdLastChild[i].style.display = 'none';
+
+        }
+
+
+
+        var thLastChild = document.querySelectorAll("th.hideArea:last-child");
+
+
+
+        for (let i = 0; i < thLastChild.length; i++) {
+
+            thLastChild[i].style.display = 'none';
+
+        }
+
+        var restorepage = document.body.innerHTML;
+        //document.getElementById("printBtn").style.display = "none";
+        // document.getElementById("logoImg").style.width = "150px";
+        document.querySelector("#invoiceInfo").classList.add("col-6");
+        //document.querySelector("#clientDetails").classList.add("col-4");
+        document.querySelector(".invoice-area").style.padding = "0";
+
+        var printcontent = document.getElementById("contentToPrint").innerHTML;
+        document.body.innerHTML = printcontent;
+        window.print();
+        document.body.innerHTML = restorepage;
+        location.reload();
+    }
+    // invoice print js end
+</script>
+@*Start Search PDF Script*@
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+@*End Search PDF Script*@
+
+
+<script>
+    //export excel js start
+
+    function htmlTableToExcel(type) {
+        var data = document.querySelector(".table-responsive");
+        var excelFile = XLSX.utils.table_to_book(data, { sheet: "sheet1" });
+        XLSX.write(excelFile, {
+            bookType: type,
+            bookSST: true,
+            type: "base64",
+        });
+        XLSX.writeFile(excelFile, "_statement." + type);
+    }
+
+    //export excel js end
+</script>
+

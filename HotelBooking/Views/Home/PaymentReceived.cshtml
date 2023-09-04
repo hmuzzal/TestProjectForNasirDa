@@ -1,0 +1,590 @@
+﻿@model HotelBooking.DataLayer.ViewModels.Sale.AllReceivedPayments
+@{
+    ViewBag.Title = "Invoices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/assets/js/HotelBooking.js"></script>
+
+@* datatable export to pdf script start*@
+@Html.Partial("_succesorfailuremodal")
+@* datatable export to pdf script end*@
+<div class="content-heading-wrap">
+    <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+        <div class="col-lg-4 col-md-3  align-self-center">
+            <h5 class="text-themecolor">All Receive Payments</h5>
+        </div>
+        <div class="col-lg-8 col-md-9 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ul class="mx-2 path-link">
+                    <li class="d-inline-block">
+                        <a href="@Url.Action("Index", "Home")"> Dashboard</a>
+                    </li>
+                    &nbsp; &gt; &nbsp;
+                    <li class="d-inline-block active">Receive Payments</li>
+                </ul>
+                <a class="btn btn-primary"
+                   data-toggle="modal"
+                   href="#AddModal">
+                    <i class="fa fa-plus-circle"></i> <span class="create-btn">Create New</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-heading-wrap">
+    <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+        <div class="col-lg-1 col-md-1 align-self-center">
+            <h5 class="text-themecolor">Before Task: </h5>
+        </div>
+        <div class="col-lg-10 col-md-10">
+            <div class="d-flex align-items-center">
+                <a class="btn btn-primary" style="margin-right:5px;"
+                   href="@Url.Action("Index", "Customer")">
+                    <i class="fa fa-plus-circle"></i>
+                    <span class="create-btn">Customer</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(function () {
+
+        $("#createpaymentreceived_CreditLedgerID").change(function () {
+            var ledgerid = $(this).children("option:selected").val();
+
+            if (ledgerid > 0) {
+                var url = '../../Home/GetAccountDueInformation';
+                var data1 = { "ledgerid": ledgerid };
+
+                $.post(url, data1, function (data) {
+                    document.getElementById('createpaymentreceived_ReceiveAmount').value = parseFloat(data[0].Text);
+                })
+            }
+
+        });
+
+        $("#updatepaymentreceived_CreditLedgerID").change(function () {
+            var ledgerid = $(this).children("option:selected").val();
+
+
+            if (ledgerid > 0) {
+                var url = '../../Home/GetAccountDueInformation';
+                var data1 = { "ledgerid": ledgerid };
+
+                $.post(url, data1, function (data) {
+                    document.getElementById('updatepaymentreceived_ReceiveAmount').value = parseFloat(data[0].Text);
+                })
+            }
+
+        });
+
+
+        $("#createpaymentreceived_Reference").change(function () {
+            var ref = document.getElementById("createpaymentreceived_Reference").value;
+
+            if (ref != null && ref != '') {
+                var url = '../../Home/TransactionInformation';
+                var data1 = { "refer": ref };
+                $.post(url, data1, function (data) {
+                    if (data == "Exists") {
+                        alert("Transaction Code Must Be Unique...");
+                        document.getElementById("createpaymentreceived_Reference").value = "";
+                        document.getElementById("createitem").setAttribute("disabled", "disabled");
+                    }
+                    else {
+                        if (document.getElementById("createitem").getAttribute("disabled", "disabled"))
+                            document.getElementById("createitem").removeAttribute("disabled");
+                    }
+
+                })
+            }
+
+        });
+
+    });
+</script>
+<!-- ============================================================== -->
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div class="row " id="printhide">
+        <div class="col-lg-12">
+            <div class="div-box-shadow">
+                <div class="cards">
+                    <form role="form">
+                        <div class="cards-body">
+                            <div class=" align-items-center">
+                                <h3 style="width: 100%;text-align:center;font-weight:bold;text-decoration:underline">All Paid Invoice History</h3>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-xl-6 col-lg-6 col-12">
+                                    @Html.Partial("_dateranger")
+                                </div>
+
+
+
+                                <div class="col-xl-6 col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Customer : </label>
+
+                                        @Html.DropDownListFor(model => model.LedgerID, Model.AllCustomers, "Customer", new { @class = "select2 form-control" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.LedgerID) </small>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-12">
+                                    <div class="form-group">
+
+                                        <label class="col-form-label">Search</label>
+                                        <input class="form-control" id="myInput" type="text" placeholder="Search.." style="background-color: white">
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-12">
+                                    <div class="form-group" style="margin-top:4%">
+
+
+                                        <button id="viewReport" type="submit"
+                                                class="btn btn-primary me-2">
+                                            <i class="fas fa-eye"></i> <span class="create-btn">View Report</span>
+                                        </button>
+                                        <button type="reset"
+                                                class="btn btn-dark">
+                                            <i class="fas fa-power-off"></i> <span class="create-btn">Reset</span>
+                                        </button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="content-wrap">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="invoice" class="invoice-area">
+                            <div class="container-fluid" id="contentToPrint">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div style="visibility:hidden;height:0">
+                                            @Html.Partial("_headerTemplate_other")
+                                        </div>
+
+
+                                        <br />
+
+                                        <div id="toolbar">
+
+                                        </div>
+
+                                        @*data table name.pdf start*@
+
+                                        <div id="dataTableName" style="display:none;">Payment receive</div>
+
+                                        @*data table name.pdf end*@
+
+                                        <div class="table-responsive">
+                                            <table class="table display table-bordered table-striped no-wrap no-wrap table-bordered table-hover table" id="ledger-table" data-toolbar="#toolbar" data-search="true"
+                                                   data-show-refresh="true" data-show-toggle="true" data-show-fullscreen="true" data-show-print="true"
+                                                   data-show-columns="true" data-show-export="true"
+                                                   data-detail-formatter="detailFormatter" data-minimum-count-columns="2"
+                                                   data-show-pagination-switch="true" data-pagination="true" data-id-field="id"
+                                                   data-show-footer="false">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="border">
+                                                            SL
+                                                        </th>
+                                                        <th scope="col" class="border text-start">
+                                                            Date
+
+                                                        </th>
+                                                        <th scope="col" class="border text-start">
+                                                            Payment#
+                                                        </th>
+                                                        <th scope="col" class="border text-start">
+                                                            Reference
+                                                        </th>
+                                                        <th scope="col" class="border text-start">Receive Ac</th>
+                                                        <th scope="col" class="border text-start">Paid Ac</th>
+                                                        <th scope="col" class="border text-start">Carrier</th>
+
+                                                        <th scope="col" class="border text-end">Amount</th>
+
+
+                                                        <th scope="col" class="border hideArea">Operations</th>
+
+                                                    </tr>
+                                                </thead>
+                                                @{
+                                                    int i = 0;
+                                                }
+                                                <tbody>
+                                                    @foreach (var item in Model.allpayments)
+                                                    {
+                                                        i++;
+                                                        <tr>
+                                                            <td scope="col" class="border">
+                                                                @i
+                                                            </td>
+                                                            <td scope="col" class="border text-start">
+                                                                <a href="javascript:void(0)">@item.singlepayments.PaymentDate.ToString("dd-MM-yyyy")</a>
+                                                            </td>
+                                                            <td scope="col" class="border text-start">@item.singlepayments.PaymentNumber</td>
+                                                            <td scope="col" class="border text-start">@item.singlepayments.Reference</td>
+
+                                                            <td scope="col" class="border text-start">@item.singlepayments.creditledger.LedgerName</td>
+                                                            <td scope="col" class="border text-start">@item.singlepayments.debitledger.LedgerName</td>
+
+                                                            <td scope="col" class="border text-start">@item.singlepayments.Comment</td>
+
+                                                            <td scope="col" class="border text-end">@item.singlepayments.ReceiveAmount</td>
+
+
+                                                            <td scope="col" class="border hideArea">
+                                                                <div class="action-btn-dropdown">
+                                                                    <span onclick="showorhidenextelements(@i)"
+                                                                          class="showorhidenextelements">
+                                                                        <i class="fa fa-tasks dropbtnstas" aria-hidden="true"></i>
+                                                                    </span>
+                                                                    <ul class="action-dropdown" id="level@(i)">
+                                                                        <li>
+                                                                            <a title="update" id="updateitem@(i)"
+                                                                               href="@Url.Action("PaymentReceived", "Invoice", new { id = item.singlepayments.PkPaymentsId })">
+                                                                                <img src="~/Content/assets/img/icon/edit.png" />  Update
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a title="delete" href="javascript:void(0)" onclick="deleteItem(@i)">
+                                                                                <img src="~/Content/assets/img/icon/delete.png" /> Delete
+                                                                            </a>
+
+                                                                            <a id="deleteitem@(i)"
+                                                                               href="@Url.Action("DeletePaymentReceived", "Invoice", new { id = item.singlepayments.PkPaymentsId })" style="display:none;">
+                                                                            </a>
+
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <a title="money receipt" href="@Url.Action("AllDetails", "Report", new { id = item.singlepayments.PkPaymentsId, module="Payment Received" })">
+                                                                                <img src="~/Content/assets/img/icon/details.png" />  Details
+                                                                            </a>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <a title="Invoice" href="@Url.Action("PaymentReceipt", "Invoice", new { id = item.singlepayments.PkPaymentsId })">
+                                                                                <img src="~/Content/assets/img/icon/receipt.png" />  Receipt
+                                                                            </a>
+                                                                        </li>
+
+
+
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+
+
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("PaymentReceived", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+
+    <div class="card" style="margin:0">
+        <div class="card-body" style="padding:0">
+            <div id="AddModal"
+                 class="modal fade bd-example-modal-lg"
+                 role="dialog"
+                 aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Create Money Receipt
+                            </h5>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Voucher:</label>
+
+                                        @Html.TextBoxFor(model => model.createpaymentreceived.PaymentNumber, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createpaymentreceived.PaymentNumber) </small>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" id="supplier">
+                                        <label for="" class="col-form-label">Date : <span class="required">* </span></label>
+                                        @Html.EditorFor(m => m.createpaymentreceived.PaymentDate, new { htmlAttributes = new { @class = "form-control", type = "date", @required = "required", oninvalid = "this.setCustomValidity('Select Payment Date Here')", oninput = "this.setCustomValidity('')" } })
+
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createpaymentreceived.PaymentDate) </small>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="col-form-label">Customer</label>
+                                    @Html.DropDownListFor(model => model.createpaymentreceived.CreditLedgerID, Model.createpaymentreceived.AllCreditledger, "--Select Customer--", new { @class = "select2" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createpaymentreceived.DebitLedgerID) </small>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <label class="col-form-label">Payment Method</label>
+                                    @Html.DropDownListFor(model => model.createpaymentreceived.PaymentMethod, Model.createpaymentreceived.AllPaymentMethods, "--Select Method--", new { @class = "select2" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createpaymentreceived.AllPaymentMethods) </small>
+
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <label class="col-form-label">Transaction Number</label>
+                                    @Html.TextBoxFor(model => model.createpaymentreceived.Reference, new { @class = "form-control", @placeholder = "Type Reference", @type = "text", @required = "required" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createpaymentreceived.Reference) </small>
+
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="col-form-label">Account</label>
+                                    @Html.DropDownListFor(model => model.createpaymentreceived.DebitLedgerID, Model.createpaymentreceived.AllDebitLedger, "--Select Accounts--", new { @class = "select2" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createpaymentreceived.DebitLedgerID) </small>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <label class="col-form-label">Due Amount <span class="required">* </span></label>
+                                    @Html.TextBoxFor(model => model.createpaymentreceived.ReceiveAmount, new { @class = "form-control", @step = "any", @type = "number", @required = "required", oninvalid = "this.setCustomValidity('Enter Receive Amount Here')", oninput = "this.setCustomValidity('')" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createpaymentreceived.ReceiveAmount) </small>
+
+
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label class="col-form-label">Narration <span class="required"> </span> </label>
+                                    @Html.TextBoxFor(model => model.createpaymentreceived.Comment, new { @class = "form-control", @placeholder = "Type Here.......", })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createpaymentreceived.Comment) </small>
+                                </div>
+
+
+                            </div>
+
+
+
+
+                        </div>
+                        <br />
+                        <div class="modal-footer">
+                            <a class="btn btn-primary" id="new_items" data-toggle="modal"
+                               href="#Calculator">
+                                <i class="fa-solid fa-calculator"></i>
+                            </a>
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-dismiss="modal">
+                                Close
+                            </button>
+                            <button id="createitem" type="submit" class="btn btn-primary" name="Create" value="Create">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("PaymentReceived", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+
+    <div class="card" style="margin:0">
+        <div class="card-body" style="padding:0">
+            <div id="EditModal"
+                 class="modal fade bd-example-modal-lg"
+                 role="dialog"
+                 aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Update Money Receipt
+                            </h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                @Html.HiddenFor(m => m.updatepaymentreceived.PkPaymentsId)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Voucher:</label>
+
+                                        @Html.TextBoxFor(model => model.updatepaymentreceived.PaymentNumber, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatepaymentreceived.PaymentNumber) </small>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" id="supplier">
+                                        <label for="" class="col-form-label">Date : <span class="required">* </span></label>
+                                        @Html.EditorFor(m => m.updatepaymentreceived.PaymentDate, new { htmlAttributes = new { @class = "form-control", type = "date", @readonly = "readonly" } })
+
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatepaymentreceived.PaymentDate) </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="col-form-label">Received From</label>
+                                    @Html.DropDownListFor(model => model.updatepaymentreceived.CreditLedgerID, Model.updatepaymentreceived.AllCreditledger, "Receive From", new { @class = "select2" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatepaymentreceived.CreditLedgerID) </small>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <label class="col-form-label">Payment Method</label>
+                                    @Html.DropDownListFor(model => model.updatepaymentreceived.PaymentMethod, Model.updatepaymentreceived.AllPaymentMethods, "--Select Method--", new { @class = "select2" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatepaymentreceived.AllPaymentMethods) </small>
+
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <label class="col-form-label">Transaction Number</label>
+                                    @Html.TextBoxFor(model => model.updatepaymentreceived.Reference, new { @class = "form-control", @placeholder = "Type Transaction Number", @type = "text", @required = "required" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatepaymentreceived.Reference) </small>
+
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="col-form-label">Account</label>
+                                    @Html.DropDownListFor(model => model.updatepaymentreceived.DebitLedgerID, Model.updatepaymentreceived.AllDebitLedger, "Accounts", new { @class = "select2" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatepaymentreceived.DebitLedgerID) </small>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <label class="col-form-label">Receive Amount <span class="required">* </span></label>
+                                    @Html.TextBoxFor(model => model.updatepaymentreceived.ReceiveAmount, new { @class = "form-control", @step = "any", @type = "number", @required = "required", oninvalid = "this.setCustomValidity('Enter Receive Amount Here')", oninput = "this.setCustomValidity('')" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatepaymentreceived.ReceiveAmount) </small>
+
+
+                                </div>
+
+                                <div class="col-lg-6">
+
+                                    <label class="col-form-label">Reference Document</label>
+
+                                    @Html.TextBoxFor(model => model.AttachedDocumentUpdate, "", new { @type = "file", @class = "form-control", @accept = ".jpg, .png,.pdf, .jpeg, |image/*" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.AttachedDocumentUpdate) </small>
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="col-form-label">Narration <span class="required">* </span></label>
+                                    @Html.TextBoxFor(model => model.updatepaymentreceived.Comment, new { @class = "form-control", @required = "required", oninvalid = "this.setCustomValidity('Enter Carriere Here')", oninput = "this.setCustomValidity('')" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatepaymentreceived.Comment) </small>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <label class="col-form-label">Reference Doucment</label>
+                                    <img id="scream" height="100"
+                                         src="@Model.updatepaymentreceived.Attachment" alt="The Scream">
+                                </div>
+                                @*<img src="~/Resources/Organization/JJWasteMgt.png" />*@
+                            </div>
+                        </div>
+                        <br />
+                        <div class="modal-footer">
+                            <a class="btn btn-primary" id="new_items" data-toggle="modal"
+                               href="#Calculator">
+                                <i class="fa-solid fa-calculator"></i>
+                            </a>
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-dismiss="modal" onclick="closeModal()">
+                                Close
+                            </button>
+                            <button id="updateitem" type="submit" class="btn btn-primary" name="Update" value="Update">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<span class="text-right text-bold" id="CustomerName" style="display:none;">Payments</span>
+<script src="~/Content/assets/js/moneyreceipt-table.init.js"></script>
+

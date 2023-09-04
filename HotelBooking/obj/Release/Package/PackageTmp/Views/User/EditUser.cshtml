@@ -1,0 +1,139 @@
+﻿@model InvoiceSoftware.DataLayer.ViewModels.User.EditUserView
+
+@{
+    ViewBag.Title = "EditUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .displayBadge {
+        display: none;
+        text-align: center;
+        color: white !important;
+    }
+</style>
+<script src="~/Content/modules/jquery/jquery-3.2.1.min.js"></script>
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">Vendors</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-right">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Vendors</li>
+            </ol>
+            @*<button type="button" class="btn btn-info d-none d-lg-block m-l-15">
+                    <i class="fa fa-plus-circle"></i> Create New
+                </button>*@
+            <a class="btn btn-info d-none d-lg-block m-l-15" href="@Url.Action("Index", "User")"><i class="fa fa-plus-circle"></i>User List</a>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="mb-0 text-white"><img id="customicons" src="~/Content/assets/icons/customicons/add-button.png" />Update Vendor Information</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="wrapper">
+    <div class="login-register">
+        <div class="login-box card">
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                <form class="form-horizontal form-material" id="loginform">
+
+
+                    <br />
+                    @if (ViewBag.message != null && ViewBag.message != "")
+
+                    {
+                        string alertType = "";
+                        string signType = "";
+                        string alertMsg = "";
+                        if (ViewBag.message.Contains("Success:"))
+                        {
+                            alertType = "success";
+                            signType = "fa fa-check-circle";
+                            alertMsg = "Success";
+                        }
+                        else
+                        {
+                            alertType = "danger";
+                            signType = "fa fa-exclamation-triangle";
+                            alertMsg = "Warning";
+                        }
+                        <div class="alert alert-@alertType">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                            <h3 class="text-success"><i class="@signType"></i> @alertMsg</h3>
+                            @ViewBag.message
+                        </div>
+                    }
+
+                    @Html.HiddenFor(m => m.PkUserId)
+
+                   
+
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">Full Name</lable>
+                            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control eveninput", @placeholder = "Full Name", @type = "text" })
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">Nickname</lable>
+                            @Html.TextBoxFor(m => m.NickName, new { @class = "form-control eveninput", @placeholder = "Nickname", @type = "text" })
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">User Type <span class="require-symbol">*</span></lable>
+                            @Html.DropDownListFor(m => m.UserTypeID, Model.AllUserTypes, "Select User Type", new { @class = "select2 form-control custom-select" })
+
+                            <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.UserTypeID) </small>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+
+
+                    
+                    <div class="form-group text-center p-b-20 row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <button name="Update" ID="Update" type="submit" class="btn btn-info btn-lg btn-block btn-rounded text-uppercase waves-effect waves-light" value="Update">Update</button>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                    </div>
+
+                </form>
+
+
+                }
+            </div>
+        </div>
+    </div>
+
+</section>

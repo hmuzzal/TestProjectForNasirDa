@@ -1,0 +1,138 @@
+﻿@*export pdf with image and table start*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/Content/assets/js/tableExport.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="~/Scripts/jspdf/jspdf.plugin.autotable.js"></script>
+@*export pdf with image and table end*@
+
+@*export excel file start*@
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+@*export excel file end*@
+
+
+<style>
+    .table > :not(caption) > * > * {
+        box-shadow: none;
+    }
+</style>
+
+<script>
+    //global variable start
+    var actualyvalue = 40;
+    var actualfilenameext = ".pdf";
+    var fileurl = window.location.toString();
+    if (fileurl.includes("Statement")) {
+        actualyvalue = 55;
+        actualfilenameext = '_statement.pdf';
+    }
+    else if (fileurl.includes("Receipt")) {
+        actualyvalue = 70;
+    }
+    var cname = document.getElementById("CustomerName").innerHTML;
+    if (cname.includes(" ")) {
+        cname = cname.replace(/[-]/g, '_');
+        cname = cname.replace(/ /g, '_');
+       
+    }
+    //global variable end
+</script>
+
+<script>
+    // invoice pdf js start
+    window.jsPDF = window.jspdf.jsPDF;
+    function Convert_HTML_To_PDF_WhatsAPP() {
+       
+        var accountcolumn = document.getElementsByClassName("hide-for-pdf");
+        for (let i = 0; i < accountcolumn.length; i++) {
+            accountcolumn[i].style.display = "none";
+        }
+
+        const thList = document.querySelectorAll("th");
+        for (let i = 0; i < thList.length; i++) {
+            thList[i].style.fontSize = "10px";
+            thList[i].style.border = "1px solid white";
+            thList[i].style.padding = "6px";
+        }
+        const tdList = document.querySelectorAll("td");
+        for (let i = 0; i < tdList.length; i++) {
+            tdList[i].style.fontSize = "10px";
+            tdList[i].style.border = "1px solid white";
+            tdList[i].style.padding = "6px";
+        }
+
+        const trList = document.querySelectorAll(".ledger-table-body tr");
+
+
+        var doc = new window.jsPDF();
+        const headerelement = document.querySelector("#headertemplate");
+        
+        doc.html(headerelement, {
+            callback: function (doc) {
+                doc.autoTable({
+                    startX: -5,
+                    startY: actualyvalue,
+                    html: '#ledger-table', useCss: true,
+
+                    // Default for all columns
+
+                    didDrawPage: function (data) {
+                        doc.setFontSize(9);
+
+                        // Footer
+                        var str = 'Page ' + doc.internal.getNumberOfPages();
+
+                        // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+                        var pageSize = doc.internal.pageSize
+                        var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight()
+                        doc.text(str, data.settings.margin.right, pageHeight - 5)
+                    },
+                    margin: [4, 4, 10, 4],
+                })
+
+                var fileurl = window.location.toString();
+                var newurl = '';
+                //if (new URL(fileurl).host == '66.45.249.246') {
+                //    newurl = 'http://' + new URL(fileurl).host;
+                //}
+                //else {
+                //    newurl = 'https://' + new URL(fileurl).host;
+                //}
+                //fileurl = newurl + "/Resources/Reports/" + cname + actualfilenameext;
+
+                //var documentsoutput = doc.output('blob');
+                //var documentsoutput = doc.output();
+                //var documentsoutput = doc.output('arraybuffer');
+                var documentsoutput = doc.output('datauristring');
+               
+                //doc.save(cname + "_statement.pdf");
+                //location.reload();
+
+                var orderno = document.getElementById('orderno').innerText;
+                var url = '../../Home/GeneratepdfandSave';
+                var data1 = { "pdfstring": documentsoutput, "filename": cname + actualfilenameext, 'OrderNo': orderno };
+
+                $.post(url, data1, function (data) {
+                    if (data == "Success")
+                        alert("File Has Been Sent Successfully");
+                    else
+                        alert("File Sending Failed, Please Try Again");
+                })
+
+
+                /*location.href = "whatsapp://send?text=" + encodeURIComponent(fileurl) ;*/
+                //location.href = "https://wa.me/send?text=" + fileurl;
+               
+                location.reload();
+            },
+            margin: [0, 0, 0, 0],
+            autoPaging: "slice",
+            x: 0,
+            y: 0,
+            width: 210, // Target width in the PDF document
+            windowWidth: 1213, // Window width in CSS pixels
+        });
+
+
+    }
+    // invoice pdf js end
+</script>

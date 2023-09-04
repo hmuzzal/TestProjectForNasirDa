@@ -1,0 +1,346 @@
+﻿@model InvoiceSoftware.DataLayer.ViewModels.Statement.AccountStatement
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/assets/invoicedesign.css" rel="stylesheet" />
+
+<style>
+    .table-area td, .table-area th {
+        border-top: 0;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div class="content-heading-wrap">
+        <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+            <div class="col-lg-4 col-md-3 align-self-center">
+                <h5 class="text-themecolor">Statements of Client Accounts</h5>
+            </div>
+            <div class="col-lg-8 col-md-9 align-self-center text-right">
+                <div class="d-flex justify-content-end align-items-center">
+                    <ul class="mx-2 path-link">
+                        <li class="d-inline-block">
+                            <a href="@Url.Action("Index", "Home")"> Dashboard</a>
+                        </li>
+                        &nbsp; &gt; &nbsp;
+                        <li class="d-inline-block active">Client Statements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrap">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row " id="printhide">
+                            <div class="col-lg-12">
+                                <div class="div-box-shadow">
+                                    <div class="cards">
+                                        <form role="form">
+                                            <div class="cards-body">
+                                                <div class="row justify-content-center">
+
+                                                    <div class="col-lg-6">
+                                                        @Html.Partial("_dateranger")
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @Html.Partial("_searchdate")
+                                            @Html.HiddenFor(a => a.LedgerID)
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="invoice" class="invoice-area">
+                            <div id="contentToPrint" class="container-fluid">
+                                <style>
+                                    .company-name h2 span {
+                                        position: absolute;
+                                        font-size: 18px;
+                                        bottom: -15px;
+                                        right: 100px;
+                                    }
+                                </style>
+                                <div class="content-wrap overflow-hidden position-relative invoice-area" id="invoice">
+                                    <div id="contentToPrint" class="">
+                                        <div class="row">
+                                            <div id="headertemplate">
+                                                <div class="border-bolder"></div>
+                                                <div class="row">
+                                                    <div class="col-md-4 ">
+                                                        <div class="company-name" style="position: relative;">
+                                                            <h2 style="font-size:30px;">
+                                                                max united
+
+                                                            </h2>
+                                                            <h4>aluminium Profiles</h4>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="company-name mx-auto companynamearabic">
+                                                            <img src="~/Content/ar-font-name.jpg" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 text-end">
+                                                        <div class="company-logo-img" style="width:70%;">
+                                                            <img src="~/Resources/Organization/Organization.jpg" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row justify-content-between align-items-center">
+                                                    <div class="col-md-5 col-lg-4">
+                                                        <div class="company-details">
+                                                            <h2 id="company-details" style="font-size:25px;">
+                                                                Statements of Accounts
+
+                                                            </h2>
+
+                                                            <ul>
+                                                                <li>
+                                                                    <span>
+                                                                        <img src="~/Content/tele.png" />
+                                                                    </span>
+                                                                    <span>+96555349455 - 98984100</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span>
+                                                                        <img src="~/Content/instagram.png" />
+                                                                    </span>
+                                                                    <span>maxunited.q8</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span>
+                                                                        <img src="~/Content/Gmail_Logo_512px.png" />
+                                                                    </span>
+                                                                    <span>maxunited.q8@gmail.com</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-2 col-lg-3">
+                                                        <div class="qr-photo-upload-dialog--qr--image">
+                                                            <div id="qrcode">
+                                                                <span class="barcode-img">
+                                                                    <img src="~/Content/assets/logo-MU-barcode.jpg" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+                                                        <script>
+                                                            var qrcode = new QRCode("qrcode",
+                                                                "https://poplme.co/hash/4De7UuUG/1/a");
+                                                        </script>
+                                                    </div>
+                                                    <div class="col-md-5 col-lg-4">
+                                                        <div class="invoice-form">
+                                                            <div id="CustomerName" style="display:none;"> @Model.CustomerName</div>
+                                                            <ul>
+
+                                                                <li style="display:flex;"><span>Date. </span> <span style="color:red;margin-left:5px;"> @Model.DateFrom.ToString("dd-MMM-yy") to @Model.Dateto.ToString("dd-MMM-yy")</span></li>
+                                                                <li style="display:flex;"><span>Opening Balance : </span><span style="margin-left: 5px;"> @Model.OpeningBalance</span></li>
+                                                                <li style="display:flex;"><span>Invoice Amount  : </span><span style="margin-left: 5px;"> @string.Format("{0:n}", Model.TotalDebit)</span></li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row mt-3">
+                                                    <div class="col-lg-8 col-md-7">
+
+                                                        <div class="bill-to" style="display:flex;">
+                                                            <p class="">Customer Name:</p>
+                                                            <div style="margin-left:10px;">
+                                                                @Model.CustomerName
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-5 col-lg-4">
+
+                                                        <div class="bill-to" style="display:flex;">
+                                                            <p class="">Customer Contact No: </p>
+                                                            <div style="margin-left:10px;">
+                                                                @Model.CustomerPhone
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <div class=" table-parent">
+                                                    <table id="ledger-table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>no.</th>
+                                                                <th class="text-center" style="width: 12%;">Date</th>
+                                                                <th style="text-align: center !important">DESCRIPTION</th>
+                                                                <th class="text-center" style="width: 10%;">BILL NO</th>
+                                                                <th class="text-center" style="width: 12%;">AMOUNT</th>
+                                                                <th class="text-center" style="width: 10%;">BALANCE </th>
+
+                                                            </tr>
+
+                                                        </thead>
+
+                                                        <tbody>
+                                                            @{
+                                                                int i = 1;
+                                                                double lastbalance = 0.00;
+
+                                                            }
+                                                            @if (Model.statementdetails != null)
+                                                            {
+                                                                foreach (var item in Model.statementdetails)
+                                                                {
+
+                                                                    <tr style="visibility: visible; page-break-after: always !important" class="valued-row">
+                                                                        <td>@i</td>
+                                                                        @if (item.Description == "Balance B/F")
+                                                                        {
+                                                                            <td class="title"></td>
+                                                                            lastbalance += item.Balance;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td class="title">@item.TransactionDate.ToString("dd MMM yyyy")</td>
+                                                                        }
+                                                                        @if (item.Description != null)
+                                                                        {
+                                                                            string[] splitcontent = item.Description.Split('/');
+                                                                            if (splitcontent.Length == 3)
+                                                                            {
+                                                                                string[] splitcontent1 = splitcontent[0].Split('@');
+                                                                                if (splitcontent1.Length == 2)
+                                                                                {
+                                                                                    <td class="title">@splitcontent1[0].Trim()/@splitcontent1[1].Trim()/@splitcontent[1].Trim()<br />@splitcontent[2]</td>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <td class="title">@splitcontent[0].Trim()/@splitcontent[1].Trim()<br />@splitcontent[2]</td>
+                                                                                }
+
+                                                                            }
+                                                                            else if (splitcontent.Length == 4)
+                                                                            {
+                                                                                <td class="title">@splitcontent[0].Trim()/@splitcontent[1].Trim()/@splitcontent[2].Trim()<br />@splitcontent[3]</td>
+
+                                                                            }
+                                                                            else if (splitcontent.Length == 5)
+                                                                            {
+                                                                                <td class="title">@splitcontent[0].Trim() @splitcontent[1].Trim() @splitcontent[2].Trim() @splitcontent[3].Trim()<br />@splitcontent[4]</td>
+                                                                            }
+                                                                            else if (splitcontent.Length == 6)
+                                                                            {
+                                                                                <td class="title">@splitcontent[0].Trim() @splitcontent[1].Trim() @splitcontent[2].Trim() @splitcontent[3].Trim() @splitcontent[4].Trim()<br />@splitcontent[5]</td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <td class="title">@(item.Description.ToString())</td>
+                                                                            }
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td class="title">@item.Description</td>
+
+                                                                        }
+
+                                                                        <td class="title">@item.BillNo</td>
+
+                                                                        @if (item.Debit == 0)
+                                                                        {
+                                                                            <td class="balance-ammount">-</td>
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td class="balance-ammount">@item.Debit.ToString("#,##0.000")</td>
+                                                                            lastbalance += item.Debit;
+                                                                        }
+
+                                                                        @if (string.Format("{0:n}", lastbalance) == string.Format("{0:n}", item.Balance))
+                                                                        {
+                                                                            if (item.Balance > 0)
+                                                                            {
+                                                                                <td class="balance-ammount">@item.Balance.ToString("#,##0.000") DR </td>
+                                                                            }
+                                                                            else if (item.Balance == 0)
+                                                                            {
+                                                                                <td class="balance-ammount">-</td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <td class="balance-ammount" style="color:red">@item.Balance.ToString("#,##0.000") <span>CR</span></td>
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            if (item.Balance > 0)
+                                                                            {
+
+
+                                                                                <td class="balance-ammount">
+                                                                                    <span class="text-white p-1">@item.Balance.ToString("#,##0.000")</span>
+                                                                                    <span> DR</span>
+                                                                                </td>
+                                                                            }
+                                                                            else if (item.Balance == 0)
+                                                                            {
+                                                                                <td class="balance-ammount">-</td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <td class="balance-ammount" style="color:red">@item.Balance.ToString("#,##0.000") CR</td>
+                                                                            }
+                                                                        }
+
+                                                                    </tr>
+                                                                    i++;
+                                                                }
+
+                                                            }
+
+
+
+                                                        </tbody>
+                                                        @Html.Partial("_table_footer_debit")
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+}

@@ -1,0 +1,259 @@
+﻿@model HotelBooking.DataLayer.ViewModels.Login.LoginView
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon"
+          type="image/x-icon"
+          href="~/Content/assets/img/icon/icon.png" />
+    <title>Login </title>
+    <link href="~/Content/login/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/login/bootstrap-icons.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/Content/login/css/spacing.css" />
+    <link href="~/Content/login/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <link rel="stylesheet" href="~/Content/assets/css/style.css" />
+    <link rel="stylesheet" href="~/Content/assets/css/responsive.css" />
+    <style>
+        .header-area {
+            background: transparent;
+        }
+
+        .overflow-container {
+            overflow-y: auto;
+            height: calc(100vh - 72px);
+        }
+    </style>
+
+    <style>
+
+        .login-area {
+            background: #fff;
+            width: 400px;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .login-title {
+            margin-bottom: 16px;
+        }
+
+            .login-title h3 {
+                font-size: 24px;
+                font-weight: 700;
+            }
+
+
+
+        .login-form-wrap {
+            margin-bottom: 0;
+        }
+    </style>
+    <title>MS Exchange</title>
+</head>
+<body class="bgBody">
+    <!-- Header End -->
+    <main>
+        @{
+            var organizationinformation = HotelBooking.DataLayer.HotelBookingDBAccess.GetOrganizatonsInformationById();
+        }
+        <!-- login area start  -->
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken();
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="header-logo text-center">
+                                <a href="#">
+
+                                    <img src="@organizationinformation.OrganizationLogo"
+                                         alt="logo"
+                                         class="logo-img" />
+                                </a>
+                            </div>
+                            <div class="header-title text-center">
+                                <h1 class="mb-2" style="font-family: Britannic; color: #83EEFD">@organizationinformation.OrganisationName</h1>
+                                <h3>Account Management System</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="login-area">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+
+                                <div class="login-form-wrapper">
+                                    <div class="login-form-wrap">
+                                        <div class="login-title text-center">
+                                            <h3>Log in</h3>
+                                        </div>
+                                        @if (ViewBag.message != null)
+                                        {
+                                            <div class="row margin-bottom logout-page">
+                                                <div class="col-md-12">
+                                                    <div class="alert-success" style="font-size: 18px; color: red;margin-bottom:4px;" role="alert">
+                                                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  @ViewBag.message
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        else if (ViewBag.LoginText != null)
+                                        {
+                                            <div class="row margin-bottom logout-page">
+                                                <div class="col-md-12">
+                                                    <div class="alert-success" role="alert">
+                                                        <i class="fa fa-sign-out" style="font-size:20px;color:red;"></i>You have been Successfuly logged out from Al Areeq Group.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+
+                                        <div class="form" id="form">
+                                            <div class="field email">
+                                                <div class="icon"></div>
+                                                @Html.TextBoxFor(model => Model.Email, new { @class = "inputAnim input-validation-error form-control",type="email" })
+                                                @*<input placeholder="Email" autocomplete="off" class="inputAnim input-validation-error form-control" type="email" name="Email" required id="email" />*@
+                                            </div>
+                                            <div class="field password">
+                                                <div class="icon"></div>
+                                                @Html.TextBoxFor(model => Model.Password, new { @class = "inputAnim input-validation-error form-control", type = "password",@value="ddd" })
+                                                @*<input placeholder="Password" class="inputAnim input-validation-error form-control" type="password" name="Password" required id="password" />*@
+                                            </div>
+                                            <button name="signin" id="signin" class="button btn btn-primary" type="submit">
+                                                LOGIN
+                                                <div class="side-top-bottom"></div>
+                                                <div class="side-left-right"></div>
+                                            </button>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        }
+
+
+        <!-- login area end -->
+    </main>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="~/Content/login/js/jquery-3.6.1.min.js"></script>
+    <script src="~/Content/login/js/popper.min.js"></script>
+    <script src="~/Content/login/js/bootstrap.min.js"></script>
+    <script src="~/Content/login/js/toggle-password.js"></script>
+    <script src="~/Content/login/js/script.js"></script>
+    <script>
+        var formAnim = {
+            $form: $("#form"),
+            animClasses: [
+                "face-up-left",
+                "face-up-right",
+                "face-down-left",
+                "face-down-right",
+                "form-complete",
+                "form-error"
+            ],
+            resetClasses: function () {
+                var $form = this.$form;
+
+                $.each(this.animClasses, function (k, c) {
+                    $form.removeClass(c);
+                });
+            },
+            faceDirection: function (d) {
+                this.resetClasses();
+
+                d = parseInt(d) < this.animClasses.length ? d : -1;
+
+                if (d >= 0) {
+                    this.$form.addClass(this.animClasses[d]);
+                }
+            }
+        };
+
+        var $input = $("#email, #password"),
+            $submit = $("#signin"),
+            focused = false,
+            completed = false;
+
+        $input.focus(function () {
+            focused = true;
+
+            if (completed) {
+                formAnim.faceDirection(1);
+            } else {
+                formAnim.faceDirection(0);
+            }
+        });
+
+        $input.blur(function () {
+            formAnim.resetClasses();
+        });
+
+        $input.on("input paste keyup", function () {
+            completed = true;
+
+            $input.each(function () {
+                if (this.value == "") {
+                    completed = false;
+                }
+            });
+
+            if (completed) {
+                formAnim.faceDirection(1);
+            } else {
+                formAnim.faceDirection(0);
+            }
+        });
+
+        $submit.click(function () {
+            focused = true;
+            formAnim.resetClasses();
+
+            if (completed) {
+                $submit.css("pointer-events", "none");
+                setTimeout(function () {
+                    formAnim.faceDirection(4);
+                    $input.val("");
+                    completed = false;
+
+                    setTimeout(function () {
+                        $submit.css("pointer-events", "");
+                        formAnim.resetClasses();
+                    }, 2000);
+                }, 1000);
+            }
+        });
+
+    </script>
+</body>
+</html>
+
+
+
+
+

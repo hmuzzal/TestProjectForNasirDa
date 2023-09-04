@@ -1,0 +1,427 @@
+﻿@model HotelBooking.DataLayer.ViewModels.User.UserProfileView
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    /* .cards-primary.card-outline {
+              border-top: 3px solid #007bff;
+            } */
+
+    .cards {
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        background: #e4e9f7;
+    }
+
+    .card-body.dark-mode-black .cards {
+        background: #1f2937;
+    }
+
+    .cards-body {
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1.25rem;
+    }
+
+    .card {
+        margin-bottom: 0;
+    }
+
+    .profile-user-img {
+        border: 3px solid #adb5bd;
+        margin: 0 auto;
+        background: #fff;
+        padding: 5px;
+        width: 100px;
+    }
+
+    .no-preview-lg,
+    .profile-user-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .img-circle {
+        border-radius: 50%;
+    }
+
+    .profile-username {
+        margin: 5px 0;
+    }
+
+    .cards-header {
+        background-color: transparent;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        padding: 0.75rem 1.25rem;
+        position: relative;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .cards-header:first-child {
+            border-radius: 0.25rem 0.25rem 0 0;
+        }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .change-img {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin: auto;
+    }
+
+    .upload-img-icon {
+        position: absolute;
+        right: 15%;
+        bottom: 0;
+    }
+
+        .upload-img-icon input {
+            display: none;
+        }
+
+        .upload-img-icon i {
+            color: #e4e9f7;
+            background: #1f2937;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+    .card-body.dark-mode-black .upload-img-icon i {
+        background: #e4e9f7;
+        color: #1f2937;
+    }
+
+    h6 {
+        font-size: 14px;
+    }
+
+    .social-link {
+        text-align: center;
+    }
+
+        .social-link a {
+            margin: 0 5px;
+            height: 35px;
+            width: 35px;
+            line-height: 35px;
+            text-align: center;
+            display: inline-block;
+            border-radius: 50%;
+            box-shadow: 0 0 5px 1px rgb(62 57 107 / 18%);
+        }
+
+            .social-link a i {
+                display: inline-block;
+                font-size: 18px;
+                height: 35px;
+                width: 35px;
+                line-height: 35px;
+                text-align: center;
+                border-radius: 50%;
+                border: 0;
+                transition: all .3s linear;
+            }
+
+    .btn-facebook i {
+        background: #1877f2;
+        color: #fff;
+    }
+
+        .btn-facebook i:hover {
+            color: #1877f2;
+            background: #fff;
+        }
+
+    .btn-instagram i {
+        background: radial-gradient( circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90% ) !important;
+        color: #fff;
+        /*-webkit-background-clip: text !important;*/
+        /* Also define standard property for compatibility */
+        /*background-clip: text !important;*/
+        /*-webkit-text-fill-color: transparent !important;*/
+    }
+
+        .btn-instagram i:hover {
+            background: radial-gradient( circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90% ) !important;
+            -webkit-background-clip: text !important;
+            /* Also define standard property for compatibility */
+            background-clip: text !important;
+            text-fill-color: transparent !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+
+    .btn-twitter i {
+        background: #1d9bf0;
+        color: #fff;
+    }
+
+        .btn-twitter i:hover {
+            color: #1d9bf0;
+            background: #fff;
+        }
+
+    .btn-youtube i {
+        background: #f00;
+        color: #fff;
+    }
+
+        .btn-youtube i:hover {
+            color: #f00;
+            background: #fff;
+        }
+
+    .btn-linkedin i {
+        background: #017bb6;
+        color: #fff;
+    }
+
+        .btn-linkedin i:hover {
+            color: #017bb6;
+            background: #fff;
+        }
+
+    .btn-whatsapp i {
+        background: #1ad03f;
+        color: #fff;
+    }
+
+        .btn-whatsapp i:hover {
+            color: #1ad03f;
+            background: #fff;
+        }
+
+    .emergency-wrapper {
+        background: white;
+    }
+
+    .card-body.dark-mode-black .emergency-wrapper {
+        background: #242526;
+    }
+</style>
+<div class="content-heading-wrap">
+    <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+        <div class="col-lg-4 col-md-3 align-self-center">
+            <h5 class="text-themecolor">Contact Information </h5>
+        </div>
+        <div class="col-lg-8 col-md-9 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ul class="mx-2 path-link">
+                    <li class="d-inline-block">
+                        <a href="@Url.Action("Index", "Home")">Dashboard</a>
+                    </li>
+                    &nbsp; &gt; &nbsp;
+                    <li class="d-inline-block active">Emergeny Contact</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    <div class="content-wrap">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="">
+                                    <!-- <div class="cards-header">
+                                      <h5 class="cards-title">Emergency Contact</h5>
+                                      <a
+                                        onclick="prevUrl()"
+                                        href="javascript:void(0)"
+                                        class="btn btn-dark float-right"
+                                        ><i class="fas fa-long-arrow-alt-left"></i>
+                                        Back
+                                      </a>
+                                    </div> -->
+                                    <div class="emergency-wrapper">
+                                        <div class="row align-items-end">
+                                            <div id="invoiceInfo" class="col-12 text-center">
+                                                <div class="invoice-info">
+                                                    <div class="company-logo">
+                                                        <img id="logoImg" src="~/Content/assets/img/logo/company-logo.png" alt="logo" />
+                                                    </div>
+                                                    <div class="company-address">
+                                                        <ul>
+                                                            <li>
+                                                                <strong>Corporate Office & Dev. Centre</strong>
+                                                            </li>
+                                                            <li>
+                                                                <strong>Address: </strong>E-9/6, China Town
+                                                                Naya Paltan, Dhaka - 1000, Bangladesh
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="cards my-md-5 my-2 p-xl-5 p-lg-3 p-md-5 p-2">
+                                                    <h3 class="react-reveal mb-2">Phone</h3>
+                                                    <p class="react-reveal text-muted mb-3">
+                                                        Our customer care is open from Sun-Thu, <br />
+                                                        09:00am to 06:00pm
+                                                    </p>
+                                                    <div class="react-reveal">
+                                                        <i class="fa-solid fa-phone-volume"></i>
+                                                        <a class="phone_number ps-xl-3 ps-lg-1 ps-md-3 ps-1"
+                                                           href="tel:+9613661122">+9613661122</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="cards  my-md-5 mb-4 p-xl-5 p-lg-3 p-md-5 p-2">
+                                                    <h3 class="react-reveal mb-2">Email</h3>
+                                                    <p class="react-reveal text-muted mb-3">
+                                                        Our customer care is open from Sun-Thu, <br />
+                                                        09:00am to 06:00pm
+                                                    </p>
+                                                    <div class="react-reveal">
+                                                        <i class="fa-solid fa-envelope"></i>
+                                                        <a class="email_address ps-xl-3 ps-lg-1 ps-md-3 ps-1"
+                                                           href="mailto:info@digitaldecoderltd.com">info@digitaldecoderltd.com</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center pb-5">
+                                <h2>Emergency Contact Here.</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-4 mb-lg-0 mb-md-4 mb-2">
+                                <div class="cards cards-primary card-outline pt-2 h-100">
+                                    <div class="cards-body box-profile py-0">
+                                        <!-- <div class="change-img text-center">
+                                          <img
+                                            id="display-image"
+                                            src="assets/img/profile/profile-2.jpg"
+                                            class="profile-user-img img-fluid img-circle"
+                                          />
+                                          <div class="upload-img-icon">
+                                            <label for="image-input">
+                                              <i class="fa-solid fa-camera"></i
+                                            ></label>
+                                            <input
+                                              type="file"
+                                              id="image-input"
+                                              accept="image/jpeg, image/png, image/jpg"
+                                            />
+                                          </div>
+                                        </div> -->
+                                        <h5 class="profile-username">
+                                            Name: MD Rukunujjaman Miaji
+                                        </h5>
+                                        <!-- <p class="text-muted text-center">Admin</p> -->
+                                    </div>
+
+                                    <div class="cards-body py-1">
+                                        <small class="text-muted">Email address </small>
+                                        <h6>rukunujjaman.miaji@digitaldecoderltd.com</h6>
+                                        <small class="text-muted pt-3 d-block">Phone</small>
+                                        <h6>+88 01719721908</h6>
+                                        <!-- <small class="text-muted pt-4 d-block">Address</small>
+                                        <h6>71 abcd, efgh, 1215</h6> -->
+
+                                        <br />
+                                        <div class="social-link pb-2">
+                                            <a href="https://www.facebook.com/rukunujjaman.miaji" target="_blank" class="btn-facebook">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </a>
+                                            <!-- <a href="#" class="btn-instagram">
+                                              <i class="fa-brands fa-instagram"></i>
+                                            </a> -->
+                                            <a href="#" class="btn-twitter">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                            <!-- <a href="#" class="btn-youtube">
+                                              <i class="fab fa-youtube"></i>
+                                            </a> -->
+                                            <a href="#" class="btn-linkedin" target="_blank">
+                                                <i class="fa-brands fa-linkedin-in"></i>
+                                            </a>
+                                            <a href="whatsapp://send?phone=8801719721908" class="btn-whatsapp">
+                                                <i class="fa-brands fa-whatsapp"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-8">
+                                <div class="cards h-100">
+                                    <div class="cards-header">
+                                        <h5 class="cards-title">Emergency Contact</h5>
+                                        <a onclick="prevUrl()"
+                                           href="javascript:void(0)"
+                                           class="btn btn-dark float-right">
+                                            <i class="fas fa-long-arrow-alt-left"></i>
+                                            Back
+                                        </a>
+                                    </div>
+                                    <div class="cards-body">
+                                        <form class="form-horizontal">
+                                            <div class="form-group row">
+                                                <label for="quickText" class="col-sm-3 col-form-label">Quick Text</label>
+                                                <div class="col-sm-9">
+                                                    <input name="quickText"
+                                                           type="text"
+                                                           id="quickText"
+                                                           placeholder="Write a message"
+                                                           class="form-control"
+                                                            />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="offset-sm-3 col-sm-9">
+                                                    <a href="javascript:void(0)" onclick="sendWhatsapp()"
+                                                            class="btn btn btn-primary btn-primary text-uppercase">
+                                                        <i class="fa-brands fa-whatsapp bg-success text-white"></i>
+                                                        Send message
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+function prevUrl() {
+        history.back();
+}
+    function sendWhatsapp() {
+        const quickText = document.getElementById('quickText').value;
+        console.log(quickText)
+        location.href = "whatsapp://send?phone=8801719721908&text=" + quickText;
+    }
+
+</script>

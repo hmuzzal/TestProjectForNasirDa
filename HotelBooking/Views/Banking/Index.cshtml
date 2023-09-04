@@ -1,0 +1,342 @@
+﻿@model HotelBooking.DataLayer.ViewModels.Banking.BankAccountsViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/assets/js/HotelBooking.js"></script>
+
+@* datatable export to pdf script start*@
+@Html.Partial("_succesorfailuremodal")
+@* datatable export to pdf script end*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div class="content-heading-wrap">
+        <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+            <div class="col-lg-4 col-md-3 align-self-center">
+                <h5 class="text-themecolor">All Bank Accounts</h5>
+            </div>
+            <div class="col-lg-8 col-md-9 align-self-center text-right">
+                <div class="d-flex justify-content-end align-items-center">
+                    <ul class="mx-2 path-link">
+                        <li class="d-inline-block">
+                            <a href="@Url.Action("Index", "Home")"> Dashboard</a>
+                        </li>
+                        &nbsp; &gt; &nbsp;
+                        <li class="d-inline-block active">Bank Accounts</li>
+                    </ul>
+                    <a class="btn btn-primary"
+                       data-toggle="modal"
+                       href="#AddModal">
+                        <i class="fa fa-plus-circle"></i> <span class="create-btn">Create Bank Accounts</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrap">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="toolbar">
+
+
+                        </div>
+
+                        @*data table name.pdf start*@
+
+                        <div id="dataTableName" style="display:none;">Banking</div>
+
+                        @*data table name.pdf end*@
+
+                        <div class="table-responsive" id="contentToPrint">
+                            <table class="table display table-bordered table-striped no-wrap no-wrap table-bordered table-hover table ledger-table-body" id="ledger-table" data-toolbar="#toolbar" data-search="true"
+                                   data-show-refresh="true" data-show-toggle="true" data-show-fullscreen="true" data-show-print="true"
+                                   data-show-columns="true" data-show-export="true"
+                                   data-detail-formatter="detailFormatter" data-minimum-count-columns="2"
+                                   data-show-pagination-switch="true" data-pagination="true" data-id-field="id"
+                                   data-show-footer="false">
+                                <thead>
+                                    <tr>
+
+                                        <th>#</th>
+                                        <th scope="col" class="border text-start">
+                                            Account Holder Name
+                                        </th>
+                                        <th scope="col" class="border text-start">Bank Name</th>
+
+                                        <th scope="col" class="border text-start">Account Number</th>
+
+                                        <th scope="col" class="border text-end">Balance</th>
+                                        <th scope="col" class="border text-center">Operation</th>
+
+                                        @*<th scope="col" class="border title hide-for-pdf"></th>*@
+                                    </tr>
+                                </thead>
+                                <tbody id="checkall-target">
+                                    @{
+                                        int i = 0;
+                                    }
+                                    @foreach (var item in Model.allbankaccount)
+                                    {
+                                        i++;
+                                        <tr>
+
+                                            <td>
+                                                @i
+                                            </td>
+                                            <td class="title">
+                                                <a href="javascript:void(0)"> @item.BankAccountName</a>
+                                            </td>
+                                            <td class="title">@item.Bankname</td>
+                                            <td class="title">@item.AccountNumber</td>
+                                            @if (item.ledger.ClosingBalance >= 0)
+                                            {
+                                                <td>@string.Format("{0:n}", item.ledger.ClosingBalance) DR</td>
+                                            }
+                                            else
+                                            {
+                                                <td>@string.Format("{0:n}", item.ledger.ClosingBalance) CR</td>
+                                            }
+
+                                            <td class="text-center hide-for-pdf">
+
+                                                <div class="action-btn-dropdown">
+                                                    <span onclick="showorhidenextelements(@i)"
+                                                          class="showorhidenextelements">
+                                                        <i class="fa fa-tasks dropbtnstas" aria-hidden="true"></i>
+                                                    </span>
+                                                    <ul class="action-dropdown" id="level@(i)">
+                                                        <li>
+                                                            <a title="update"
+                                                               href="@Url.Action("Index", "Banking", new { id = item.PkBankAccountId })">
+                                                                <img src="~/Content/assets/img/icon/edit.png" /> Update
+                                                            </a>
+                                                        </li>
+                                                        @*<li>
+                                                                <a title="delete" href="javascript:void(0)" onclick="deleteItem(@i)">
+                                                                    <img src="~/Content/assets/img/icon/delete.png" />  Delete
+                                                                </a>    <a class="btn btn-danger" id="deleteitem@(i)"
+                                                                           href="@Url.Action("DeleteBankAccount", "Banking", new { id = item.PkBankAccountId })" style="display:none;">
+                                                                </a>
+                                                            </li>*@
+                                                        <li>
+                                                            <a title="bank statement" href="@Url.Action("BankStatement", "Report", new { id = item.LedgerID })">
+                                                                <img src="~/Content/assets/img/icon/invoicel.png" />  Statement
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot class="ledger-table-foot">
+                                    <tr class="text-left">
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    <div class="card" style="margin:0">
+        <div class="card-body" style="padding:0">
+            <div id="AddModal"
+                 class="modal fade bd-example-modal-lg"
+                 role="dialog"
+                 aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Create Bank Account
+                            </h5>
+                            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button> -->
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Account Code : </label>
+
+                                        @Html.TextBoxFor(model => model.createbank.BankAccountCode, new { @class = "form-control", @readonly = "readonly" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createbank.BankAccountCode) </small>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" id="supplier">
+                                        <label for="" class="col-form-label">Account Type : <span class="required">* </span></label>
+                                        @Html.DropDownListFor(model => model.createbank.AccountTypeID, Model.createbank.AllAccountType, new { @class = "select2", @required = "required", oninvalid = "this.setCustomValidity('Enter Account Type Here')", oninput = "this.setCustomValidity('')" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createbank.AccountTypeID) </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="col-form-label">Account Holder Name <span class="required">* </span></label>
+                                    @Html.TextBoxFor(model => model.createbank.BankAccountName, new { @class = "form-control", @placeholder = "Type Account Holder Name", @type = "text", @required = "required", oninvalid = "this.setCustomValidity('Enter Account Holder Here')", oninput = "this.setCustomValidity('')" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createbank.BankAccountName) </small>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label">Account Number <span class="required">* </span></label>
+                                    @Html.TextBoxFor(model => model.createbank.AccountNumber, new { @class = "form-control", @placeholder = "Type Account Number", @type = "text", @required = "required", oninvalid = "this.setCustomValidity('Enter Account Number Here')", oninput = "this.setCustomValidity('')" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createbank.AccountNumber) </small>
+
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="col-form-label">Bank Name <span class="required">* </span></label>
+                                    @Html.TextBoxFor(model => model.createbank.Bankname, new { @class = "form-control", @placeholder = "Type Bank Name", @type = "text", @required = "required", oninvalid = "this.setCustomValidity('Enter  Bank Name Here')", oninput = "this.setCustomValidity('')" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createbank.Bankname) </small>
+                                </div>
+
+                                
+                                <div class="col-md-6">
+                                    <label class="col-form-label">Description</label>
+                                    @Html.TextBoxFor(model => model.createbank.Description, new { @class = "form-control", @placeholder = "Type Description", @type = "text" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createbank.Description) </small>
+                                </div>
+
+                            </div>
+                           
+                        </div>
+                        <br />
+                        <div class="modal-footer">
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-dismiss="modal" onclick='closeModalAdd()'>
+                                Close
+                            </button>
+                            <button id="createitem" type="submit" class="btn btn-primary" name="Create" value="Create">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    <div class="card" style="margin:0">
+        <div class="card-body" style="padding:0">
+            <div id="EditModal"
+                 class="modal fade bd-example-modal-lg"
+                 role="dialog"
+                 aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Update Bank Inforamtion
+                            </h5>
+                            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button> -->
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="row">
+                                @Html.HiddenFor(m => m.updatebank.PkBankAccountId)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Account Code : <span class="required">* </span></label>
+
+                                        @Html.TextBoxFor(model => model.updatebank.BankAccountCode, new { @class = "form-control", @placeholder = "Account Code", @type = "text" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatebank.BankAccountCode) </small>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" id="supplier">
+                                        <label for="" class="col-form-label">Account Type : <span class="required">* </span></label>
+                                        @Html.DropDownListFor(model => model.updatebank.AccountTypeID, Model.updatebank.AllAccountType, new { @class = "select2" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatebank.AccountTypeID) </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-form-label">Account Holder Name <span class="required">* </span></label>
+                                    @Html.TextBoxFor(model => model.updatebank.BankAccountName, new { @class = "form-control", @placeholder = "Type Name", @type = "text" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatebank.BankAccountName) </small>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label">Account Number <span class="required">* </span></label>
+                                    @Html.TextBoxFor(model => model.updatebank.AccountNumber, new { @class = "form-control", @placeholder = "Type Account Number", @type = "text" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatebank.AccountNumber) </small>
+
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="col-form-label">Bank Name <span class="required">* </span></label>
+                                    @Html.TextBoxFor(model => model.updatebank.Bankname, new { @class = "form-control", @placeholder = "Type Bank Name", @type = "text" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatebank.Bankname) </small>
+                                </div>
+
+                               
+                                <div class="col-md-6">
+                                    <label class="col-form-label">Description</label>
+                                    @Html.TextBoxFor(model => model.updatebank.Description, new { @class = "form-control", @placeholder = "Type Description", @type = "text" })
+                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updatebank.Description) </small>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="modal-footer">
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-dismiss="modal" onclick='closeModal()'>
+                                Close
+                            </button>
+                            <button id="updateitem" type="submit" class="btn btn-primary" name="Update" value="Update">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+
+            </div>
+        </div>
+    </div>
+}
+
+<span class="text-right text-bold" id="CustomerName" style="display:none;">Bank_List</span>
+
+<script src="~/Content/assets/js/bank-table.init.js"></script>
+
+

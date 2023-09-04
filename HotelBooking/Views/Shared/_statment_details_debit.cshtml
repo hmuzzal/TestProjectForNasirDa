@@ -1,0 +1,139 @@
+﻿
+<div class="row mt-3">
+    <div class="col-12">
+
+        <div style="overflow:auto;">
+            <table class="ledger-table" id="ledger-table">
+                <thead class="ledger-table-head">
+                    @Html.Partial("_table_header")
+                </thead>
+                <tbody class="ledger-table-body">
+                    @{
+                        int i = 1;
+                        double lastbalance = 0.00;
+
+                    }
+                    @if (Model.statementdetails != null)
+                    {
+                        foreach (var item in Model.statementdetails)
+                        {
+                            <tr style="page-break-after: always!important">
+                                <td class="title">@i</td>
+                                @if (item.Description == "Balance B/F")
+                                {
+                                    <td class="title"></td>
+                                    lastbalance += item.Balance;
+                                }
+                                else
+                                {
+                                    <td class="title">@item.TransactionDate.ToString("dd MMM yyyy")</td>
+                                }
+
+                                
+                                @if (item.Description != null)
+                                {
+                                    string[] splitcontent = item.Description.Split('/');
+                                    if (splitcontent.Length == 3)
+                                    {
+                                        string[] splitcontent1 = splitcontent[0].Split('@');
+                                        if (splitcontent1.Length == 2)
+                                        {
+                                            <td class="title">@splitcontent1[0].Trim()/@splitcontent1[1].Trim()/@splitcontent[1].Trim()<br />@splitcontent[2]</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="title">@splitcontent[0].Trim()/@splitcontent[1].Trim()<br />@splitcontent[2]</td>
+                                        }
+
+                                    }
+                                    else if (splitcontent.Length == 4)
+                                    {
+                                        <td class="title">@splitcontent[0].Trim()/@splitcontent[1].Trim()/@splitcontent[2].Trim()<br />@splitcontent[3]</td>
+
+                                    }
+                                    else if (splitcontent.Length == 5)
+                                    {
+                                        <td class="title">@splitcontent[0].Trim() @splitcontent[1].Trim() @splitcontent[2].Trim() @splitcontent[3].Trim()<br />@splitcontent[4]</td>
+                                    }
+                                    else if (splitcontent.Length == 6)
+                                    {
+                                        <td class="title">@splitcontent[0].Trim() @splitcontent[1].Trim() @splitcontent[2].Trim() @splitcontent[3].Trim() @splitcontent[4].Trim()<br />@splitcontent[5]</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="title">@(item.Description.ToString())</td>
+                                    }
+
+                                }
+                                else
+                                {
+                                    <td class="title">@item.Description</td>
+
+                                }
+
+                                <td class="title">@item.BillNo</td>
+
+                                @if (item.Debit == 0)
+                                {
+                                    <td class="balance-ammount">-</td>
+
+                                }
+                                else
+                                {
+                                    <td class="balance-ammount">@string.Format("{0:n}", item.Debit)</td>
+                                    lastbalance += item.Debit;
+                                }
+                                
+                                @if (string.Format("{0:n}", lastbalance) == string.Format("{0:n}", item.Balance))
+                                {
+                                    if (item.Balance > 0)
+                                    {
+                                        <td class="balance-ammount">@string.Format("{0:n}", item.Balance) DR </td>
+                                    }
+                                    else if (item.Balance == 0)
+                                    {
+                                        <td class="balance-ammount">-</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="balance-ammount" style="color:red">@string.Format("{0:n}", item.Balance) <span>CR</span></td>
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.Balance > 0)
+                                    {
+
+
+                                        <td class="balance-ammount">
+                                            <span class="text-white p-1">@string.Format("{0:n}", item.Balance)</span>
+                                            <span> DR</span>
+                                        </td>
+                                    }
+                                    else if (item.Balance == 0)
+                                    {
+                                        <td class="balance-ammount">-</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="balance-ammount" style="color:red">@string.Format("{0:n}", item.Balance) CR</td>
+                                    }
+                                }
+
+                            </tr>
+                            i++;
+                        }
+
+                    }
+
+
+                </tbody>
+
+
+                @Html.Partial("_table_footer_debit")
+            </table>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,9 @@
+2023-04-04 21:19:02,404 [76] FATAL MoneyExchanger.DataLayer.MoneyExchangerDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.DataLayer.MoneyExchangerDBAccess.GetLastLedgerCode() in E:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\DataLayer\MoneyExchangerDBAccess.cs:line 2839
+2023-04-04 21:19:18,650 [59] FATAL MoneyExchanger.DataLayer.MoneyExchangerDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.DataLayer.MoneyExchangerDBAccess.GetLastLedgerCode() in E:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\DataLayer\MoneyExchangerDBAccess.cs:line 2839
+2023-04-04 21:19:24,897 [76] FATAL MoneyExchanger.DataLayer.MoneyExchangerDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.DataLayer.MoneyExchangerDBAccess.GetLastLedgerCode() in E:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\DataLayer\MoneyExchangerDBAccess.cs:line 2839

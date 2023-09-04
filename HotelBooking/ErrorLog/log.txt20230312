@@ -1,0 +1,12 @@
+2023-03-12 12:44:11,949 [36] FATAL MoneyExchanger.DataLayer.MoneyExchangerDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.DataLayer.MoneyExchangerDBAccess.GetLastLedgerCode() in D:\MoneyExchanger\MoneyExchanger\DataLayer\MoneyExchangerDBAccess.cs:line 2760
+2023-03-12 16:38:22,624 [52] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.SupplierStatementSingle(Nullable`1 id) in D:\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 1227
+2023-03-12 16:50:16,261 [39] FATAL MoneyExchanger.DataLayer.MoneyExchangerDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.DataLayer.MoneyExchangerDBAccess.GetLastLedgerCode() in D:\MoneyExchanger\MoneyExchanger\DataLayer\MoneyExchangerDBAccess.cs:line 2760
+2023-03-12 17:02:50,940 [53] FATAL MoneyExchanger.Controllers.UserController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.UserController.Logout() in D:\MoneyExchanger\MoneyExchanger\Controllers\UserController.cs:line 1783

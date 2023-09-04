@@ -1,0 +1,9 @@
+2023-02-11 12:34:49,567 [87] FATAL MoneyExchanger.Controllers.UserController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.UserController.Logout() in D:\MoneyExchanger\MoneyExchanger\Controllers\UserController.cs:line 1634
+2023-02-11 12:36:59,078 [89] FATAL MoneyExchanger.Controllers.UserController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.UserController.Logout() in D:\MoneyExchanger\MoneyExchanger\Controllers\UserController.cs:line 1634
+2023-02-11 18:18:09,034 [61] FATAL MoneyExchanger.Controllers.UserController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.UserController.Logout() in D:\MoneyExchanger\MoneyExchanger\Controllers\UserController.cs:line 1634

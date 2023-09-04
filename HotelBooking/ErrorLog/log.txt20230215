@@ -1,0 +1,403 @@
+2023-02-15 13:17:20,438 [6] FATAL MoneyExchanger.DataLayer.MoneyExchangerDBAccess [(null)] - log4net Fatal Level
+System.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 26 - Error Locating Server/Instance Specified)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling, SqlAuthenticationProviderManager sqlAuthProviderManager)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext](TTarget target, Action`2 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   at System.Data.Entity.Infrastructure.Interception.DbConnectionDispatcher.Open(DbConnection connection, DbInterceptionContext interceptionContext)
+   at System.Data.Entity.SqlServer.SqlProviderServices.<>c__DisplayClass33.<UsingConnection>b__32()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.<>c__DisplayClass1.<Execute>b__0()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.SqlServer.SqlProviderServices.UsingMasterConnection(DbConnection sqlConnection, Action`1 act)
+   at System.Data.Entity.SqlServer.SqlProviderServices.CreateDatabaseFromScript(Nullable`1 commandTimeout, DbConnection sqlConnection, String createDatabaseScript)
+   at System.Data.Entity.SqlServer.SqlProviderServices.DbCreateDatabase(DbConnection connection, Nullable`1 commandTimeout, StoreItemCollection storeItemCollection)
+   at System.Data.Entity.Migrations.Utilities.DatabaseCreator.Create(DbConnection connection)
+   at System.Data.Entity.Migrations.DbMigrator.EnsureDatabaseExists(Action mustSucceedToKeepDatabase)
+   at System.Data.Entity.Migrations.DbMigrator.Update(String targetMigration)
+   at System.Data.Entity.Internal.DatabaseCreator.CreateDatabase(InternalContext internalContext, Func`3 createMigrator, ObjectContext objectContext)
+   at System.Data.Entity.Database.Create(DatabaseExistenceState existenceState)
+   at System.Data.Entity.DropCreateDatabaseIfModelChanges`1.InitializeDatabase(TContext context)
+   at System.Data.Entity.Internal.InternalContext.PerformInitializationAction(Action action)
+   at System.Data.Entity.Internal.InternalContext.PerformDatabaseInitialization()
+   at System.Data.Entity.Internal.RetryAction`1.PerformAction(TInput input)
+   at System.Data.Entity.Internal.LazyInternalContext.InitializeDatabaseAction(Action`1 action)
+   at System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   at System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   at System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   at System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   at MoneyExchanger.DataLayer.MoneyExchangerDBAccess.GetOrganizatonsInformationById() in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\DataLayer\MoneyExchangerDBAccess.cs:line 1246
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Error Number:-1,State:0,Class:20
+2023-02-15 13:17:53,228 [11] FATAL MoneyExchanger.DataLayer.MoneyExchangerDBAccess [(null)] - log4net Fatal Level
+System.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 26 - Error Locating Server/Instance Specified)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling, SqlAuthenticationProviderManager sqlAuthProviderManager)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext](TTarget target, Action`2 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   at System.Data.Entity.Infrastructure.Interception.DbConnectionDispatcher.Open(DbConnection connection, DbInterceptionContext interceptionContext)
+   at System.Data.Entity.SqlServer.SqlProviderServices.<>c__DisplayClass33.<UsingConnection>b__32()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.<>c__DisplayClass1.<Execute>b__0()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.SqlServer.SqlProviderServices.UsingMasterConnection(DbConnection sqlConnection, Action`1 act)
+   at System.Data.Entity.SqlServer.SqlProviderServices.CreateDatabaseFromScript(Nullable`1 commandTimeout, DbConnection sqlConnection, String createDatabaseScript)
+   at System.Data.Entity.SqlServer.SqlProviderServices.DbCreateDatabase(DbConnection connection, Nullable`1 commandTimeout, StoreItemCollection storeItemCollection)
+   at System.Data.Entity.Migrations.Utilities.DatabaseCreator.Create(DbConnection connection)
+   at System.Data.Entity.Migrations.DbMigrator.EnsureDatabaseExists(Action mustSucceedToKeepDatabase)
+   at System.Data.Entity.Migrations.DbMigrator.Update(String targetMigration)
+   at System.Data.Entity.Internal.DatabaseCreator.CreateDatabase(InternalContext internalContext, Func`3 createMigrator, ObjectContext objectContext)
+   at System.Data.Entity.Database.Create(DatabaseExistenceState existenceState)
+   at System.Data.Entity.DropCreateDatabaseIfModelChanges`1.InitializeDatabase(TContext context)
+   at System.Data.Entity.Internal.InternalContext.PerformInitializationAction(Action action)
+   at System.Data.Entity.Internal.InternalContext.PerformDatabaseInitialization()
+   at System.Data.Entity.Internal.RetryAction`1.PerformAction(TInput input)
+   at System.Data.Entity.Internal.LazyInternalContext.InitializeDatabaseAction(Action`1 action)
+   at System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   at System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   at System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   at System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   at MoneyExchanger.DataLayer.MoneyExchangerDBAccess.GetOrganizatonsInformationById() in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\DataLayer\MoneyExchangerDBAccess.cs:line 1246
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Error Number:-1,State:0,Class:20
+2023-02-15 14:44:55,739 [11] FATAL MoneyExchanger.Controllers.BankingController [(null)] - log4net Fatal Bank Level
+System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'dbo.BackUp'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   at System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.NonQuery(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass59.<ExecuteStoreCommand>b__57()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at MoneyExchanger.Controllers.DatabaseBackupController.Index() in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\DatabaseBackupController.cs:line 81
+ClientConnectionId:a223b587-e397-42ac-97ce-264b8b2dfc02
+Error Number:2812,State:62,Class:16
+2023-02-15 19:24:25,047 [25] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(Nullable`1 id) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 374
+2023-02-15 19:24:31,024 [11] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(Nullable`1 id) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 374
+2023-02-15 19:24:31,518 [22] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(Nullable`1 id) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 374
+2023-02-15 19:24:32,017 [16] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(Nullable`1 id) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 374
+2023-02-15 19:25:16,154 [14] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(AccountStatement alltransactions) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 872
+2023-02-15 19:25:31,561 [16] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(AccountStatement alltransactions) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 872
+2023-02-15 19:25:47,951 [22] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(AccountStatement alltransactions) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 872
+2023-02-15 19:25:57,137 [14] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(AccountStatement alltransactions) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 872
+2023-02-15 19:27:51,055 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-822023-015: Opening: 6744451 :Closing: 8314701
+2023-02-15 19:27:51,057 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-822023-016: Opening: 8314701 :Closing: 9814701
+2023-02-15 19:27:51,060 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-822023-001: Opening: 9814701 :Closing: 8914701
+2023-02-15 19:27:51,061 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-822023-002: Opening: 8914701 :Closing: 7344451
+2023-02-15 19:27:51,063 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-822023-003: Opening: 7344451 :Closing: 6444451
+2023-02-15 19:27:51,065 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-822023-004: Opening: 6444451 :Closing: 5544451
+2023-02-15 19:27:51,066 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-822023-005: Opening: 5544451 :Closing: 4947001
+2023-02-15 19:27:51,067 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-822023-008: Opening: 4947001 :Closing: 4700001
+2023-02-15 19:27:51,069 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-822023-009: Opening: 4700001 :Closing: 4300001
+2023-02-15 19:27:51,071 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-822023-011: Opening: 4300001 :Closing: 3800001
+2023-02-15 19:27:51,073 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-822023-012: Opening: 3800001 :Closing: 2500001
+2023-02-15 19:27:51,075 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-822023-013: Opening: 2500001 :Closing: 1000001
+2023-02-15 19:27:51,077 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-822023-014: Opening: 1000001 :Closing: 1
+2023-02-15 19:27:51,078 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-001: Opening: 1 :Closing: 300001
+2023-02-15 19:27:51,079 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-002: Opening: 300001 :Closing: 1290001
+2023-02-15 19:27:51,081 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-003: Opening: 1290001 :Closing: 2100001
+2023-02-15 19:27:51,082 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-004: Opening: 2100001 :Closing: 2900001
+2023-02-15 19:27:51,084 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-005: Opening: 2900001 :Closing: 3503401
+2023-02-15 19:27:51,085 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-006: Opening: 3503401 :Closing: 3765751
+2023-02-15 19:27:51,087 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-007: Opening: 3765751 :Closing: 4565751
+2023-02-15 19:27:51,089 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-008: Opening: 4565751 :Closing: 4865751
+2023-02-15 19:27:51,091 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-009: Opening: 4865751 :Closing: 5565751
+2023-02-15 19:27:51,092 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-010: Opening: 5565751 :Closing: 6415751
+2023-02-15 19:27:51,094 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-011: Opening: 6415751 :Closing: 6790001
+2023-02-15 19:27:51,095 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-012: Opening: 6790001 :Closing: 7190001
+2023-02-15 19:27:51,097 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-015: Opening: 7190001 :Closing: 8180001
+2023-02-15 19:27:51,098 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-922023-001: Opening: 8180001 :Closing: 7180001
+2023-02-15 19:27:51,100 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-922023-002: Opening: 7180001 :Closing: 6190001
+2023-02-15 19:27:51,101 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-922023-003: Opening: 6190001 :Closing: 5200001
+2023-02-15 19:27:51,103 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-922023-006: Opening: 5200001 :Closing: 4900001
+2023-02-15 19:27:51,105 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-922023-007: Opening: 4900001 :Closing: 4090001
+2023-02-15 19:27:51,106 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-922023-008: Opening: 4090001 :Closing: 3290001
+2023-02-15 19:27:51,108 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-922023-009: Opening: 3290001 :Closing: 2686601
+2023-02-15 19:27:51,110 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-922023-010: Opening: 2686601 :Closing: 2424251
+2023-02-15 19:27:51,112 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-922023-011: Opening: 2424251 :Closing: 1624251
+2023-02-15 19:27:51,113 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-922023-012: Opening: 1624251 :Closing: 774251
+2023-02-15 19:27:51,115 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-922023-013: Opening: 774251 :Closing: 400001
+2023-02-15 19:27:51,117 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-922023-014: Opening: 400001 :Closing: 1
+2023-02-15 19:27:51,118 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-013: Opening: 1 :Closing: -2605999
+2023-02-15 19:27:51,120 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-013: Opening: -2605999 :Closing: -3205999
+2023-02-15 19:27:51,122 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1222023-001: Opening: -3205999 :Closing: -3405999
+2023-02-15 19:27:51,123 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1222023-002: Opening: -3405999 :Closing: -3705999
+2023-02-15 19:27:51,125 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1222023-003: Opening: -3705999 :Closing: -4105999
+2023-02-15 19:27:51,126 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1222023-004: Opening: -4105999 :Closing: -4605999
+2023-02-15 19:27:51,128 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-001: Opening: -4605999 :Closing: -4405999
+2023-02-15 19:27:51,129 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-002: Opening: -4405999 :Closing: -4105999
+2023-02-15 19:27:51,131 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-003: Opening: -4105999 :Closing: -3705999
+2023-02-15 19:27:51,133 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-005: Opening: -3705999 :Closing: -3205999
+2023-02-15 19:27:51,134 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-009: Opening: -3205999 :Closing: -2605999
+2023-02-15 19:27:51,136 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-010: Opening: -2605999 :Closing: -1905999
+2023-02-15 19:27:51,138 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-1222023-002: Opening: -1905999 :Closing: -2605999
+2023-02-15 19:27:51,140 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1322023-002: Opening: -2605999 :Closing: 1
+2023-02-15 19:27:51,141 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-023: Opening: 1 :Closing: -499999
+2023-02-15 19:27:51,143 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-024: Opening: -499999 :Closing: -949999
+2023-02-15 19:27:51,144 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-025: Opening: -949999 :Closing: -1849999
+2023-02-15 19:27:51,146 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-001: Opening: -1849999 :Closing: -1149999
+2023-02-15 19:27:51,147 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-002: Opening: -1149999 :Closing: -649999
+2023-02-15 19:27:51,149 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-003: Opening: -649999 :Closing: -149999
+2023-02-15 19:27:51,150 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-004: Opening: -149999 :Closing: 300001
+2023-02-15 19:27:51,152 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-005: Opening: 300001 :Closing: 550001
+2023-02-15 19:27:51,154 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-006: Opening: 550001 :Closing: 1450001
+2023-02-15 19:27:51,156 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-007: Opening: 1450001 :Closing: 2350001
+2023-02-15 19:27:51,157 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-008: Opening: 2350001 :Closing: 2950001
+2023-02-15 19:27:51,159 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-009: Opening: 2950001 :Closing: 3450001
+2023-02-15 19:27:51,161 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-010: Opening: 3450001 :Closing: 3950001
+2023-02-15 19:27:51,163 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-011: Opening: 3950001 :Closing: 4550001
+2023-02-15 19:27:51,164 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-012: Opening: 4550001 :Closing: 5913701
+2023-02-15 19:27:51,166 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-1422023-001: Opening: 5913701 :Closing: 5213701
+2023-02-15 19:27:51,168 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-1422023-002: Opening: 5213701 :Closing: 4713701
+2023-02-15 19:27:51,170 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-1422023-006: Opening: 4713701 :Closing: 4213701
+2023-02-15 19:27:51,171 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-1422023-007: Opening: 4213701 :Closing: 3313701
+2023-02-15 19:27:51,174 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-1422023-008: Opening: 3313701 :Closing: 2713701
+2023-02-15 19:27:51,176 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-1422023-009: Opening: 2713701 :Closing: 2213701
+2023-02-15 19:27:51,178 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-1422023-010: Opening: 2213701 :Closing: 850001
+2023-02-15 19:27:51,180 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PV-1422023-013: Opening: 850001 :Closing: 250001
+2023-02-15 19:27:51,193 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-822023-015: Opening: 3244928.6 :Closing: 1674678.6
+2023-02-15 19:27:51,195 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-822023-016: Opening: 1674678.6 :Closing: 174678.6
+2023-02-15 19:27:51,196 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-822023-017: Opening: 174678.6 :Closing: -76071.3999999999
+2023-02-15 19:27:51,197 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-922023-009: Opening: -76071.3999999999 :Closing: 266728.6
+2023-02-15 19:27:51,198 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-001: Opening: 266728.6 :Closing: -33271.3999999999
+2023-02-15 19:27:51,200 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-001: Opening: -33271.3999999999 :Closing: 401728.6
+2023-02-15 19:27:51,201 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-002: Opening: 401728.6 :Closing: 1393576.6
+2023-02-15 19:27:51,203 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-003: Opening: 1393576.6 :Closing: 1693876.6
+2023-02-15 19:27:51,205 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-004: Opening: 1693876.6 :Closing: 1994176.6
+2023-02-15 19:27:51,206 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-005: Opening: 1994176.6 :Closing: 2485198.6
+2023-02-15 19:27:51,207 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-001: Opening: 2485198.6 :Closing: 3255598.6
+2023-02-15 19:27:51,209 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-002: Opening: 3255598.6 :Closing: 3683598.6
+2023-02-15 19:27:51,210 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-003: Opening: 3683598.6 :Closing: 4025998.6
+2023-02-15 19:27:51,212 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-004: Opening: 4025998.6 :Closing: 4453998.6
+2023-02-15 19:27:51,213 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-001: Opening: 4453998.6 :Closing: 4253998.6
+2023-02-15 19:27:51,215 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-002: Opening: 4253998.6 :Closing: 3953998.6
+2023-02-15 19:27:51,216 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-003: Opening: 3953998.6 :Closing: 3553998.6
+2023-02-15 19:27:51,217 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-004: Opening: 3553998.6 :Closing: 3209998.6
+2023-02-15 19:27:51,219 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-005: Opening: 3209998.6 :Closing: 2709998.6
+2023-02-15 19:27:51,220 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1322023-002: Opening: 2709998.6 :Closing: 103998.6
+2023-02-15 19:27:51,221 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-001: Opening: 103998.6 :Closing: 364098.6
+2023-02-15 19:27:51,222 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-002: Opening: 364098.6 :Closing: 785008.6
+2023-02-15 19:27:51,223 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-003: Opening: 785008.6 :Closing: 1558108.6
+2023-02-15 19:27:51,225 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-004: Opening: 1558108.6 :Closing: 2331208.6
+2023-02-15 19:27:51,226 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-005: Opening: 2331208.6 :Closing: 2590708.6
+2023-02-15 19:27:51,228 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-006: Opening: 2590708.6 :Closing: 2719558.6
+2023-02-15 19:27:51,229 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-007: Opening: 2719558.6 :Closing: 2848408.6
+2023-02-15 19:27:51,231 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-008: Opening: 2848408.6 :Closing: 3535608.6
+2023-02-15 19:27:51,232 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-009: Opening: 3535608.6 :Closing: 5202068.6
+2023-02-15 19:27:51,233 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-001: Opening: 5202068.6 :Closing: 4502068.6
+2023-02-15 19:27:51,235 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-002: Opening: 4502068.6 :Closing: 4002068.6
+2023-02-15 19:27:51,237 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-003: Opening: 4002068.6 :Closing: 3502068.6
+2023-02-15 19:27:51,239 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-004: Opening: 3502068.6 :Closing: 3052068.6
+2023-02-15 19:27:51,241 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-005: Opening: 3052068.6 :Closing: 2802068.6
+2023-02-15 19:27:51,242 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-006: Opening: 2802068.6 :Closing: 1902068.6
+2023-02-15 19:27:51,243 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-007: Opening: 1902068.6 :Closing: 1002068.6
+2023-02-15 19:27:51,246 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-008: Opening: 1002068.6 :Closing: 402068.6
+2023-02-15 19:27:51,247 [10] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-009: Opening: 402068.6 :Closing: -97931.4000000004
+2023-02-15 19:33:03,359 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-722023-001: Opening: 1650840.5 :Closing: 600840.5
+2023-02-15 19:33:03,361 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-722023-002: Opening: 600840.5 :Closing: -349159.5
+2023-02-15 19:33:03,364 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-722023-003: Opening: -349159.5 :Closing: -407709.5
+2023-02-15 19:33:03,365 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-005: Opening: -407709.5 :Closing: 361790.5
+2023-02-15 19:33:03,366 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-008: Opening: 361790.5 :Closing: 631714
+2023-02-15 19:33:03,368 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-015: Opening: 631714 :Closing: 2170714
+2023-02-15 19:33:03,369 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-018: Opening: 2170714 :Closing: 3709714
+2023-02-15 19:33:03,371 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-019: Opening: 3709714 :Closing: 4141714
+2023-02-15 19:33:03,372 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-822023-014: Opening: 4141714 :Closing: 3241713
+2023-02-15 19:33:03,374 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-822023-015: Opening: 3241713 :Closing: 1671463
+2023-02-15 19:33:03,376 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-822023-016: Opening: 1671463 :Closing: 171463
+2023-02-15 19:33:03,377 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-822023-017: Opening: 171463 :Closing: -79287
+2023-02-15 19:33:03,379 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-922023-009: Opening: -79287 :Closing: 263513
+2023-02-15 19:33:03,380 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-922023-001: Opening: 263513 :Closing: -36487
+2023-02-15 19:33:03,382 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-001: Opening: -36487 :Closing: 398513
+2023-02-15 19:33:03,383 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-002: Opening: 398513 :Closing: 1390361
+2023-02-15 19:33:03,385 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-003: Opening: 1390361 :Closing: 1690661
+2023-02-15 19:33:03,386 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-004: Opening: 1690661 :Closing: 1990961
+2023-02-15 19:33:03,388 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-005: Opening: 1990961 :Closing: 2481983
+2023-02-15 19:33:03,390 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-001: Opening: 2481983 :Closing: 3252383
+2023-02-15 19:33:03,392 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-002: Opening: 3252383 :Closing: 3680383
+2023-02-15 19:33:03,394 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-003: Opening: 3680383 :Closing: 4022783
+2023-02-15 19:33:03,395 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-004: Opening: 4022783 :Closing: 4450783
+2023-02-15 19:33:03,397 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-001: Opening: 4450783 :Closing: 4250783
+2023-02-15 19:33:03,399 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-002: Opening: 4250783 :Closing: 3950783
+2023-02-15 19:33:03,400 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-003: Opening: 3950783 :Closing: 3550783
+2023-02-15 19:33:03,402 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-004: Opening: 3550783 :Closing: 3206783
+2023-02-15 19:33:03,403 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1222023-005: Opening: 3206783 :Closing: 2706783
+2023-02-15 19:33:03,405 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1322023-002: Opening: 2706783 :Closing: 100783
+2023-02-15 19:33:03,407 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-001: Opening: 100783 :Closing: 360883
+2023-02-15 19:33:03,408 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-002: Opening: 360883 :Closing: 781793
+2023-02-15 19:33:03,410 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-003: Opening: 781793 :Closing: 1554893
+2023-02-15 19:33:03,411 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-004: Opening: 1554893 :Closing: 2327993
+2023-02-15 19:33:03,413 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-005: Opening: 2327993 :Closing: 2587493
+2023-02-15 19:33:03,415 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-006: Opening: 2587493 :Closing: 2716343
+2023-02-15 19:33:03,416 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-007: Opening: 2716343 :Closing: 2845193
+2023-02-15 19:33:03,418 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-008: Opening: 2845193 :Closing: 3532393
+2023-02-15 19:33:03,420 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-009: Opening: 3532393 :Closing: 5198853
+2023-02-15 19:33:03,420 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-001: Opening: 5198853 :Closing: 4498853
+2023-02-15 19:33:03,422 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-002: Opening: 4498853 :Closing: 3998853
+2023-02-15 19:33:03,424 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-003: Opening: 3998853 :Closing: 3498853
+2023-02-15 19:33:03,426 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-004: Opening: 3498853 :Closing: 3048853
+2023-02-15 19:33:03,428 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-005: Opening: 3048853 :Closing: 2798853
+2023-02-15 19:33:03,430 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-006: Opening: 2798853 :Closing: 1898853
+2023-02-15 19:33:03,432 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-007: Opening: 1898853 :Closing: 998853
+2023-02-15 19:33:03,434 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-008: Opening: 998853 :Closing: 398853
+2023-02-15 19:33:03,435 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: PR-1422023-009: Opening: 398853 :Closing: -101147
+2023-02-15 19:33:03,447 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-722023-009: Opening: 33156 :Closing: 31156
+2023-02-15 19:33:03,449 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-722023-010: Opening: 31156 :Closing: 29156
+2023-02-15 19:33:03,451 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-722023-011: Opening: 29156 :Closing: 25156
+2023-02-15 19:33:03,452 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-722023-012: Opening: 25156 :Closing: 24156
+2023-02-15 19:33:03,454 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-722023-013: Opening: 24156 :Closing: 20156
+2023-02-15 19:33:03,455 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-822023-001: Opening: 20156 :Closing: 59156
+2023-02-15 19:33:03,455 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-822023-002: Opening: 59156 :Closing: 64156
+2023-02-15 19:33:03,457 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-822023-003: Opening: 64156 :Closing: 86156
+2023-02-15 19:33:03,458 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-822023-004: Opening: 86156 :Closing: 116156
+2023-02-15 19:33:03,460 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-822023-005: Opening: 116156 :Closing: 146156
+2023-02-15 19:33:03,461 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-001: Opening: 146156 :Closing: 141156
+2023-02-15 19:33:03,462 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-002: Opening: 141156 :Closing: 136156
+2023-02-15 19:33:03,464 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-003: Opening: 136156 :Closing: 134156
+2023-02-15 19:33:03,465 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-004: Opening: 134156 :Closing: 129265
+2023-02-15 19:33:03,467 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-005: Opening: 129265 :Closing: 120265
+2023-02-15 19:33:03,468 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-006: Opening: 120265 :Closing: 115265
+2023-02-15 19:33:03,470 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-007: Opening: 115265 :Closing: 110265
+2023-02-15 19:33:03,472 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-008: Opening: 110265 :Closing: 107108
+2023-02-15 19:33:03,473 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-009: Opening: 107108 :Closing: 103108
+2023-02-15 19:33:03,475 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-010: Opening: 103108 :Closing: 99108
+2023-02-15 19:33:03,476 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-011: Opening: 99108 :Closing: 95108
+2023-02-15 19:33:03,478 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-012: Opening: 95108 :Closing: 90108
+2023-02-15 19:33:03,479 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-013: Opening: 90108 :Closing: 86533
+2023-02-15 19:33:03,481 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-014: Opening: 86533 :Closing: 76533
+2023-02-15 19:33:03,482 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-015: Opening: 76533 :Closing: 58533
+2023-02-15 19:33:03,484 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-016: Opening: 58533 :Closing: 48533
+2023-02-15 19:33:03,486 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-017: Opening: 48533 :Closing: 38533
+2023-02-15 19:33:03,487 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-018: Opening: 38533 :Closing: 20533
+2023-02-15 19:33:03,489 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-019: Opening: 20533 :Closing: 15533
+2023-02-15 19:33:03,490 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-020: Opening: 15533 :Closing: 11533
+2023-02-15 19:33:03,492 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-021: Opening: 11533 :Closing: 8424
+2023-02-15 19:33:03,494 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-822023-022: Opening: 8424 :Closing: -1
+2023-02-15 19:33:03,496 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-922023-001: Opening: -1 :Closing: 51499
+2023-02-15 19:33:03,497 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-922023-002: Opening: 51499 :Closing: 58499
+2023-02-15 19:33:03,499 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-922023-003: Opening: 58499 :Closing: 80999
+2023-02-15 19:33:03,500 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-922023-004: Opening: 80999 :Closing: 89999
+2023-02-15 19:33:03,502 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-922023-001: Opening: 89999 :Closing: 79999
+2023-02-15 19:33:03,503 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-922023-002: Opening: 79999 :Closing: 64999
+2023-02-15 19:33:03,505 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-922023-003: Opening: 64999 :Closing: 49999
+2023-02-15 19:33:03,507 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-922023-004: Opening: 49999 :Closing: 34999
+2023-02-15 19:33:03,508 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-922023-005: Opening: 34999 :Closing: 27999
+2023-02-15 19:33:03,510 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-922023-006: Opening: 27999 :Closing: 20999
+2023-02-15 19:33:03,513 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-922023-007: Opening: 20999 :Closing: 8999
+2023-02-15 19:33:03,514 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-922023-008: Opening: 8999 :Closing: 3999
+2023-02-15 19:33:03,516 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-922023-009: Opening: 3999 :Closing: -1
+2023-02-15 19:33:03,518 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-1022023-001: Opening: -1 :Closing: 5669
+2023-02-15 19:33:03,520 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-1022023-002: Opening: 5669 :Closing: 10669
+2023-02-15 19:33:03,521 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-1022023-003: Opening: 10669 :Closing: 36329
+2023-02-15 19:33:03,523 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-1022023-004: Opening: 36329 :Closing: 44829
+2023-02-15 19:33:03,525 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-001: Opening: 44829 :Closing: 39829
+2023-02-15 19:33:03,527 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-002: Opening: 39829 :Closing: 28269
+2023-02-15 19:33:03,528 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-003: Opening: 28269 :Closing: 24769
+2023-02-15 19:33:03,530 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-004: Opening: 24769 :Closing: 21269
+2023-02-15 19:33:03,532 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-005: Opening: 21269 :Closing: 15599
+2023-02-15 19:33:03,533 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-006: Opening: 15599 :Closing: 10599
+2023-02-15 19:33:03,534 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-007: Opening: 10599 :Closing: 5599
+2023-02-15 19:33:03,536 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-008: Opening: 5599 :Closing: 1999
+2023-02-15 19:33:03,538 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1022023-009: Opening: 1999 :Closing: -1
+2023-02-15 19:33:03,540 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-1122023-001: Opening: -1 :Closing: 22999
+2023-02-15 19:33:03,542 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-001: Opening: 22999 :Closing: 13999
+2023-02-15 19:33:03,544 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-002: Opening: 13999 :Closing: 8999
+2023-02-15 19:33:03,546 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-003: Opening: 8999 :Closing: 4999
+2023-02-15 19:33:03,548 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1122023-004: Opening: 4999 :Closing: -1
+2023-02-15 19:33:03,550 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-1422023-001: Opening: -1 :Closing: 89599
+2023-02-15 19:33:03,551 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-1422023-002: Opening: 89599 :Closing: 92599
+2023-02-15 19:33:03,553 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-1422023-003: Opening: 92599 :Closing: 95599
+2023-02-15 19:33:03,555 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-1422023-004: Opening: 95599 :Closing: 141599
+2023-02-15 19:33:03,556 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Bill-1422023-005: Opening: 141599 :Closing: 161679
+2023-02-15 19:33:03,558 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-001: Opening: 161679 :Closing: 158679
+2023-02-15 19:33:03,561 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-002: Opening: 158679 :Closing: 153779
+2023-02-15 19:33:03,563 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-003: Opening: 153779 :Closing: 144779
+2023-02-15 19:33:03,565 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-004: Opening: 144779 :Closing: 135779
+2023-02-15 19:33:03,567 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-005: Opening: 135779 :Closing: 132779
+2023-02-15 19:33:03,569 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-006: Opening: 132779 :Closing: 131279
+2023-02-15 19:33:03,571 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-007: Opening: 131279 :Closing: 129779
+2023-02-15 19:33:03,573 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-008: Opening: 129779 :Closing: 121779
+2023-02-15 19:33:03,575 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-009: Opening: 121779 :Closing: 102379
+2023-02-15 19:33:03,577 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-010: Opening: 102379 :Closing: 95379
+2023-02-15 19:33:03,580 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-011: Opening: 95379 :Closing: 87379
+2023-02-15 19:33:03,581 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-012: Opening: 87379 :Closing: 84179
+2023-02-15 19:33:03,584 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-013: Opening: 84179 :Closing: 79679
+2023-02-15 19:33:03,584 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-014: Opening: 79679 :Closing: 69679
+2023-02-15 19:33:03,586 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-015: Opening: 69679 :Closing: 67679
+2023-02-15 19:33:03,588 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-016: Opening: 67679 :Closing: 65679
+2023-02-15 19:33:03,591 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-017: Opening: 65679 :Closing: 61679
+2023-02-15 19:33:03,593 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-018: Opening: 61679 :Closing: 57679
+2023-02-15 19:33:03,595 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-019: Opening: 57679 :Closing: 49679
+2023-02-15 19:33:03,598 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-020: Opening: 49679 :Closing: 44679
+2023-02-15 19:33:03,600 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-021: Opening: 44679 :Closing: 35679
+2023-02-15 19:33:03,602 [28] FATAL MoneyExchanger.DataLayer.MoneyExchangerTransactions [(null)] - Check Transaction: Inv-1422023-022: Opening: 35679 :Closing: 26679
+2023-02-15 23:18:23,882 [5] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(Nullable`1 id) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 374
+2023-02-15 23:18:30,146 [10] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(AccountStatement alltransactions) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 872
+2023-02-15 23:18:40,859 [12] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(Nullable`1 id) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 374
+2023-02-15 23:18:46,053 [10] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(AccountStatement alltransactions) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 872
+2023-02-15 23:18:53,229 [8] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(Nullable`1 id) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 374
+2023-02-15 23:18:58,739 [11] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(AccountStatement alltransactions) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 872
+2023-02-15 23:19:12,769 [13] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(Nullable`1 id) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 374
+2023-02-15 23:19:18,341 [10] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(AccountStatement alltransactions) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 872
+2023-02-15 23:19:26,408 [10] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(Nullable`1 id) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 374
+2023-02-15 23:19:32,791 [11] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(AccountStatement alltransactions) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 872
+2023-02-15 23:22:36,080 [11] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.BankStatement(AccountStatement alltransactions) in D:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 245

@@ -1,0 +1,292 @@
+﻿@model HotelBooking.DataLayer.ViewModels.InvoiceReceipt.InvoiceReceiptViewModel
+@{
+    ViewBag.Title = "Invoices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .ledger-table tfoot tr {
+        border-top: 2px solid #073763 !important;
+        border-bottom: 2px solid #073763 !important;
+    }
+</style>
+
+<div class="content-heading-wrap">
+    <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+        <div class="col-lg-4 col-md-3 align-self-center">
+            <h5 class="text-themecolor">Invoice Receipt</h5>
+        </div>
+        <div class="col-lg-8 col-md-9 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ul class="mx-2 path-link">
+                    <li class="d-inline-block">
+                        <a href="@Url.Action("Index", "Home")"> Dashboard</a>
+                    </li>
+                    &nbsp; &gt; &nbsp;
+                    <li class="d-inline-block active">Invoice Receipt</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="cards-body">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6 text-md-start text-center mb-md-0 mb-2">
+
+        </div>
+        <div class="col-lg-7 col-md-6 text-md-end text-center">
+            <div id="printBtn" class="hideArea">
+                <a class="btn btn-primary mx-2"
+                   onclick="downlaodpdf()">
+                    <i class="fas fa-file-pdf"></i> <span class="hide-md">Pdf</span>
+                </a>
+
+                <a class="btn btn-primary mx-2"
+                   onclick="printDiv()">
+                    <i class="fas fa-file-pdf"></i> <span class="hide-md">Print</span>
+                </a>
+
+                <a class="btn btn-primary mx-2"
+                   onclick="sendEmail()">
+                    <i class="fas fa-file-pdf"></i> <span class="hide-md">Send Email</span>
+                </a>
+
+                <a class="btn btn-primary mx-2 position-relative" onclick="sendinWhatsApp()">
+                    <i class="fa-brands fa-whatsapp"></i> <span class="hide-md">Send</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div id="invoice" class="invoice-area">
+        <div id="contentToPrint" class="container-fluid">
+            <div class="content-wrap ledger-table">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="official-reciept-wrap">
+                            <div id="headertemplate">
+                                <div class="row mb-4 pb-2 mx-3">
+                                    <div id="invoiceInfo" class="col-md-7">
+                                        <div class="invoice-info">
+                                            <div class="company-name">
+
+                                                <img src="~/Resources/Organization/Organization.jpg" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 m-t-5 text-end">
+                                        <div style="margin-top:15%">
+                                            <h1 style="color:green;font-weight:bold;font-size:35px!important;">Receipt</h1>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="border-blue-b" style="margin:0px;padding:0px;">
+
+                                </div>
+                                <br />
+                                <div class="row mb-4 pb-2 mx-3">
+                                    <div id="invoiceInfo" class="col-md-6">
+                                        <div class="invoice-info">
+
+                                            <div class="company-address">
+                                                <ul>
+                                                    <li>
+                                                        <strong>@Model.organizationinfo.Address</strong>
+                                                    </li>
+                                                    <li><strong>Email: @Model.organizationinfo.Email </strong></li>
+                                                    <li><strong>TEL: @Model.organizationinfo.Phone</strong></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="invoiceInfo" class="col-md-6">
+                                        <div class="invoice-info">
+
+                                            <div class="company-address text-right">
+                                                <ul>
+
+                                                    <li><strong>Date: @Model.payments.PaymentDate.ToString("dd/MM/yyyy") </strong></li>
+                                                    <li><strong>Receipt No #:  @Model.payments.PaymentNumber </strong></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="border-blue-b" style="margin:0px;padding:0px;">
+                                    <div id="orderno" style="display:none;"> @Model.payments.PaymentNumber</div>
+
+                                </div>
+                                <br />
+                                <div class="row">
+
+                                    <div class="col-md-3">
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <p><strong style="font-size:18px!important;font-weight:bold;">Received From: </strong></p>
+
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p><strong style="font-size: 18px!important; font-weight: bold;">@Model.payments.creditledger.LedgerName</strong></p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="recieptTable" id="recieptTable">
+                                    <table class="table ledger-table" id="ledger-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" style="border-right:2px solid white">Payment Method</th>
+                                                <th class="text-center" style="border-right:2px solid white;text-transform:uppercase;">Invoice #</th>
+                                                <th class="text-center" style="border-right: 2px solid white;text-transform:uppercase;">Month Of Service</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in Model.PaymentDetails)
+                                            {
+                                                <tr style="font-weight:bold;">
+                                                    <td class="text-center">@Model.payments.PaymentMethod</td>
+                                                    <td class="text-center">@item.invoice.InvoiceNo</td>
+                                                    <td class="text-center">@item.invoice.MonthName-@item.invoice.CreatedAt.ToString("yy")</td>
+
+                                                </tr>
+                                            }
+
+                                        </tbody>
+
+
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="recieptTable">
+                                    <table class="table ledger-table" id="ledger-table1">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" style="border-right:2px solid white">Item(#)</th>
+                                                <th class="text-center" style="border-right:2px solid white">Description</th>
+                                                <th class="text-center" style="border-right:2px solid white">Month</th>
+
+                                                <th class="text-right">Amount(Kshs)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                double totalinvoiced = 0.00;
+                                                int serial = 1;
+                                            }
+                                            @foreach (var item in Model.PaymentDetails)
+                                            {
+                                                var invoicedetails = HotelBooking.DataLayer.HotelBookingDBAccess.GetallInvoiceDetails();
+                                                invoicedetails = invoicedetails.Where(a => a.InvoiceID == item.invoice.PkInvoiceId).ToList();
+                                                foreach (var invoicedetail in invoicedetails)
+                                                {
+                                                    <tr style="font-weight:bold;">
+                                                        <td class="text-center">@serial</td>
+                                                        <td class="text-center">@invoicedetail.service.ItemName</td>
+                                                        <td class="text-center">@item.invoice.MonthName -@item.invoice.CreatedAt.ToString("yy")</td>
+
+                                                        <td class="text-right">@invoicedetail.TotalAmount/=</td>
+                                                    </tr>
+                                                }
+                                                serial++;
+                                                <tr style="font-weight:bold;">
+                                                    <td class="text-center">@serial</td>
+                                                    <td class="text-center">VAT</td>
+                                                    <td class="text-center">@item.invoice.MonthName-@item.invoice.CreatedAt.ToString("yy")</td>
+
+                                                    <td class="text-right">@item.invoice.DiscountAmount/=</td>
+                                                </tr>
+
+                                                serial++;
+                                                totalinvoiced += item.invoice.TotalAmount;
+                                            }
+
+
+
+                                            <tr></tr>
+
+                                            <tr>
+                                                <td style="border-bottom: 2px solid #073763 !important;"></td>
+                                                <td style="border-bottom: 2px solid #073763 !important;"></td>
+                                                <td style="border-bottom: 2px solid #073763 !important;"></td>
+                                                <td style="border-bottom: 2px solid #073763 !important;"></td>
+                                            </tr>
+                                        </tbody>
+
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="3" class="text-center" style="border-right: 2px solid #073763 !important;">
+                                                    Invoiced:
+                                                </td>
+                                                <td class="text-right">@totalinvoiced/=</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="3" class="text-center" style="border-right: 2px solid #073763 !important;">
+                                                    Received Amount:
+                                                </td>
+                                                <td class="text-right">@Model.payments.ReceiveAmount/=</td>
+                                            </tr>
+
+                                            <tr style="border-top: 2px solid #073763!important">
+                                                @if (Model.payments.Comment != "Advance")
+                                                {
+                                                    <td colspan="3" class="text-center" style="border-right: 2px solid #073763 !important;">
+                                                        Total Due Amount:
+
+                                                    </td>
+                                                    <td class="text-right">@Model.payments.DueAmount/=</td>
+                                                }
+                                                else if (Model.payments.Comment == "Advance")
+                                                {
+                                                    <td colspan="3" class="text-center" style="border-right: 2px solid #073763 !important;">
+                                                        Total Advance Amount:
+                                                    </td>
+                                                    <td class="text-right">@Model.payments.DueAmount/=</td>
+                                                }
+                                               
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="printimage" style="display:none">
+    <img src="" id="imagesource" />
+</div>
+
+
+<span class="text-right text-bold" id="CustomerName" style="display:none;">Payments Receipt</span>
+
+

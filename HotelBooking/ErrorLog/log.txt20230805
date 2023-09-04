@@ -1,0 +1,6 @@
+2023-08-05 10:32:05,648 [34] FATAL InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess.LastCustomerCode() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\DataLayer\MoneyExchangerDBAccess.cs:line 2216
+2023-08-05 10:32:27,074 [37] FATAL InvoiceSoftware.Controllers.CustomerController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at InvoiceSoftware.Controllers.CustomerController.CustomerStatementSingle(Nullable`1 id) in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\Controllers\CustomerController.cs:line 445

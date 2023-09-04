@@ -1,0 +1,959 @@
+﻿@model HotelBooking.DataLayer.ViewModels.Invoice.InvocieCreateViewModels
+@{
+    ViewBag.Title = "Invoices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+    var index = 0;
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    var index = -1;
+    ToggleShowHide();
+    $(".Datepicker").datepicker({
+        todayBtn: true,
+        clearBtn: true,
+        autoclose: true,
+        todayHighlight: true,
+        toggleActive: true
+    });
+    
+
+    function getRoomDetails(index) {
+                var selectedRoomId = document.getElementById("PkRoomDetailsId" + index).value;
+        if (selectedRoomId > 0) {
+            var url = '../Home/GetRoomDetails';
+            var roomId = { "id": selectedRoomId };
+            $.post(url, roomId, function (data) {
+                try {
+                    if (data && data.RentPerRoom !== undefined) {
+                        document.getElementById('RentPerRoom' + index).value = data.RentPerRoom;
+                    } else {
+                        console.error('Invalid data format');
+                    }
+                } catch (e) {
+                    console.error('Error:', e);
+                }
+            })
+                .fail(function (xhr, textStatus, errorThrown) {
+                    console.error('Request failed:', textStatus, errorThrown);
+                });
+        }
+    }
+    
+    function calculateNoOfNights(index) {
+        var dateFrom = document.getElementById("DateFrom" + index).value;
+        var dateTo = document.getElementById("DateTo" + index).value;
+
+        var startDate = new Date(dateFrom);
+        var endDate = new Date(dateTo);
+
+        var timeDifference = endDate - startDate;
+
+        var noOfNights = Math.round(timeDifference / (1000 * 60 * 60 * 24));
+        
+        if (noOfNights<0)
+            alert("Invalid dates selected")
+        else {
+            document.getElementById("NoOfNights" + index).value = noOfNights;
+            calculateTotalValue(index);
+            calculateAllRowTotalPrices();
+        }
+    }
+    
+    function calculateTotalValue(index) {
+        var quantity = parseFloat(document.getElementById("Quantity" + index).value);
+        var rentPerRoom = parseFloat(document.getElementById("RentPerRoom" + index).value);
+        var dateFrom = document.getElementById("DateFrom" + index).value;
+        var dateTo = document.getElementById("DateTo" + index).value;
+
+        var startDate = new Date(dateFrom);
+        var endDate = new Date(dateTo);
+
+        var timeDifference = endDate - startDate;
+
+        var noOfNights = Math.round(timeDifference / (1000 * 60 * 60 * 24));
+
+        var totalValue = quantity * rentPerRoom * noOfNights;
+
+        document.getElementById("TotalValue" + index).value = totalValue;
+        
+        calculateAllRowTotalPrices();
+    }
+    
+    function calculateAllRowTotalPrices() {
+        var rowCount = document.getElementById("TBody").rows.length;
+        var totalPrices = 0;
+
+        for (var index = 0; index < rowCount; index++) {
+            var quantity = parseFloat(document.getElementById("Quantity" + index).value);
+            var rentPerRoom = parseFloat(document.getElementById("RentPerRoom" + index).value);
+            var noOfNights = parseFloat(document.getElementById("NoOfNights" + index).value);
+
+            var rowTotalPrice = quantity * rentPerRoom * noOfNights;
+
+            totalPrices += rowTotalPrice;
+        }
+
+        document.getElementById("SubTotalAmount").value = totalPrices.toFixed(2);
+    }
+
+    function btnAdd() {
+        //var v =@Model.InvoiceNo;
+         //alert(index);
+        //$("#TBody").append("#TRow");
+        av = 1;
+
+        index = index + 1;
+        //$("#TBody").append($("#TRow").clone().find('input').val('').end());
+        //$("#TBody").append($("#TRow").clone());
+        // $("TBody").remove("#TRow")
+        // var v = $("#TRow").clone.appendTo("TBody");
+        //alert(v);
+        //alert("clicked");
+        //$(v).find("input").val('');
+        //$(v).removeClass("d-none");
+        //$(TRow).find('DateFrom').datepicker({
+        //    autoclose: false
+        //})
+
+        //`He's often called "Johnny"${index}`
+
+        $("#TBody").append('<tr id="tblRow' + index + '"><td>@index</td>' +
+            '<td><input type="text" id="InvoiceNo' + index + '" name="invoice[' + index + '].InvoiceNo"  class="form-control InvoiceNo" readonly="true"></td>' +
+            '<td><input onchange="calculateTotalValue(' + index + ')" type="number" id="Quantity' + index + '" name="invoice[' + index + '].Quantity"  class="form-control Quantity"></td>' +
+            '<td><select  onchange="getRoomDetails('+index+')"  id="PkRoomDetailsId' + index + '" name="invoice[' + index + '].PkRoomDetailsId" class="form-control PkRoomDetailsId">' +
+            '<td><input onchange="calculateNoOfNights(' + index + ')" type="date" id="DateFrom' + index + '" name="invoice[' + index +'].DateFrom" autocomplete="off"  required="required" class="form-control Datepicker"/></td>' +
+            '<td><input onchange="calculateNoOfNights(' + index + ')" type="date" id="DateTo' + index + '" name="invoice[' + index +'].DateTo" autocomplete="off"  required="required" class="form-control Datepicker"/></td>' +
+            '<td><input type="number" id="NoOfNights' + index + '" name="invoice[' + index + '].Quantity"  class="form-control NoOfNights" readonly="true"></td>' +
+            '<td><input type="number" id="NoOfPax' + index + '" name="invoice[' + index + '].NoOfPax"  class="form-control NoOfNights"></td>' +
+            '<td><input type="text" id="MealType' + index + '" name="invoice[' + index + '].MealType"  class="form-control MealType"></td>' +
+            '<td><input type="text" id="Remarks' + index + '" name="invoice[' + index + '].Remarks"  class="form-control Remarks"></td>' +
+            '<td><input type="number" id="RentPerRoom' + index + '" name="invoice[' + index + '].RentPerRoom"  class="form-control RentPerRoom" readonly="true"></td>' +
+            '<td><input type="number" id="MealPerPax' + index + '" name="invoice[' + index + '].MealPerPax"  class="form-control MealPerPax"></td>' +
+            '<td><input type="number" id="TotalValue' + index + '" name="invoice[' + index + '].TotalValue"  class="form-control TotalValue" readonly="true"></td>' +
+            '<td><a onclick="btnRemove(' + index + ')" class="btn btn-sm btn-outline-danger "><h8>x</h8></td></tr>');
+
+        var invoicenumber = document.getElementById("InvoiceNo").value;
+        $("#InvoiceNo" + index).val(invoicenumber)
+        //var roomDetails = document.getElementById("@Model.AllRoomDetails").value;
+        //alert(roomDetails);
+
+
+
+        var dropdownOptions = @Html.Raw(Json.Encode(Model.AllRoomDetails));
+        var dropdown = $("#PkRoomDetailsId" + index);
+        $.each(dropdownOptions, function (index, option) {
+            dropdown.append($('<option></option>').attr('value', option.Value).text(option.Text));
+        });
+        
+
+        var dateFrom = $("#DateFrom"+index);
+
+        // Set up date-time picker functionality (if needed)
+        dateFrom.datepicker({
+            //format: "YYYY-MM-DD", // Customize the format
+            dateFormat: 'yy-mm-dd', // Customize the date format as needed
+            changeMonth: true,
+            changeYear: true
+        });
+
+        // Example: Listen to changes in the date-time field
+        dateFrom.on("change", function () {
+            var selectedDate = dateFrom.val();
+            // Handle the selected date-time value
+            console.log("Selected Date: " + selectedDate);
+        });
+
+        var dateTo = $("#DateTo" + index);
+        // Set up date-time picker functionality (if needed)
+        dateTo.datepicker({
+            //format: "YYYY-MM-DD", // Customize the format
+            dateFormat: 'yy-mm-dd', // Customize the date format as needed
+            changeMonth: true,
+            changeYear: true
+        });
+
+        // Example: Listen to changes in the date-time field
+        dateTo.on("change", function () {
+            var selectedDate = dateTo.val();
+            // Handle the selected date-time value
+            console.log("Selected Date: " + selectedDate);
+        });
+    };
+
+
+    function btnRemove(index) {
+        //$(v).find("input").val('');
+        //$(v).removeClass("d-none");
+        //alert("clicked");
+        //$(this).closest('tr').remove();
+        //$(this).parent().remove();
+        //alert("clicked");
+        //$('#TRow').remove();
+        //$('#TRow tr:last').remove();
+        //$(this).closest('tr').empty();
+        //$('TRow tr').eq(docRowCount).remove();
+        // return false;
+        //alert("clicked");
+        $("#tblRow" + index).remove();
+    };
+
+    function getserviceinfo(id) {
+        $(function () {
+
+            var taxitem = document.getElementById("invoicedetails_" + id + "__ServiceID").value;
+            if (taxitem > 0) {
+                var url = '../Home/FeeInformation';
+                var data1 = { "id": taxitem };
+                $.post(url, data1, function (data) {
+                    if (data != null) {
+                        document.getElementById('invoicedetails_' + id + '__ProfileNo').value = data[1].Text;
+                        document.getElementById('invoicedetails_' + id + '__Quantity').value = 1.0;
+                        document.getElementById('invoicedetails_' + id + '__SellingPrice').value = parseFloat(data[0].Text);
+                        document.getElementById('invoicedetails_' + id + '__TotalAmount').value = parseFloat(data[0].Text);
+                        calulateTotalAmount(id);
+                    }
+
+                })
+            }
+            else {
+                document.getElementById('invoicedetails_' + id + '__SellingPrice').value = parseFloat(0);
+                document.getElementById('invoicedetails_' + id + '__TotalAmount').value = parseFloat(0);
+                document.getElementById('invoicedetails_' + id + '__ProfileNo').value = '';
+                calulateTotalAmount(id);
+            }
+
+        });
+    };
+
+    function getserviceinfoprofile(id) {
+        $(function () {
+
+            var taxitem = document.getElementById("invoicedetails_" + id + "__ProfileNo").value;
+            if (taxitem > 0) {
+                var url = '../Home/FeeInformationByProfile';
+                var data1 = { "profile": taxitem };
+                $.post(url, data1, function (data) {
+                    if (data != null) {
+                        document.getElementById("invoicedetails_" + id + "__ServiceID").value = parseInt(data[0].Text);
+
+
+                        document.getElementById('invoicedetails_' + id + '__Quantity').value = 1.0;
+                        document.getElementById('invoicedetails_' + id + '__SellingPrice').value = parseFloat(data[1].Text);
+                        document.getElementById('invoicedetails_' + id + '__TotalAmount').value = parseFloat(data[1].Text);
+                        calulateTotalAmount(id);
+
+                        $("#invoicedetails_" + id + "__ServiceID").trigger('change');
+                    }
+                    else {
+                        alert("Profile Not Found");
+                    }
+                })
+            }
+            else {
+                document.getElementById('invoicedetails_' + id + '__SellingPrice').value = parseFloat(0);
+                document.getElementById('invoicedetails_' + id + '__TotalAmount').value = parseFloat(0);
+                calulateTotalAmount(id);
+            }
+
+        });
+    };
+
+    $(function () {
+        $("#DebitLedgerID").change(function () {
+            var taxitem = document.getElementById("DebitLedgerID").value;
+            if (taxitem > 0) {
+                var url = '../Home/CustomerInformation';
+                var data1 = { "id": taxitem };
+                $.post(url, data1, function (data) {
+                    document.getElementById('CustomerMobile').value = data[0].Text;
+                    document.getElementById('CustomerCode').value = data[1].Text;
+
+                })
+            }
+        });
+        $("#CustomerCode").change(function () {
+            var taxitem = document.getElementById("CustomerCode").value;
+            if (taxitem != '' && taxitem != null) {
+                var url = '../Home/CustomerCodeInformation';
+                var data1 = { "id": taxitem };
+                $.post(url, data1, function (data) {
+                    if (data != null) {
+                        document.getElementById('CustomerMobile').value = data[0].Text;
+                        document.getElementById('DebitLedgerID').value = parseInt(data[1].Text);
+                        $("#DebitLedgerID").trigger('change');
+                    }
+                    else {
+                        alert("Customer Not Found!!!")
+                    }
+                })
+            }
+        });
+
+        //$("#Dateto").change(function () {
+        //    //alert(document.getElementsByClassName('valued-row').value);
+        //    document.getElementById("RentPerRoom").value = 5000;   ///manually added RentPrice for testing purpose
+        //    if (document.getElementById("DateFrom").value != null) {
+        //        var dat1 = document.getElementById("DateFrom").value;
+        //        var date1 = new Date(dat1)
+        //        var dat2 = document.getElementById("Dateto").value;
+        //        var date2 = new Date(dat2);
+
+        //        var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+        //        var diffDays = Math.abs((date1.getTime() - date2.getTime()) / (oneDay));
+        //        diffDays = diffDays + 1;
+        //        document.getElementById("TotalNights").value = diffDays;
+
+        //        //---------total amount add-------------
+        //        var quantityOfRooms = parseInt(document.getElementById("Quantity").value);
+        //        var pricePerRoom = parseInt(document.getElementById("RentPerRoom").value);
+        //        var totalNight = parseInt(document.getElementById("TotalNights").value);
+
+        //        totalAmount = quantityOfRooms * pricePerRoom * totalNight;
+        //        document.getElementById("TotalAmount").value = totalAmount;
+        //        document.getElementById("SubTotalAmount").value = totalAmount;
+        //        document.getElementById("DiscountAmount").value = 1;
+        //    }
+
+        //});
+        $("#DateFrom").change(function () {
+
+            alert("clicked");
+
+            if (document.getElementById("Dateto").value != null) {
+                var dat1 = document.getElementById("DateFrom").value;
+                var date1 = new Date(dat1)
+                var dat2 = document.getElementById("Dateto").value;
+                var date2 = new Date(dat2);
+
+                var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+                var diffDays = Math.abs((date1.getTime() - date2.getTime()) / (oneDay));
+                diffDays = diffDays + 1;
+                document.getElementById("TotalNights").value = diffDays;
+
+                //alert("clicked");
+            }
+
+        });
+
+        //$("#PkHotelDetailsId").change(function () {
+
+        //    var quantityOfRooms = parseInt(document.getElementById("Quantity").value);
+        //    var pricePerRoom = parseInt(document.getElementById("RentPerRoom").value);
+        //    var totalNight = parseInt(document.getElementById("TotalNights").value);
+
+        //    totalAmount = quantityOfRooms * pricePerRoom * totalNight;
+        //    document.getElementById("TotalAmount").value = totalAmount;
+
+        //});
+
+
+    });
+
+    function calulateTotalAmount(id) {
+        var taxitem = document.getElementById("invoicedetails_" + id + "__ServiceID").value;
+
+        if (taxitem > 0) {
+            var quantity = parseFloat(document.getElementById('invoicedetails_' + id + '__Quantity').value);
+            var salePrice = parseFloat(document.getElementById('invoicedetails_' + id + '__SellingPrice').value).toFixed(3) * quantity;
+            var totalAmount = parseFloat(document.getElementById('invoicedetails_' + id + '__TotalAmount').value).toFixed(3);
+            totalAmount.value = 0;
+
+            var afterDiscount = salePrice;
+            document.getElementById('invoicedetails_' + id + '__TotalAmount').value = afterDiscount;
+            calculateSubTotals();
+        }
+
+    }
+
+    function calculateSubTotals() {
+        var tableRows = document.getElementsByClassName('valued-row');
+        var SubtotalAmount = 0.00;
+
+        for (var i = 1; i <= tableRows.length; i++) {
+            var newid = i - 1;
+            var taxitem = document.getElementById("invoicedetails_" + newid + "__ServiceID").value;
+
+            if (taxitem > 0) {
+
+                var checktotalamount = 0.00;
+                checktotalamount = parseFloat(document.getElementById('invoicedetails_' + newid + '__TotalAmount').value);
+                document.getElementById('invoicedetails_' + newid + '__TotalAmount').value = checktotalamount.toFixed(3);
+                if (checktotalamount > 0) {
+
+                    SubtotalAmount += checktotalamount;
+
+                }
+
+            }
+        }
+        document.getElementById('SubTotalAmount').value = parseFloat(SubtotalAmount).toFixed(3);
+        var discount = parseFloat(document.getElementById('DiscountAmount').value).toFixed(3);
+        console.log('SubtotalAmount: ' + SubtotalAmount);
+
+        document.getElementById('TotalAmount').value = parseFloat(SubtotalAmount - discount).toFixed(3);
+
+    }
+
+
+    function setSelectedValue(selectObj, valueToSet) {
+        for (var i = 0; i < selectObj.options.length; i++) {
+            if (selectObj.options[i].text == valueToSet) {
+                selectObj.options[i].selected = true;
+                return;
+            }
+        }
+    }
+
+    function getReservationNo(id) {
+        $(function () {
+
+            var url = '../Home/FeeInformation';
+            $.post(function (data) {
+                if (data != null) {
+
+
+                }
+            });
+
+        });
+    };
+    function calculateColumn(index) {
+        var total = 0;
+        $('table tr').each(function () {
+            var value = parseInt($('td', this).eq(index).text());
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
+        document.getElementById('SubTotalAmount').value = value;
+    }
+
+</script>
+
+
+
+<style>
+    .fixed-table-container {
+        /*height: auto !important;*/
+        padding-bottom: 0 !important;
+    }
+
+    .fixed-table-header {
+        margin-right: 0px !important;
+    }
+</style>
+
+@* datatable export to pdf script start*@
+@Html.Partial("_succesorfailuremodal")
+@* datatable export to pdf script end*@
+<div class="content-heading-wrap">
+    <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+        <div class="col-lg-4 col-md-3 align-self-center">
+            <h5 class="text-themecolor">All Invoices</h5>
+        </div>
+        <div class="col-lg-8 col-md-9 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ul class="mx-2 path-link">
+                    <li class="d-inline-block">
+                        <a href="@Url.Action("Index", "Home")"> Dashboard</a>
+                    </li>
+                    &nbsp; &gt; &nbsp;
+                    <li class="d-inline-block active">Invoices</li>
+                </ul>
+                <a class="btn btn-primary"
+                   href="@Url.Action("Index", "Home")">
+                    <i class="fa fa-plus-circle"></i> <span class="create-btn">All Invoice</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/assets/invoicedesign.css" rel="stylesheet" />
+
+
+@using (Html.BeginForm("CreateInvoice", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
+
+    <div class="content-wrap overflow-hidden position-relative invoice-area" id="invoice">
+        <div class="bg-invoice-watermark">
+            <img src="~/Resources/Organization/Organization - Copy.jpg" />
+        </div>
+        <div class="col-md-12">
+            <div class="company-logo-img" style="width:10%;height:10%; position:center">
+
+                <img src="~/Resources/Organization/Organization.jpg" />
+            </div>
+        </div>
+        <div id="contentToPrint" class="">
+            <div class="border-bolder"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="bill-to" style="display:flex;">
+
+                        <div style="margin-left:10px;">
+                            @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="bill-to" style="display:flex;">
+                        <p class="">Date: </p>
+                        <div style="margin-left:10px;">
+                            @*@Html.EditorFor(model => model.InvoiceDate, new { @class = "form-control", @type = "date" })*@
+                        </div>
+                    </div>
+                    <div class="bill-to" style="display:flex;">
+                        <p class="">To:</p>
+                        <div style="margin-left:10px;">
+                            @*@Html.DropDownListFor(model => model.PkCustomerID, Model.allClients, "select", new { @class = " form-control ", required = "required" })*@
+                        </div>
+                    </div>
+                    <div class="bill-to" style="display:flex;">
+                        <p class="">Reservation:</p>
+                        <div style="margin-left:10px;">
+                            @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="col-md-12">
+                <div class="">
+                    <h6>As Salamo Alaikum WRWB</h6>
+                    <h6>Greetings from Taibah Smart System</h6>
+                    <h6>We thank you for your patronage.Please find updates to your reservation as under:</h6>
+                    <h6>
+                        We think you for your patronage. Please fond updates to your receivers as under
+                    </h6>
+
+                </div>
+
+            </div>
+            <div class="row justify-content-between">
+
+                <div class="col-lg-4 col-md-4">
+                    <div class="bill-to" style="display:flex;">
+                        <p class="">LEAD PAX:</p>
+                        <div style="margin-left:10px;">
+                            @Html.TextBoxFor(model => model.HotelName, new { @class = "form-control", @type = "text" })
+                        </div>
+                    </div>
+                    <div class="bill-to" style="display:flex;">
+                        <p class="">HOTEL:</p>
+                        <div style="margin-left:10px;">
+                            @Html.TextBoxFor(model => model.HotelName, new { @class = "form-control", @type = "text" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="bill-to" style="display:flex;">
+                        <p class="">NATIONALITY:</p>
+                        <div style="margin-left:10px;">
+                            @Html.TextBoxFor(model => model.CustomerNationality, new { @class = "form-control", @type = "text" })
+                        </div>
+                    </div>
+                    <div class="bill-to" style="display:flex;">
+                        <p class="">RESV DATE: </p>
+                        <div style="margin-left:10px;">
+                            @Html.EditorFor(model => model.InvoiceDate, new { @class = "form-control", @type = "date" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class=" table-parent">
+                        <input type="hidden" id="InvoiceNo" name="InvoiceNo" value="@Model.InvoiceNo" />
+                        @Html.DropDownListFor(model => model.PkRoomDetailsId, Model.AllRoomDetails, "select", new { @class = " form-control ", hidden = "true" })
+                        <table id="invoice-table">
+
+                            <thead class="table-success">
+
+                                <tr>
+                                    <th>SL#</th>
+                                    <th>Hotel Conf#</th>
+                                    <th class="text-center">Rooms</th>
+                                    <th class="text-center">Room Details</th>
+                                    <th class="text-center" style="width:11%">Check In</th>
+                                    <th class="text-center" style="width:11%">Check Out</th>
+                                    <th class="text-center" style="width:7%">No Of Nights</th>
+                                    <th class="text-center">No Of Pax</th>
+                                    <th class="text-center">Meal Type</th>
+                                    <th class="text-center">Spl Remarks</th>
+                                    <th class="text-center">Price Per Room</th>
+                                    <th class="text-center">Meal Per Pax</th>
+
+                                    <th class="text-center" style="width: 11%;">total</th>
+                                    <th class="text-center" style="width: 3%;"><button type="button" class="btn btn-sm btn-success" onclick="btnAdd()">+</button></th>
+
+                                </tr>
+
+                            </thead>
+                            <tbody id="TBody">
+                                @*<tr style="overflow: auto">
+                                        <td>
+                                            <input type="text" id="invoiceNo0" name="invoice[0].InvoiceNo" required="required" autocomplete="off" class="form-control Datepicker" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="Description0" name="transaction[0].Description" required="required" class="form-control Description" />
+                                        </td>
+                                        <td>
+                                            <select id="Instruments0" name="transaction[0].Instruments" class="form-control">
+                                                <option value="Cash">Cash</option>
+                                                <option value="Check">Check</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" id="InstrumentId0" name="transaction[0].InstrumentId" class="form-control" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="Party0" name="transaction[0].Party" class="form-control Party" />
+                                        </td>
+                                        <td>
+                                            <select id="TransactionType0" name="transaction[0].TransactionType" class="form-control" onchange="CalculateBalance()">
+                                                <option value="Withdraw">Withdraw</option>
+                                                <option value="Deposit">Deposit</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" step="any" required="required" id="TransactionValue0" name="transaction[0].TransactionValue" class="form-control" onblur="CalculateBalance()" />
+                                        </td>
+                                        <td></td>
+
+                                    </tr>*@
+                                @*<tr style="visibility: visible;" id="TRow">
+                                        <td style="width: 50px;"></td>
+
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", @type = "text" })
+                                        </td>
+
+                                        <td class="text-left">
+                                            @Html.DropDownListFor(model => model.PkRoomDetailsId, Model.AllRoomDetails, "select", new { @class = " form-control ", required = "required" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.DateFrom, new { @class = "form-control", @type = "date" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.Dateto, new { @class = "form-control ", @type = "date" })
+                                        </td>
+                                        <td class="text-right">
+
+                                            <input type="text" id="DateFrom" name="DateFrom" class="form-control date-format" placeholder="" value="@Model.DateFrom.ToString("MMMM-dd-yyyy")">
+                                        </td>
+                                        <td class="text-right">
+
+
+                                            <input type="text" id="Dateto" name="Dateto" class="form-control date-format" placeholder="" value="@Model.DateFrom.ToString("MMMM-dd-yyyy")">
+                                        </td>
+
+
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.TotalNights, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.TotalPax, new { @class = "form-control", @type = "text" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.MealType, new { @class = "form-control", @type = "text" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.Remarks, new { @class = "form-control", @type = "text" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.RentPerRoom, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.MealPerPax, new { @class = "form-control", @type = "text" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.TotalAmount, new { @class = "form-control amount", @type = "text", @readonly = "readonly" })
+                                        </td>
+                                        <td class="text-right">
+                                            <button type="button" class="btn btn-sm btn-success" onclick="btnRemove()">-</button>
+                                        </td>
+
+                                    </tr>*@
+                                @*<tr style="visibility: visible;" id="TRow">
+                                        <td style="width: 50px;"></td>
+
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", @type = "text" })
+                                        </td>
+
+                                        <td class="text-left">
+                                            @Html.DropDownListFor(model => model.PkRoomDetailsId, Model.AllRoomDetails, "select", new { @class = " form-control ", required = "required" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.DateFrom, new { @class = "form-control", @type = "date" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.Dateto, new { @class = "form-control ", @type = "date" })
+                                        </td>
+                                        <td class="text-right">
+
+                                            <input type="text" id="DateFrom" name="DateFrom" class="form-control date-format" placeholder="" value="@Model.DateFrom.ToString("MMMM-dd-yyyy")">
+                                        </td>
+                                        <td class="text-right">
+
+
+                                            <input type="text" id="Dateto" name="Dateto" class="form-control date-format" placeholder="" value="@Model.DateFrom.ToString("MMMM-dd-yyyy")">
+                                        </td>
+
+
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.TotalNights, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.TotalPax, new { @class = "form-control", @type = "text" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.MealType, new { @class = "form-control", @type = "text" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.Remarks, new { @class = "form-control", @type = "text" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.RentPerRoom, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.MealPerPax, new { @class = "form-control", @type = "text" })
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.TextBoxFor(model => model.TotalAmount, new { @class = "form-control amount", @type = "text", @readonly = "readonly" })
+                                        </td>
+                                        <td class="text-right">
+                                            <button type="button" class="btn btn-sm btn-success" onclick="btnRemove()">-</button>
+                                        </td>
+
+                                    </tr>*@
+
+
+                                @*@for (var item = Model.invoicedetails.Count + 1; item < 17; item++)
+                                    {
+                                        <tr style="visibility: visible;" class="d-none" id="TRow">
+                                            <td style="width: 50px;">@index</td>
+
+                                            <td class="text-right">
+                                                @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                                            </td>
+                                            <td class="text-right">
+                                                @Html.TextBoxFor(model => model.invoicedetails[item].Quantity, new { @class = "form-control", @type = "text" })
+                                            </td>
+
+                                            <td class="text-left">
+                                                @Html.DropDownListFor(model => model.invoicedetails[item].PkRoomDetailsId, Model.AllRoomDetails, "select", new { @class = " form-control ", required = "required" })
+                                            </td>
+
+                                            <td class="text-right">
+
+                                                <input type="text" id="DateFrom" name="DateFrom" class="form-control date-format" placeholder="" value="@Model.invoicedetails[item].DateFrom.ToString("MMMM-dd-yyyy")">
+                                            </td>
+                                            <td class="text-right">
+
+
+                                                <input type="text" id="Dateto" name="Dateto" class="form-control date-format" placeholder="" value="@Model.invoicedetails[item].DateFrom.ToString("MMMM-dd-yyyy")">
+                                            </td>
+
+
+                                            <td class="text-right">
+                                                @Html.TextBoxFor(model => model.invoicedetails[item].TotalNights, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                                            </td>
+                                            <td class="text-right">
+                                                @Html.TextBoxFor(model => model.invoicedetails[item].TotalPax, new { @class = "form-control", @type = "text" })
+                                            </td>
+                                            <td class="text-right">
+                                                @Html.TextBoxFor(model => model.invoicedetails[item].MealType, new { @class = "form-control", @type = "text" })
+                                            </td>
+                                            <td class="text-right">
+                                                @Html.TextBoxFor(model => model.invoicedetails[item].Remarks, new { @class = "form-control", @type = "text" })
+                                            </td>
+                                            <td class="text-right">
+                                                @Html.TextBoxFor(model => model.RentPerRoom, new { @class = "form-control", @type = "text", @readonly = "readonly" })
+                                            </td>
+                                            <td class="text-right">
+                                                @Html.TextBoxFor(model => model.invoicedetails[item].MealPerPax, new { @class = "form-control", @type = "text" })
+                                            </td>
+                                            <td class="text-right">
+                                                @Html.TextBoxFor(model => model.TotalAmount, new { @class = "form-control amount", @type = "text", @readonly = "readonly" })
+                                            </td>
+
+                                        </tr>
+                                    }*@
+
+
+
+
+                                @*@for (var item = Model.invoicedetails.Count + 1; item < 17; item++)
+                                    {
+                                        <tr class="d-none" id="TRow">
+                                            <td style="width: 50px;">@item</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    }*@
+                                <!--<tr id="TRow">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>-->
+
+                            </tbody>
+
+
+
+
+                            <tfoot>
+                                <tr>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+
+                                    <td class="footer-blod-text" colspan="5">Total Price (SAR)</td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.SubTotalAmount, new { @class = "form-control text-right", @type = "number", @step = "any", @style = "background:white;color:black;", @readonly = "readonly" })
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td class="footer-blod-text" colspan="5">VAT  15%</td>
+                                    <td>@Html.TextBoxFor(m => m.DiscountAmount, new { @class = "form-control text-right", @type = "number", @step = "any", @style = "background:white;color:black;", onchange = "calculateSubTotals()", @readonly = "readonly" })</td>
+
+                                </tr>
+                                <tr>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td style="border:0"></td>
+                                    <td class="footer-blod-text" style="font-size: 18px;" colspan="5">Net Total (SAR)</td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control text-right", @type = "number", @step = "any", @style = "background:white;color:black;", @readonly = "readonly" })
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td class="footer-blod-text" colspan="12">Option Date: Please send Bank Transfer by</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-md-8 col-xl-8">
+                    <div class="sign-wrap">
+                        <span>Standard Timings for all Hotels in Saudi Arabia:</span>
+                        <span class="text-decoration-underline w-50 d-inline-block"></span>
+                    </div>
+                    <div class="sign-wrap">
+                        <span>Check-in Time 16:00 & Check-out Time: 13:00</span>
+                        <span class="text-decoration-underline w-75 d-inline-block"></span>
+                    </div>
+                    <div class="sign-wrap">
+                        <span>
+                            We hope that we have coverd all your request waiting for your reply by the option date otherwise the
+                            reservation will be released automatically without prior notic
+                        </span>
+                        <span class="text-decoration-underline w-75 d-inline-block"></span>
+                    </div>
+
+                </div>
+                <div class="sign-wrap">
+                    <span>
+                        Thanks & Regards
+                        Madni
+                    </span>
+                    <span class="text-decoration-underline w-75 d-inline-block"></span>
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="sign-wrap">
+                        <span>Salesman</span>
+                        <span class="border-bottom-1 w-75 d-inline-block"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="border-bolder"></div>
+            <div class="sign-wrap">
+                <span>
+                    Taibah travel and toursim
+                </span>
+                <span class="text-decoration-underline w-75 d-inline-block"></span>
+            </div>
+            <div class="sign-wrap">
+                <span>
+                    Mail:      resv@taibaah.com
+                </span>
+                <span class="text-decoration-underline w-75 d-inline-block"></span>
+            </div>
+            <div class="row">
+
+
+
+                <div class="col-md-12 mt-3">
+                    <button id="createitem" style="display:block;padding:8px 40px;margin-left:auto;" type="submit" class="btn btn-primary btn-lg" name="Create" value="Create">
+                        Save
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+}
+
+<span class="text-right text-bold" id="CustomerName" style="display:none;">Invoice</span>
+<script src="~/Content/assets/js/invoice-table.init.js"></script>
+

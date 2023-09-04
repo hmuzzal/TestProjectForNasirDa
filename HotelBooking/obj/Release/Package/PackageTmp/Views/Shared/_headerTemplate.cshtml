@@ -1,0 +1,114 @@
+﻿<link href="~/Content/assets/invoicedesign.css" rel="stylesheet" />
+
+<div class="content-wrap overflow-hidden position-relative invoice-area" id="headertemplate">
+    <div class="bg-invoice-watermark">
+        <img src="~/Resources/Organization/Organization - Copy.jpg" />
+    </div>
+    <div id="contentToPrint" class="">
+
+        <div class="border-bolder"></div>
+        <div class="row">
+            <div class="col-md-4 ">
+                <div class="company-name" style="position: relative;">
+                    <h2 style="font-size:30px;">
+                        max united
+                       
+                    </h2>
+                    <h4>aluminium Profiles</h4>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="company-name mx-auto companynamearabic">
+                    <img src="~/Content/ar-font-name.jpg" />
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="company-logo-img" style="width:70%;">
+                    <img src="~/Resources/Organization/Organization.jpg" />
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-5 col-lg-4">
+                <div class="company-details">
+                    <h2 id="company-details" style="font-size:25px;">
+                        Statements of Accounts
+
+                    </h2>
+
+                    <ul>
+                        <li>
+                            <span>
+                                <img src="~/Content/tele.png" />
+                            </span>
+                            <span>+96555349455 - 98984100</span>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Content/instagram.png" />
+                            </span>
+                            <span>maxunited.q8</span>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Content/Gmail_Logo_512px.png" />
+                            </span>
+                            <span>maxunited.q8@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-2 col-lg-3">
+                <div class="qr-photo-upload-dialog--qr--image">
+                    <div id="qrcode">
+                        <span class="barcode-img">
+                            <img src="~/Content/assets/logo-MU-barcode.jpg" />
+                        </span>
+                    </div>
+                </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+                <script>
+                    var qrcode = new QRCode("qrcode",
+                        "https://poplme.co/hash/4De7UuUG/1/a");
+                </script>
+            </div>
+            <div class="col-md-5 col-lg-4">
+                <div class="invoice-form">
+                    <div id="CustomerName" style="display:none;"> @Model.CustomerName</div>
+                    <ul>
+
+                        <li style="display:flex;"><span>Date. </span> <span style="color:red;margin-left:5px;"> @Model.DateFrom.ToString("dd-MMM-yy") to @Model.Dateto.ToString("dd-MMM-yy")</span></li>
+                        <li style="display:flex;"><span>Opening Balance : </span><span style="margin-left: 5px;"> @Model.OpeningBalance</span></li>
+                        <li style="display:flex;"><span>Invoice Amount  : </span><span style="margin-left: 5px;"> @string.Format("{0:n}", Model.TotalDebit)</span></li>
+                       
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-8 col-md-7">
+
+                <div class="bill-to" style="display:flex;">
+                    <p class="">Customer Name:</p>
+                    <div style="margin-left:10px;">
+                        @Model.CustomerName
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5 col-lg-4">
+
+                <div class="bill-to" style="display:flex;">
+                    <p class="">Customer Contact No: </p>
+                    <div style="margin-left:10px;">
+                        @Model.CustomerPhone
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

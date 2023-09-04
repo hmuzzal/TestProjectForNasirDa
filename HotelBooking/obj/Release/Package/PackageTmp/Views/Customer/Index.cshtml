@@ -1,0 +1,358 @@
+﻿@model InvoiceSoftware.DataLayer.ViewModels.CustomerView.CustomerViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/assets/js/InvoiceSoftware.js"></script>
+
+@* datatable export to pdf script start*@
+@Html.Partial("_succesorfailuremodal")
+@* datatable export to pdf script end*@
+
+<script>
+    $(document).ready(function () {
+        try {
+            var currencyid = document.getElementById("updateCustomer_PkCustomerId").value;
+            if (currencyid != 0) {
+                $('#EditModal').modal('show');
+            }
+        } catch {
+
+        }
+
+    });
+</script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div class="content-heading-wrap">
+        <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+            <div class="col-lg-4 col-md-3 align-self-center">
+                <h5 class="text-themecolor">Manage Customer</h5>
+            </div>
+            <div class="col-lg-8 col-md-9 align-self-center text-right">
+                <div class="d-flex justify-content-end align-items-center">
+                    <ul class="mx-2 path-link">
+                        <li class="d-inline-block">
+                            <a href="@Url.Action("Index", "Home")"> Dashboard</a>
+                        </li>
+                        &nbsp; &gt; &nbsp;
+                        <li class="d-inline-block active">Customer</li>
+                    </ul>
+                    <a class="btn btn-primary"
+                       data-toggle="modal"
+                       href="#AddModal">
+                        <i class="fa fa-plus-circle"></i> <span class="create-btn">Create Customer</span>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrap">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="toolbar">
+
+                        </div>
+
+                        @*data table name.pdf start*@
+
+                    <div id="dataTableName" style="display:none;">Customer</div>
+
+                        @*data table name.pdf end*@
+
+                        <div class="table-responsive" id="contentToPrint">
+                            <table class="table display table-bordered table-striped no-wrap no-wrap table-bordered table-hover table ledger-table-body" id="ledger-table" data-toolbar="#toolbar" data-search="true"
+                                   data-show-refresh="true" data-show-toggle="true" data-show-fullscreen="true" data-show-print="true"
+                                   data-show-columns="true" data-show-export="true"
+                                   data-detail-formatter="detailFormatter" data-minimum-count-columns="2"
+                                   data-show-pagination-switch="true" data-pagination="true" data-id-field="id"
+                                   data-show-footer="false">
+                                <thead>
+                                    <tr>
+
+                                        <th>#</th>
+                                        
+                                        <th scope="col" class="border text-start">Name</th>
+                                        <th scope="col" class="border text-start">Mobile</th>
+                                        
+                                        <th scope="col" class="border text-start">Invoice Amount</th>
+                                       
+                                        <th scope="col" class="border text-center">Operation</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody id="checkall-target">
+                                    @{
+                                        int i = 0;
+                                    }
+                                    @foreach (var item in Model.allCustomers)
+                                    {
+                                        i++;
+                                        <tr>
+
+                                            <td>
+                                                @i
+                                            </td>
+                                           
+                                            <td class="title">@item.Name</td>
+                                            
+                                            <td class="title">@item.Mobile</td>
+                                            <td class="title">@item.ledger.ClosingBalance</td>
+                                           
+                                            <td class="text-center hide-for-pdf">
+
+                                                <div class="action-btn-dropdown">
+                                                    <span onclick="showorhidenextelements(@i)"
+                                                          class="showorhidenextelements">
+                                                        <i class="fa fa-tasks dropbtnstas" aria-hidden="true"></i>
+                                                    </span>
+                                                    <ul class="action-dropdown" id="level@(i)">
+                                                        <li>
+                                                            <a title="update"
+                                                               href="@Url.Action("Index", "Customer", new { id = item.PkCustomerId })">
+                                                                <img src="~/Content/assets/img/icon/edit.png" /> Update
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a title="client statement" href="@Url.Action("CustomerStatementSingle", "Customer", new { id = item.LedgerID })">
+                                                                <img src="~/Content/assets/img/icon/invoicel.png" />  Statement
+                                                            </a>
+
+                                                        </li>
+                                                        <li>
+                                                            <a title="delete" href="javascript:void(0)" onclick="deleteItem(@i)">
+                                                                <img src="~/Content/assets/img/icon/delete.png" />  Delete
+                                                            </a>
+                                                            <a id="deleteitem@(i)"
+                                                               href="@Url.Action("DeleteCustomer", "Customer", new { id = item.PkCustomerId })" style="display:none;">
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot class="ledger-table-foot">
+                                    <tr class="text-left">
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("Index", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+    <div class="card" style="margin:0">
+        <div class="card-body" style="padding:0">
+            <div id="AddModal"
+                 class="modal fade bd-example-modal-lg"
+                 role="dialog"
+                 aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Create Customer
+                            </h5>
+                            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button> -->
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Customer Name : </label>
+
+                                        @Html.TextBoxFor(model => model.createCustomer.Name, new { @class = "form-control" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createCustomer.Name) </small>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Customer Code : </label>
+
+                                        @Html.TextBoxFor(model => model.createCustomer.CustomerCode, new { @class = "form-control" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createCustomer.CustomerCode) </small>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Email: </label>
+
+                                        @Html.TextBoxFor(model => model.createCustomer.Email, new { @class = "form-control", @type = "email" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createCustomer.Email) </small>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Mobile : <span class="required"> </span></label>
+
+                                        @Html.TextBoxFor(model => model.createCustomer.Mobile, new { @class = "form-control" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createCustomer.Mobile) </small>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Present Address : </label>
+
+                                        @Html.TextBoxFor(model => model.createCustomer.PresentAddress, new { @class = "form-control" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createCustomer.PresentAddress) </small>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Permanent Address : </label>
+
+                                        @Html.TextBoxFor(model => model.createCustomer.PermanentAddress, new { @class = "form-control" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createCustomer.PermanentAddress) </small>
+
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="modal-footer">
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-dismiss="modal" onclick='closeModalAdd()'>
+                                Close
+                            </button>
+                            <button id="createitem" type="submit" class="btn btn-primary" name="Create" value="Create">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("Index", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+    <div class="card" style="margin:0">
+        <div class="card-body" style="padding:0">
+            <div id="EditModal"
+                 class="modal fade bd-example-modal-lg"
+                 role="dialog"
+                 aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Update Customer
+                            </h5>
+
+                        </div>
+
+                        <div class="modal-body">
+                            @Html.HiddenFor(m => m.updateCustomer.PkCustomerId)
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Customer Name : </label>
+
+                                        @Html.TextBoxFor(model => model.updateCustomer.Name, new { @class = "form-control" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updateCustomer.Name) </small>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Email: </label>
+
+                                        @Html.TextBoxFor(model => model.updateCustomer.Email, new { @class = "form-control", @type = "email" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updateCustomer.Email) </small>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Mobile : <span class="required">* </span></label>
+
+                                        @Html.TextBoxFor(model => model.updateCustomer.Mobile, new { @class = "form-control", @required = "required" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updateCustomer.Mobile) </small>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-form-label">Present Address : </label>
+
+                                        @Html.TextBoxFor(model => model.updateCustomer.PresentAddress, new { @class = "form-control", @required = "required" })
+                                        <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updateCustomer.PresentAddress) </small>
+
+
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+
+
+                        <br />
+                        <div class="modal-footer">
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-dismiss="modal" onclick='closeModal()'>
+                                Close
+                            </button>
+                            <button id="updateitem" type="submit" class="btn btn-primary" name="Update" value="Update">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+
+            </div>
+        </div>
+    </div>
+}
+
+<span class="text-right text-bold" id="CustomerName" style="display:none;">Customer_List</span>
+
+<script src="~/Content/assets/js/customer-table.init.js"></script>
+
+

@@ -1,0 +1,472 @@
+﻿
+@font-face {
+    font-family: 'notosansarabic-variablefont_wdth,wght';
+    src: url('../webfonts/notosansarabic-variablefont_wdth,wght.ttf') format('truetype');
+}
+
+/*.companynamearabic h2,h4{
+    font-family: 'notosansarabic-variablefont_wdth,wght';
+}*/
+
+#contentToPrint {
+    position: relative;
+}
+
+.bg-invoice-watermark {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.company-name h2 {
+    font-size: 52px;
+    margin-bottom: 8px;
+}
+
+.company-name h4 {
+    margin-left: 24px;
+}
+
+.company-name h2,
+.company-name h4 {
+    text-transform: uppercase;
+    color: #3887c2;
+    font-weight: 900;
+}
+
+.company-logo-img {
+    width: 300px;
+    margin-left: auto;
+}
+
+.content-wrap .card {
+    background: transparent;
+}
+
+.border-bolder {
+    border: 10px solid #3887c2;
+}
+
+
+.company-details h2 {
+    text-transform: uppercase;
+    color: #3887c2;
+    font-weight: 900;
+    position: relative;
+    font-size: 52px;
+    margin-bottom: 12px;
+}
+
+.company-details-create h2 {
+    text-transform: uppercase;
+    color: #3887c2;
+    font-weight: 900;
+    position: relative;
+    font-size: 52px;
+    margin-bottom: 12px;
+}
+
+    .company-details h2 span {
+        position: absolute;
+        font-size: 12px;
+        bottom: -3px;
+        left: 192px;
+    }
+
+    .company-details h2.pseudo span {
+        font-size: 8px;
+        left: 100px;
+    }
+
+.company-details ul li {
+    color: #3887c2;
+    font-size: 18px;
+}
+
+.company-details img {
+    width: 14px;
+}
+
+/*.qr-photo-upload-dialog--qr--image {
+    height: 200px;
+    width: 200px;
+    margin: auto;
+}*/
+
+.invoice-form ul li {
+    color: #3887c2;
+    font-size: 18px;
+    border-bottom: 1px solid #3887c2;
+    margin-top: 24px;
+    text-transform: uppercase;
+}
+
+
+
+.bill-to {
+    color: #3887c2;
+    font-size: 18px;
+    border-bottom: 1px solid #3887c2;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+}
+
+thead {
+    background: #e7f8ff;
+    color: #3887c2;
+}
+
+tbody,
+td,
+th,
+thead,
+tr {
+    border: 1px solid #3887c2;
+    color: #3887c2;
+}
+
+td,
+th {
+    padding: 3px;
+}
+
+th {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+td {
+    height: 50px;
+    text-align: center;
+}
+
+tfoot,
+tfoot tr {
+    border: 0;
+}
+
+.sign-wrap {
+    color: #3887c2;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-blod-text {
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #3887c2;
+    text-align: right;
+    border: 0;
+}
+
+.footer-address h3 {
+    font-weight: 600;
+    color: #3887c2;
+}
+
+.table-parent {
+    overflow-x: auto;
+}
+
+    .table-parent table {
+        width: 100%;
+    }
+
+#qrcode {
+    position: relative;
+    max-width: 115px;
+    margin: 0 auto;
+}
+
+.companynamearabic img{
+    display:block;
+    margin:0 auto;
+}
+
+.barcode-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: #fff;
+    font-size: 18px;
+    font-weight: 900;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .barcode-img img {
+        display: block;
+        width: 70%;
+    }
+
+
+
+@media screen and (min-width:1200px) and (max-width: 1599px) {
+    .company-name h2 {
+        font-size: 38px;
+    }
+    .company-name h4 {
+        margin-left: 10px;
+        font-size: 20px;
+    }
+    .footer-address h3 {
+        font-size: 18px;
+    }
+    .bill-to {
+        font-size: 15px;
+    }
+}
+@media screen and (min-width:991px) and (max-width: 1199px) {
+    .company-name h2 {
+        font-size: 30px;
+    }
+
+    .company-name h4 {
+        font-size: 16px;
+        margin-left: 8px;
+    }
+
+    .company-logo-img {
+        width: 200px;
+        margin-left: auto;
+    }
+
+
+    .company-details h2 {
+        text-transform: uppercase;
+        color: #3887c2;
+        font-weight: 900;
+        position: relative;
+        font-size: 30px;
+        margin-bottom: 12px;
+    }
+
+       
+
+    .company-details ul li {
+        color: #3887c2;
+        font-size: 14px;
+    }
+
+    /* .qr-photo-upload-dialog--qr--image {
+        height: 150px;
+        width: 150px;
+    }*/
+
+    .invoice-form ul li {
+        color: #3887c2;
+        font-size: 12px;
+        border-bottom: 1px solid #3887c2;
+        margin-top: 24px;
+        text-transform: uppercase;
+    }
+
+
+
+    .bill-to {
+        color: #3887c2;
+        font-size: 11px;
+        border-bottom: 1px solid #3887c2;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+    }
+
+
+
+    .sign-wrap {
+        color: #3887c2;
+        font-size: 14px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    .footer-address h3 {
+        font-weight: 600;
+        font-size: 15px;
+        color: #3887c2;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width: 1023px) {
+
+    #qrcode {
+        position: relative;
+    }
+    .company-details h2 span {
+        font-size: 10px;
+        bottom: -5px;
+        left: 89px;
+    }
+
+    .barcode-img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .company-name h2 {
+        font-size: 26px;
+        margin-bottom: 0;
+    }
+
+    .company-name h4 {
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .company-logo-img {
+        width: 150px;
+        margin-left: auto;
+    }
+
+
+    .company-details h2 {
+        text-transform: uppercase;
+        color: #3887c2;
+        font-weight: 900;
+        position: relative;
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+   
+
+    .company-details ul li {
+        color: #3887c2;
+        font-size: 14px;
+    }
+
+    /*   .qr-photo-upload-dialog--qr--image {
+        height: 150px;
+        width: 150px;
+    }*/
+
+    .invoice-form ul li {
+        color: #3887c2;
+        font-size: 12px;
+        border-bottom: 1px solid #3887c2;
+        margin-top: 24px;
+        text-transform: uppercase;
+    }
+
+
+
+    .bill-to {
+        font-size: 12px;
+        margin-bottom: 24px;
+    }
+
+
+
+    .sign-wrap {
+        font-size: 14px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .footer-address h3 {
+        font-size: 13.5px;
+    }
+
+    .table-parent table {
+        width: 1200px;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .company-name {
+        text-align: center;
+        width: 65%;
+        margin: 0 auto 20px;
+    }
+
+        .company-name h2 {
+            font-size: 26px;
+            margin-bottom: 0;
+        }
+
+        .company-name h4 {
+            font-size: 12px;
+            margin: 0;
+        }
+
+    .company-logo-img {
+        width: 150px;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+
+    .company-details {
+        margin-bottom: 20px;
+    }
+
+        .company-details h2 {
+            text-transform: uppercase;
+            color: #3887c2;
+            font-weight: 900;
+            position: relative;
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+
+            .company-details h2 span {
+                font-size: 10px;
+                bottom: -5px;
+                left: 80px;
+            }
+
+        .company-details ul li {
+            color: #3887c2;
+            font-size: 14px;
+        }
+
+    .qr-photo-upload-dialog--qr--image {
+        height: 150px;
+        width: 150px;
+    }
+
+    .invoice-form ul li {
+        color: #3887c2;
+        font-size: 14px;
+        border-bottom: 1px solid #3887c2;
+        margin-top: 24px;
+        text-transform: uppercase;
+    }
+
+
+
+    .bill-to {
+        color: #3887c2;
+        font-size: 14px;
+        border-bottom: 1px solid #3887c2;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+    }
+
+
+
+    .sign-wrap {
+        color: #3887c2;
+        font-size: 14px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    .footer-address h3 {
+        font-weight: 600;
+        font-size: 18px;
+        color: #3887c2;
+    }
+
+    .table-parent table {
+        width: 1200px;
+    }
+
+        
+}

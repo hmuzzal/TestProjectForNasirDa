@@ -1,0 +1,392 @@
+﻿@model HotelBooking.DataLayer.ViewModels.User.UserProfileView
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    /* .cards-primary.card-outline {
+              border-top: 3px solid #007bff;
+            } */
+
+    .cards {
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        background: #e4e9f7;
+    }
+
+    .card-body.dark-mode-black .cards {
+        background: #1f2937;
+    }
+
+    .cards-body {
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1.25rem;
+    }
+
+    .card {
+        margin-bottom: 0;
+    }
+
+    .profile-user-img {
+        border: 3px solid #adb5bd;
+        margin: 0 auto;
+        background: #fff;
+        padding: 5px;
+        width: 100px;
+    }
+
+    .no-preview-lg,
+    .profile-user-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .img-circle {
+        border-radius: 50%;
+    }
+
+    .profile-username {
+        margin: 5px 0;
+    }
+
+    .cards-header {
+        background-color: transparent;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        padding: 0.75rem 1.25rem;
+        position: relative;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .cards-header:first-child {
+            border-radius: 0.25rem 0.25rem 0 0;
+        }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .change-img {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin: auto;
+    }
+
+    .upload-img-icon {
+        position: absolute;
+        right: 15%;
+        bottom: 0;
+    }
+
+        .upload-img-icon input {
+            display: none;
+        }
+
+        .upload-img-icon i {
+            color: #e4e9f7;
+            background: #1f2937;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+    .card-body.dark-mode-black .upload-img-icon i {
+        background: #e4e9f7;
+        color: #1f2937;
+    }
+
+    h6 {
+        font-size: 14px;
+    }
+
+    .social-link {
+        text-align: center;
+    }
+
+        .social-link a {
+            margin: 0 5px;
+            height: 35px;
+            width: 35px;
+            line-height: 35px;
+            text-align: center;
+            display: inline-block;
+            border-radius: 50%;
+            box-shadow: 0 0 5px 1px rgb(62 57 107 / 18%);
+        }
+
+            .social-link a i {
+                display: inline-block;
+                font-size: 18px;
+                height: 35px;
+                width: 35px;
+                line-height: 35px;
+                text-align: center;
+                border-radius: 50%;
+                border: 0;
+                transition: all .3s linear;
+            }
+
+    .btn-facebook i {
+        background: #1877f2;
+        color: #fff;
+    }
+
+        .btn-facebook i:hover {
+            color: #1877f2;
+            background: #fff;
+        }
+
+    .btn-instagram i {
+        background: radial-gradient( circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90% ) !important;
+        color: #fff;
+        /*-webkit-background-clip: text !important;*/
+        /* Also define standard property for compatibility */
+        /*background-clip: text !important;*/
+        /*-webkit-text-fill-color: transparent !important;*/
+    }
+
+        .btn-instagram i:hover {
+            background: radial-gradient( circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90% ) !important;
+            -webkit-background-clip: text !important;
+            /* Also define standard property for compatibility */
+            background-clip: text !important;
+            text-fill-color: transparent !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+
+    .btn-twitter i {
+        background: #1d9bf0;
+        color: #fff;
+    }
+
+        .btn-twitter i:hover {
+            color: #1d9bf0;
+            background: #fff;
+        }
+
+    .btn-youtube i {
+        background: #f00;
+        color: #fff;
+    }
+
+        .btn-youtube i:hover {
+            color: #f00;
+            background: #fff;
+        }
+
+    .btn-linkedin i {
+        background: #017bb6;
+        color: #fff;
+    }
+
+        .btn-linkedin i:hover {
+            color: #017bb6;
+            background: #fff;
+        }
+
+    .btn-whatsapp i {
+        background: #1ad03f;
+        color: #fff;
+    }
+
+        .btn-whatsapp i:hover {
+            color: #1ad03f;
+            background: #fff;
+        }
+
+    .emergency-wrapper {
+        background: white;
+    }
+
+    .card-body.dark-mode-black .emergency-wrapper {
+        background: #242526;
+    }
+</style>
+<div class="content-heading-wrap">
+    <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+        <div class="col-lg-4 col-md-3 align-self-center">
+            <h5 class="text-themecolor">Update Profile</h5>
+        </div>
+        <div class="col-lg-8 col-md-9 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ul class="mx-2 path-link">
+                    <li class="d-inline-block">
+                        <a href="@Url.Action("Index", "Home")"> Dashboard</a>
+                    </li>
+                    &nbsp; &gt; &nbsp;
+                    <li class="d-inline-block active">Update</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("MyProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+    <div class="content-wrap">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 col-xl-3 col-lg-4">
+                                <div class="cards cards-primary card-outline pt-2 h-100">
+                                    <div class="cards-body box-profile">
+                                        <div class="change-img">
+                                            <img id="display-image"
+                                                 src="@Model.userinformations.ProfileImage"
+                                                 class="profile-user-img img-fluid img-circle" />
+                                            <div class="upload-img-icon">
+                                                <label for="image-input">
+                                                    <i class="fa-solid fa-camera"></i>
+                                                </label>
+                                                @Html.TextBoxFor(model => model.AttachedDocuments, "", new { @id = "image-input", @type = "file", @class = "form-control", @accept = ".jpg, .png, .jpeg, |image/*" })
+
+                                                @*<input type="file"
+                                                    id="image-input" name="AttachedDocuments"
+                                                    accept="image/jpeg, image/png, image/jpg" />*@
+                                            </div>
+                                        </div>
+                                        <h5 class="profile-username text-center">
+                                            @Model.userinformations.FullName
+                                        </h5>
+                                        <p class="text-muted text-center"> @Model.userinformations.usertype.UserTypeName</p>
+                                    </div>
+                                    <hr />
+                                    <div class="cards-body">
+                                        <small class="text-muted">Email address </small>
+                                        <h6>@Model.userinformations.Email</h6>
+                                        <small class="text-muted pt-4 d-block">Mobile</small>
+                                        <h6>@Model.userinformations.Mobile</h6>
+
+                                        <br /><br />
+                                        <div class="social-link">
+                                            <a href="#" class="btn-facebook">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </a>
+                                            <a href="#" class="btn-instagram">
+                                                <i class="fa-brands fa-instagram"></i>
+                                            </a>
+                                            <a href="#" class="btn-twitter">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                            <a href="#" class="btn-youtube">
+                                                <i class="fab fa-youtube"></i>
+                                            </a>
+                                            <a href="#" class="btn-linkedin">
+                                                <i class="fa-brands fa-linkedin-in"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-8 col-xl-9 mt-lg-0 mt-3">
+                                <div class="cards">
+                                    <div class="cards-header">
+                                        <h5 class="cards-title">Update your profile</h5>
+                                        <a href="@Url.Action("Index", "Home")" class="btn btn-dark float-right d-md-block d-none">
+                                            <i class="fas fa-long-arrow-alt-left"></i>
+                                            Back
+                                        </a>
+                                    </div>
+                                    <div class="cards-body">
+                                        <form class="form-horizontal">
+                                            <div class="form-group row">
+                                                <label for="name" class="col-sm-3 col-form-label">Name <span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    @Html.TextBoxFor(model => model.userinformations.FullName, new { @class = "form-control", @type = "text" })
+
+                                                    <!---->
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="email" class="col-sm-3 col-form-label">Email <span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    @Html.TextBoxFor(model => model.userinformations.Email, new { @class = "form-control", @type = "email" })
+
+
+                                                    <!---->
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="mobileno"
+                                                       class="col-sm-3 col-form-label">
+                                                    Mobile Number
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    @Html.TextBoxFor(model => model.userinformations.Mobile, new { @class = "form-control", @type = "text" })
+
+                                                    <!---->
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="currentPassword"
+                                                       class="col-sm-3 col-form-label">Current Password</label>
+                                                <div class="col-sm-9">
+                                                    @Html.TextBoxFor(model => model.userinformations.Password, new { @minlength = "8", @class = "form-control", @type = "password" })
+
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <div class="offset-sm-3 col-sm-9">
+                                                    <button type="submit"
+                                                            class="btn btn-primary">
+                                                        <i class="fas fa-edit"></i>
+                                                        Save changes
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    window.addEventListener("load", function () {
+        const imgInput = document.querySelector("#image-input");
+
+        imgInput.addEventListener("change", function () {
+            if (this.files && this.files[0]) {
+                var img = document.querySelector("#display-image");
+                img.onload = () => {
+                    URL.revokeObjectURL(img.src); // no longer needed, free memory
+                };
+
+                img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+            }
+        });
+    });
+</script>
+<script>
+    function prevUrl() {
+        history.back();
+    }
+
+    function sendWhatsapp() {
+        const quickText = document.getElementById('quickText').value;
+        console.log(quickText)
+        location.href = "whatsapp://send?phone=01719721908&text=" + quickText;
+    }
+
+</script>

@@ -1,0 +1,75 @@
+﻿<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (ViewBag.message != null && ViewBag.message != "")
+{
+    if (ViewBag.message.Contains("Success:"))
+    {
+        <script>
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-danger mx-1",
+                    cancelButton: "btn btn-success mx-1",
+                },
+                buttonsStyling: false,
+            });
+
+            let timerInterval;
+            swalWithBootstrapButtons.fire({
+                title: "Success!",
+                type: 'success',
+                text: '@ViewBag.message',
+                icon: "success",
+                timer: 1000,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                    timerInterval = setInterval(() => {
+                        Swal.getContent().querySelector('strong')
+                            .textContent = Swal.getTimerLeft()
+                    }, 1000)
+                },
+                onClose: () => {
+                    clearInterval(timerInterval)
+                }
+                }).then((result) => {
+                    if (
+                        // Read more about handling dismissals
+                        result.dismiss === Swal.DismissReason.timer
+                    ) {
+                       
+                    }
+                });
+
+
+        </script>
+        <script type="text/javascript">
+            var message = @ViewBag.message;
+            if (message.Contains("created Succesfully...")) {
+                $(function () {
+                    $('#AddModal').modal('show');
+                });
+            }
+        </script>
+
+    }
+    else
+    {
+        <script>
+         const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-danger mx-1",
+                    cancelButton: "btn btn-success mx-1",
+                },
+                buttonsStyling: false,
+            });
+
+
+            swalWithBootstrapButtons.fire(
+                "Failed!",
+                '@ViewBag.message',
+                "error",
+                100
+            );
+
+        </script>
+    }
+}

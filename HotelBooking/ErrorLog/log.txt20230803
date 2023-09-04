@@ -1,0 +1,18 @@
+2023-08-03 18:06:55,261 [23] FATAL InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess.LastCustomerCode() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\DataLayer\MoneyExchangerDBAccess.cs:line 2216
+2023-08-03 18:07:09,777 [17] FATAL InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at InvoiceSoftware.DataLayer.InvoiceSoftwareDBAccess.LastCustomerCode() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\DataLayer\MoneyExchangerDBAccess.cs:line 2216
+2023-08-03 18:21:18,233 [77] FATAL InvoiceSoftware.Controllers.CustomerController [(null)] - log4net Fatal Bank Level
+System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at InvoiceSoftware.Controllers.HomeController.GenderateFiveDigitUniqueCustomerCode() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\Controllers\HomeController.cs:line 1377
+   at InvoiceSoftware.Controllers.CustomerController.Index(Nullable`1 id) in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\Controllers\CustomerController.cs:line 67
+2023-08-03 18:21:24,312 [79] FATAL InvoiceSoftware.Controllers.CustomerController [(null)] - log4net Fatal Bank Level
+System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at InvoiceSoftware.Controllers.HomeController.GenderateFiveDigitUniqueCustomerCode() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\Controllers\HomeController.cs:line 1377
+   at InvoiceSoftware.Controllers.CustomerController.Index(Nullable`1 id) in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\Controllers\CustomerController.cs:line 67
+2023-08-03 18:21:43,369 [74] FATAL InvoiceSoftware.Controllers.CustomerController [(null)] - log4net Fatal Bank Level
+System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at InvoiceSoftware.Controllers.HomeController.GenderateFiveDigitUniqueCustomerCode() in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\Controllers\HomeController.cs:line 1377
+   at InvoiceSoftware.Controllers.CustomerController.Index(Nullable`1 id) in D:\FiverProjects\InvoiceSoftware\InvoiceSoftware\Controllers\CustomerController.cs:line 67

@@ -1,0 +1,476 @@
+﻿@model InvoiceSoftware.DataLayer.ViewModels.Invoice.InvocieCreateViewModels
+@{
+    ViewBag.Title = "Invoices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+
+    function getserviceinfo(id) {
+        $(function () {
+
+            var taxitem = document.getElementById("invoicedetails_" + id + "__ServiceID").value;
+            if (taxitem > 0) {
+                var url = '../../Home/FeeInformation';
+                var data1 = { "id": taxitem };
+                $.post(url, data1, function (data) {
+                    if (data != null) {
+                        document.getElementById('invoicedetails_' + id + '__ProfileNo').value = data[1].Text;
+                        document.getElementById('invoicedetails_' + id + '__Quantity').value = 1.0;
+                        document.getElementById('invoicedetails_' + id + '__SellingPrice').value = parseFloat(data[0].Text);
+                        document.getElementById('invoicedetails_' + id + '__TotalAmount').value = parseFloat(data[0].Text);
+                        calulateTotalAmount(id);
+                    }
+
+                })
+            }
+            else {
+                document.getElementById('invoicedetails_' + id + '__SellingPrice').value = parseFloat(0);
+                document.getElementById('invoicedetails_' + id + '__TotalAmount').value = parseFloat(0);
+                document.getElementById('invoicedetails_' + id + '__ProfileNo').value = '';
+                calulateTotalAmount(id);
+            }
+
+        });
+    };
+
+    function getserviceinfoprofile(id) {
+        $(function () {
+
+            var taxitem = document.getElementById("invoicedetails_" + id + "__ProfileNo").value;
+            if (taxitem > 0) {
+                var url = '../../Home/FeeInformationByProfile';
+                var data1 = { "profile": taxitem };
+                $.post(url, data1, function (data) {
+                    if (data.length > 0) {
+                        document.getElementById("invoicedetails_" + id + "__ServiceID").value = parseInt(data[0].Text);
+
+
+                        document.getElementById('invoicedetails_' + id + '__Quantity').value = 1.0;
+                        document.getElementById('invoicedetails_' + id + '__SellingPrice').value = parseFloat(data[1].Text);
+                        document.getElementById('invoicedetails_' + id + '__TotalAmount').value = parseFloat(data[1].Text);
+                        calulateTotalAmount(id);
+
+                        $("#invoicedetails_" + id + "__ServiceID").trigger('change');
+                    }
+                    else {
+                        alert("Profile Not Found");
+                    }
+                })
+            }
+            else {
+                document.getElementById('invoicedetails_' + id + '__SellingPrice').value = parseFloat(0);
+                document.getElementById('invoicedetails_' + id + '__TotalAmount').value = parseFloat(0);
+                calulateTotalAmount(id);
+            }
+
+        });
+    };
+
+    $(function () {
+        $("#DebitLedgerID").change(function () {
+            var taxitem = document.getElementById("DebitLedgerID").value;
+            if (taxitem > 0) {
+                var url = '../../Home/CustomerInformation';
+                var data1 = { "id": taxitem };
+                $.post(url, data1, function (data) {
+                    
+                    document.getElementById('CustomerMobile').value = data[0].Text;
+                    document.getElementById('CustomerCode').value = data[1].Text;
+
+                })
+            }
+        });
+        $("#CustomerCode").change(function () {
+            var taxitem = document.getElementById("CustomerCode").value;
+            if (taxitem != '' && taxitem != null) {
+                var url = '../../Home/CustomerCodeInformation';
+                var data1 = { "id": taxitem };
+                $.post(url, data1, function (data) {
+                    console.log(data.length>0);
+                    if (data.length > 0) {
+                        document.getElementById('CustomerMobile').value = data[0].Text;
+                        document.getElementById('DebitLedgerID').value = parseInt(data[1].Text);
+                        $("#DebitLedgerID").trigger('change');
+                    }
+                    else {
+                        alert("Customer Not Found!!!")
+                    }
+                   
+                })
+            }
+        });
+
+
+    });
+
+    function calulateTotalAmount(id) {
+        var taxitem = document.getElementById("invoicedetails_" + id + "__ServiceID").value;
+
+        if (taxitem > 0) {
+            var quantity = parseFloat(document.getElementById('invoicedetails_' + id + '__Quantity').value);
+            var salePrice = parseFloat(document.getElementById('invoicedetails_' + id + '__SellingPrice').value).toFixed(3) * quantity;
+            var totalAmount = parseFloat(document.getElementById('invoicedetails_' + id + '__TotalAmount').value).toFixed(3);
+            totalAmount.value = 0;
+
+            var afterDiscount = salePrice;
+            document.getElementById('invoicedetails_' + id + '__TotalAmount').value = afterDiscount;
+            calculateSubTotals();
+        }
+
+    }
+
+    function calculateSubTotals() {
+        var tableRows = document.getElementsByClassName('valued-row');
+        var SubtotalAmount = 0.00;
+
+        for (var i = 1; i <= tableRows.length; i++) {
+            var newid = i - 1;
+            var taxitem = document.getElementById("invoicedetails_" + newid + "__ServiceID").value;
+
+            if (taxitem > 0) {
+
+                var checktotalamount = 0.00;
+                checktotalamount = parseFloat(document.getElementById('invoicedetails_' + newid + '__TotalAmount').value);
+                document.getElementById('invoicedetails_' + newid + '__TotalAmount').value = checktotalamount.toFixed(3);
+                if (checktotalamount > 0) {
+
+                    SubtotalAmount += checktotalamount;
+
+                }
+
+            }
+        }
+        document.getElementById('SubTotalAmount').value = parseFloat(SubtotalAmount).toFixed(3);
+        var discount = parseFloat(document.getElementById('DiscountAmount').value).toFixed(3);
+        console.log('SubtotalAmount: ' + SubtotalAmount);
+
+        document.getElementById('TotalAmount').value = parseFloat(SubtotalAmount - discount).toFixed(3);
+
+    }
+
+
+    function setSelectedValue(selectObj, valueToSet) {
+        for (var i = 0; i < selectObj.options.length; i++) {
+            if (selectObj.options[i].text == valueToSet) {
+                selectObj.options[i].selected = true;
+                return;
+            }
+        }
+    }
+
+</script>
+
+
+
+<style>
+    .fixed-table-container {
+        /*height: auto !important;*/
+        padding-bottom: 0 !important;
+    }
+
+    .fixed-table-header {
+        margin-right: 0px !important;
+    }
+</style>
+
+@* datatable export to pdf script start*@
+@Html.Partial("_succesorfailuremodal")
+@* datatable export to pdf script end*@
+<div class="content-heading-wrap">
+    <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+        <div class="col-lg-4 col-md-3 align-self-center">
+            <h5 class="text-themecolor">All Invoices</h5>
+        </div>
+        <div class="col-lg-8 col-md-9 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ul class="mx-2 path-link">
+                    <li class="d-inline-block">
+                        <a href="@Url.Action("Index", "Home")"> Dashboard</a>
+                    </li>
+                    &nbsp; &gt; &nbsp;
+                    <li class="d-inline-block active">Invoices</li>
+                </ul>
+                <a class="btn btn-primary"
+                   href="@Url.Action("Index", "Home")">
+                    <i class="fa fa-plus-circle"></i> <span class="create-btn">All Invoice</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/assets/invoicedesign.css" rel="stylesheet" />
+
+
+@using (Html.BeginForm("UpdateInvoice", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
+
+    <div class="content-wrap overflow-hidden position-relative invoice-area" id="invoice">
+        <div class="bg-invoice-watermark">
+            <img src="~/Resources/Organization/Organization - Copy.jpg" />
+        </div>
+        <div id="contentToPrint" class="">
+            <div class="border-bolder"></div>
+            <div class="row">
+                <div class="col-md-4 ">
+                    <div class="company-name">
+                        <h2>max united</h2>
+                        <h4>aluminium Profiles</h4>
+                    </div>
+
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="company-name">
+                        <h2>ماكس المتحدة</h2>
+                        <h4>للبيع بالتجزئة للألمنيوم</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="company-logo-img" style="width:70%;height:70%">
+
+                        <img src="~/Resources/Organization/Organization.jpg" />
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-between align-items-center">
+                <div class="col-md-5">
+                    <div class="company-details-create">
+                        <h2>invoice</h2>
+
+                        <ul>
+                            <li>@Html.DropDownListFor(model => model.PaymentTypeID, Model.AllPaymentTypes, new { @class = "form-control", @style = "width:60%" })</li>
+                            <li><span><i class="fa-brands fa-whatsapp"></i> <i class="fa-solid fa-square-phone"></i> </span> <span>+96555349455 - 98984100</span></li>
+                            <li><span><i class="fa-brands fa-instagram"></i> </span> <span>maxunited.q8</span></li>
+                            <li><span><i class="fa-solid fa-envelope"></i> </span> <span>maxunited.q8@gmail.com</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="col-md-2">
+                    <div class="qr-photo-upload-dialog--qr--image">
+                        <div id="qrcode">
+                            <span class="barcode-img">
+                                <img src="~/Content/assets/logo-MU-barcode.jpg" />
+                            </span>
+                        </div>
+                    </div>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+                    <script>
+                        var qrcode = new QRCode("qrcode",
+                            "https://poplme.co/hash/4De7UuUG/1/a");
+                    </script>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="invoice-form">
+                        <div id="orderno" style="display:none;"> @Model.InvoiceNo</div>
+                        <ul>
+
+                            <li style="display:flex;"><span>invoice no. </span> <span style="color:red;">@Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control", @type = "text" })</span></li>
+                            <li style="display:flex;"><span>date </span><span>@Html.EditorFor(model => model.InvoiceDate, new { @class = "form-control", @type = "date" })</span></li>
+                            <li style="display:flex;">
+                                <span>reference no.</span> <span> @Html.TextBoxFor(model => model.Reference, new { @class = "form-control", @type = "text" })</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-7">
+                    <div class="bill-to" style="display:flex;">
+                        <p class="">Customer Code:</p>
+                        <div style="margin-left:10px;">
+                            @Html.TextBoxFor(model => model.CustomerCode, new { @class = "form-control", @type = "text" })
+                        </div>
+                    </div>
+
+                    <div class="bill-to" style="display:flex;">
+                        <p class="">bill to</p>
+                        <div style="margin-left:10px;">
+                            @Html.DropDownListFor(model => model.DebitLedgerID, Model.AllDebitLedgers, "--Select Customer--", new { @class = "select2", @style = "width:100%", required = "required" })
+                            <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.DebitLedgerID) </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 col-lg-5">
+
+                    <div class="bill-to" style="display:flex;">
+                        <p class="">Customer Contact No: </p>
+                        <div style="margin-left:10px;">
+                            @Html.TextBoxFor(m => m.CustomerMobile, new { @class = "form-control", @type = "text" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class=" table-parent">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>no.</th>
+                                    <th class="text-right">Profile No.</th>
+                                    <th class="text-left">description</th>
+                                    <th class="text-right" style="width: 10%;">qty/kg</th>
+                                    <th class="text-right" style="width: 25%;">unit price</th>
+                                    <th class="text-right" style="width: 25%;">total</th>
+
+                                </tr>
+                                @Html.HiddenFor(m=>m.PkInvoiceId)
+                            </thead>
+                            <tbody>
+                                @for (var item = 0; item < Model.invoicedetails.Count; item++)
+                                {
+                                    var index = item + 1;
+                                    if (Model.invoicedetails[item].PkInvoiceDetailsId != 0)
+                                    { 
+                                        @Html.HiddenFor(m => m.invoicedetails[item].PkInvoiceDetailsId)
+                                        <tr style="visibility: visible;" class="valued-row">
+                                            <td style="width: 50px;">@index</td>
+                                            <td>
+                                                @Html.TextBoxFor(m => m.invoicedetails[item].ProfileNo, new { @class = "form-control text-right", @type = "text", onchange = "getserviceinfoprofile(" + @item + ")", @required = "required" })
+                                            </td>
+
+                                            <td>
+                                                @Html.DropDownListFor(model => model.invoicedetails[item].ServiceID, Model.invoicedetails[item].AllItems, "Click or Search a Item", new { @class = "select2 text-left", onchange = "getserviceinfo(" + @item + ")", @required = "required" })
+                                            </td>
+
+                                            <td>
+                                                @Html.TextBoxFor(m => m.invoicedetails[item].Quantity, new { @class = "form-control text-right", @type = "number", @step = "any", onchange = "calulateTotalAmount(" + @item + ")" })
+                                            </td>
+                                            <td>
+                                                @Html.TextBoxFor(m => m.invoicedetails[item].SellingPrice, new { @class = "form-control text-right", @type = "number", @step = "any", onchange = "calulateTotalAmount(" + @item + ")" })
+                                            </td>
+
+
+                                            <td>
+                                                @Html.TextBoxFor(m => m.invoicedetails[item].TotalAmount, new { @class = "form-control text-right", @type = "number", @step = "any", @readonly = true })
+                                            </td>
+
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr style="visibility: visible;" class="valued-row">
+                                            <td style="width: 50px;">@index</td>
+
+                                            <td>
+                                                @Html.TextBoxFor(m => m.invoicedetails[item].ProfileNo, new { @class = "form-control text-right", @type = "text", onchange = "getserviceinfoprofile(" + @item + ")" })
+                                            </td>
+
+                                            <td>
+                                                @Html.DropDownListFor(model => model.invoicedetails[item].ServiceID, Model.invoicedetails[item].AllItems, "Click or Search a Item", new { @class = "select2 text-left", onchange = "getserviceinfo(" + @item + ")" })
+                                            </td>
+
+                                            <td>
+                                                @Html.TextBoxFor(m => m.invoicedetails[item].Quantity, new { @class = "form-control text-right", @type = "number", @step = "any", onchange = "calulateTotalAmount(" + @item + ")" })
+                                            </td>
+                                            <td>
+                                                @Html.TextBoxFor(m => m.invoicedetails[item].SellingPrice, new { @class = "form-control text-right", @type = "number", @step = "any", onchange = "calulateTotalAmount(" + @item + ")" })
+                                            </td>
+
+
+
+                                            <td>
+                                                @Html.TextBoxFor(m => m.invoicedetails[item].TotalAmount, new { @class = "form-control text-right", @type = "number", @step = "any", @readonly = true })
+                                            </td>
+
+                                        </tr>
+                                    }
+
+                                }
+
+                                @for (var item = Model.invoicedetails.Count + 1; item < 17; item++)
+                                {
+                                    <tr>
+                                        <td style="width: 50px;">@item</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td style="border: 0;vertical-align: top;text-align: start;" colspan="3">We received the material in good conditon <br> Weight or thickness subject to change ± 10%</td>
+                                    <td class="footer-blod-text" colspan="2">subtotal</td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.SubTotalAmount, new { @class = "form-control text-right", @type = "number", @step = "any", @style = "background:white;color:black;" })
+                                    </td>
+
+                                </tr>
+                                <tr>
+
+                                    <td class="footer-blod-text" colspan="5">discount</td>
+                                    <td>@Html.TextBoxFor(m => m.DiscountAmount, new { @class = "form-control text-right", @type = "number", @step = "any", @style = "background:white;color:black;", onchange = "calculateSubTotals()" })</td>
+
+                                </tr>
+                                <tr>
+                                    <td class="footer-blod-text" style="font-size: 18px;" colspan="5">balance</td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control text-right", @type = "number", @step = "any", @style = "background:white;color:black;" })
+                                    </td>
+
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-md-8 col-xl-8">
+                    <div class="sign-wrap">
+                        <span>Receiver Sign</span>
+                        <span class="text-decoration-underline w-50 d-inline-block"></span>
+                    </div>
+                    <div class="sign-wrap">
+                        <span>Receiver Name:</span>
+                        <span class="text-decoration-underline w-75 d-inline-block"></span>
+                    </div>
+                    <div class="sign-wrap">
+                        <span>Receiver Contact:</span>
+                        <span class="text-decoration-underline w-75 d-inline-block"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="sign-wrap">
+                        <span>Salesman</span>
+                        <span class="border-bottom-1 w-75 d-inline-block"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="border-bolder"></div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="footer-address">
+                        <h3>Khalifa Al-Jasim Street - Homaizi Complex - Shop No. 6,7 - Behind Global Hardware, Shuwaikh</h3>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-3">
+                    <button id="createitem" style="display:block;padding:8px 40px;margin-left:auto;" type="submit" class="btn btn-primary btn-lg" name="Create" value="Create">
+                        Save
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+}
+
+<span class="text-right text-bold" id="CustomerName" style="display:none;">Invoice</span>
+<script src="~/Content/assets/js/invoice-table.init.js"></script>
+

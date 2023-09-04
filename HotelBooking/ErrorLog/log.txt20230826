@@ -1,0 +1,130 @@
+2023-08-26 11:27:45,255 [28] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.Data.SqlClient.SqlException (0x80131904): Cannot drop database "HotelBooking" because it is currently in use.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   at System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.NonQuery(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   at System.Data.Entity.SqlServer.SqlProviderServices.<>c__DisplayClass30.<DropDatabase>b__2e(DbConnection conn)
+   at System.Data.Entity.SqlServer.SqlProviderServices.<>c__DisplayClass33.<UsingConnection>b__32()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.<>c__DisplayClass1.<Execute>b__0()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.SqlServer.SqlProviderServices.UsingMasterConnection(DbConnection sqlConnection, Action`1 act)
+   at System.Data.Entity.SqlServer.SqlProviderServices.DropDatabase(SqlConnection sqlConnection, Nullable`1 commandTimeout, String databaseName)
+   at System.Data.Entity.SqlServer.SqlProviderServices.DbDeleteDatabase(DbConnection connection, Nullable`1 commandTimeout, StoreItemCollection storeItemCollection)
+   at System.Data.Entity.Database.Delete()
+   at System.Data.Entity.DropCreateDatabaseIfModelChanges`1.InitializeDatabase(TContext context)
+   at System.Data.Entity.Internal.InternalContext.PerformInitializationAction(Action action)
+   at System.Data.Entity.Internal.InternalContext.PerformDatabaseInitialization()
+   at System.Data.Entity.Internal.RetryAction`1.PerformAction(TInput input)
+   at System.Data.Entity.Internal.LazyInternalContext.InitializeDatabaseAction(Action`1 action)
+   at System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   at System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   at System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   at System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetOrganizatonsInformationById() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 1083
+ClientConnectionId:b63184cc-91d1-4ccb-bdef-fbade4f3e8c2
+Error Number:3702,State:4,Class:16
+2023-08-26 15:08:08,429 [81] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3024
+2023-08-26 15:08:08,502 [81] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3024
+2023-08-26 15:19:03,659 [70] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3024
+2023-08-26 15:19:03,666 [70] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3024
+2023-08-26 15:21:26,998 [98] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3024
+2023-08-26 15:21:27,003 [98] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3024
+2023-08-26 15:24:15,114 [78] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3024
+2023-08-26 15:24:15,119 [78] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3024
+2023-08-26 16:52:25,360 [84] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 16:52:25,463 [84] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 16:53:24,842 [89] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 16:53:24,847 [89] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 16:55:41,233 [69] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 16:55:41,240 [69] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 16:57:31,336 [78] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 16:57:31,341 [78] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 17:16:51,675 [62] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 17:16:51,687 [62] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 18:00:00,839 [6] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 18:00:01,107 [6] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 18:08:36,296 [12] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 18:08:36,302 [12] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3053
+2023-08-26 18:28:47,795 [34] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3075
+2023-08-26 18:28:47,886 [34] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3075
+2023-08-26 19:01:14,261 [8] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3075
+2023-08-26 19:01:14,386 [8] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3075
+2023-08-26 19:02:25,794 [5] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3075
+2023-08-26 19:02:25,807 [5] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3075
+2023-08-26 19:07:22,658 [6] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3075
+2023-08-26 19:07:22,753 [6] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3075
+2023-08-26 19:09:13,654 [8] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.LastCustomerCode() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 2872
+2023-08-26 19:42:12,458 [11] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3075
+2023-08-26 19:42:12,512 [11] FATAL HotelBooking.DataLayer.HotelBookingDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at HotelBooking.DataLayer.HotelBookingDBAccess.GetLastInvoiceNumber() in C:\Nasir\Hotel Booking\HotelBooking\HotelBooking\DataLayer\HotelBookingDBAccess.cs:line 3075

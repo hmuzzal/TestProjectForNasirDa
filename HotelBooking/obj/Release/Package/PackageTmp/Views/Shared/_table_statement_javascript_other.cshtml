@@ -1,0 +1,88 @@
+﻿
+<!-- export pdf js library start  -->
+<script src="~/Content/assets/js/html2canvas.js"></script>
+<script src="~/Content/assets/js/jspdf.min.js"></script>
+<!-- export pdf js library end  -->
+<script>
+    // invoice pdf js start
+    window.jsPDF = window.jspdf.jsPDF;
+    function Convert_HTML_To_PDF() {
+        document.getElementById("printBtn").style.display = "none";
+        //var accountcolumn = document.getElementsByClassName("hide-for-pdf");
+        //for (let i = 0; i < accountcolumn.length; i++) {
+        //    accountcolumn[i].style.display = "none";
+        //}
+        ////document.querySelector("h3").style.fontSize = "18px";
+        //const thList = document.querySelectorAll("th");
+        //for (let i = 0; i < thList.length; i++) {
+        //    thList[i].style.fontSize = "13px";
+        //}
+        //const tdList = document.querySelectorAll("td");
+        //for (let i = 0; i < tdList.length; i++) {
+        //    tdList[i].style.fontSize = "12px";
+        //}
+        //const trList = document.querySelectorAll(".ledger-table-body tr");
+        //for (let i = 0; i < trList.length; i++) {
+        //    trList[i].style.borderBottom = "0.1px solid #000";
+        //}
+        //const lastTr = document.querySelector(".ledger-table-body");
+        //lastTr.lastElementChild.style.borderWidth = '0';
+        //const tfootTr = document.querySelector('.ledger-table-foot tr');
+        //tfootTr.style.borderTop = ' solid #000';
+        // var doc = new jsPDF();
+        var doc = new jsPDF({
+            orientation: "l",
+            format: 'a4',
+            putOnlyUsedFonts: true
+        });
+        // Source HTMLElement or a string containing HTML.
+        var elementHTML = document.querySelector("#contentToPrint");
+        //var cname = document.getElementById("CustomerName").innerHTML;
+        doc.html(elementHTML, {
+            callback: function (doc) {
+                // Save the PDF
+                doc.save("Report.pdf");
+            },
+            margin: [18, 10, 18, 10],
+            autoPaging: "text",
+            x: 0,
+            y: 0,
+            width: 275, // Target width in the PDF document
+            windowWidth: 1024, // Window width in CSS pixels
+        });
+        setTimeout(() => {
+            location.reload();
+        }, 3000);
+    }
+    // invoice pdf js end
+</script>
+
+
+
+<script>
+    // invoice print js start
+    function invoicePrint() {
+        var restorepage = document.body.innerHTML;
+        document.getElementById("printBtn").style.display = "none";
+        // document.getElementById("logoImg").style.width = "150px";
+        document.querySelector("#invoiceInfo").classList.add("col-6");
+        document.querySelector("#clientDetails").classList.add("col-4");
+        document.querySelector(".invoice-area").style.padding = "0";
+        // document.querySelector("h5").style.fontSize = "14px";
+        // document.body.style.fontSize = "10px";
+        // const thList = document.querySelectorAll("th");
+        //  for (let i = 0; i < thList.length; i++) {
+        //   thList[i].style.fontSize = "12px";
+        //  }
+        //  const tdList = document.querySelectorAll("td");
+        //  for (let i = 0; i < tdList.length; i++) {
+        //   tdList[i].style.fontSize = "10px";
+        //  }
+        var printcontent = document.getElementById("contentToPrint").innerHTML;
+        document.body.innerHTML = printcontent;
+        window.print();
+        document.body.innerHTML = restorepage;
+        location.reload();
+    }
+      // invoice print js end
+</script>

@@ -1,0 +1,46 @@
+﻿<script>
+    $(document).click(function (e) {
+        if (!$(e.target).hasClass("showorhidenextelements")
+            && $(e.target).parents(".action-dropdown").length === 0) {
+            var allclasstotal = document.querySelectorAll('.action-dropdown');
+            for (var i = 1; i <= allclasstotal.length; i++) {
+                
+                try {
+                    
+                    document.getElementById('level' + i).style.visibility = 'collapse';
+                    document.getElementById('level' + i).parentElement.children[0].classList.remove('active');
+                } catch(err)
+                {
+                    console.log(err)
+                }
+            }
+        }
+    });
+
+    function showorhidenextelements(name) {
+        if (document.getElementById('level' + name).style.visibility == "visible") {
+            document.getElementById('level' + name).style.visibility = "collapse";
+            document.getElementById('level' + name).parentElement.children[0].classList.remove('active');
+        }
+        else {
+            document.getElementById('level' + name).style.visibility = "visible";
+            document.getElementById('level' + name).parentElement.children[0].classList.add('active');
+
+            var allclasstotal = document.querySelectorAll('.action-dropdown');
+ 
+            for (var i = 1; i <= allclasstotal.length; i++) {
+                if (i != name) {
+
+                    try {
+                        document.getElementById('level' + i).style.visibility = 'collapse';
+                        document.getElementById('level' + i).parentElement.children[0].classList.remove('active');
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+        }
+    }
+</script>

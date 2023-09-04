@@ -1,0 +1,95 @@
+﻿<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<h1 id="organizationdate" style="display:none;">@Session["OrganizationDate"]</h1>
+<script type="text/javascript">
+    $(function () {
+        var organizationdate = moment(document.getElementById("organizationdate").innerHTML);
+        var start = moment(document.getElementById("DateFrom").value, "MMMM-DD-YYYY");
+        var end = moment(document.getElementById("Dateto").value, "MMMM-DD-YYYY");
+        if (end > moment())
+            end = moment();
+        else if (end < organizationdate)
+            end = organizationdate;
+
+        if (start > moment())
+            start = moment();
+        else if (start < organizationdate)
+            start = organizationdate;
+
+        function cb(start, end) {
+            if (end > moment())
+                end = moment();
+            else if (end < organizationdate)
+                end = organizationdate;
+
+            if (start > moment())
+                start = moment();
+            else if (start < organizationdate)
+                start = organizationdate;
+             
+
+            document.getElementById("DateFrom").value = start.format('MMMM-DD-YYYY');
+            document.getElementById("Dateto").value = end.format('MMMM-DD-YYYY');
+            $('#reportrangetest span').html(start.format('MMMM-DD-YYYY') + ' - ' + end.format('MMMM-DD-YYYY'));
+
+        }
+
+        $('#reportrangetest').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'Last 6 Month': [moment().subtract(6, 'month'), moment()],
+                'Last Year': [moment().subtract(1, 'year'), moment()],
+                'This Year': [moment().startOf('year'), moment()]
+
+            }
+        }, cb);
+
+
+        cb(start, end);
+
+
+    });
+
+
+</script>
+<div class="form-group">
+    <label class="col-form-label"> Select Date</label>
+    <div class="form-control" id="reportrangetest" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+        <i class="fa fa-calendar"></i>&nbsp;
+        <span></span> <i class="fa fa-caret-down"></i>
+    </div>
+</div>
+
+<div class="cards-body" style="display:none;">
+    <div class="row justify-content-center">
+        <div class="col-lg-4">
+            <div class="form-group">
+
+                <label class="col-form-label">From Date</label>
+                @*@Html.EditorFor(m => m.DateFrom, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" } })*@
+                <input type="text" id="DateFrom" name="DateFrom" class="form-control date-format" placeholder="December 21, 2022" value="@Model.DateFrom.ToString("MMMM-dd-yyyy")">
+
+            </div>
+        </div>
+
+
+        <div class="col-lg-4">
+            <div class="form-group">
+
+                <label class="col-form-label">To Date</label>
+                @*@Html.EditorFor(m => m.DateFrom, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" } })*@
+                <input type="text" id="Dateto" name="Dateto" class="form-control date-format" placeholder="December 21, 2022" value="@Model.Dateto.ToString("MMMM-dd-yyyy")">
+
+            </div>
+        </div>
+
+    </div>
+</div>

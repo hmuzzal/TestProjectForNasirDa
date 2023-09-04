@@ -1,0 +1,27 @@
+2023-03-02 17:29:56,890 [10] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.BankStatement(AccountStatement alltransactions) in D:\Digital Decoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 216
+2023-03-02 17:31:11,096 [22] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.BankStatement(AccountStatement alltransactions) in D:\Digital Decoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 216
+2023-03-02 17:56:02,571 [9] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.SupplierStatement(AccountStatement alltransactions) in D:\Digital Decoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 2192
+2023-03-02 17:56:06,874 [79] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.SupplierStatement(AccountStatement alltransactions) in D:\Digital Decoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 2192
+2023-03-02 17:56:23,744 [77] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.SupplierStatement(AccountStatement alltransactions) in D:\Digital Decoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 2192
+2023-03-02 19:32:10,345 [53] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.SupplierStatement(AccountStatement alltransactions) in D:\Digital Decoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 2192
+2023-03-02 21:54:54,009 [8] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(Nullable`1 id) in E:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 363
+2023-03-02 21:59:37,217 [25] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(Nullable`1 id) in E:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 363
+2023-03-02 22:00:05,843 [32] FATAL MoneyExchanger.Controllers.ReportController [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MoneyExchanger.Controllers.ReportController.CustomerStatementSingle(AccountStatement alltransactions) in E:\DigitalDeoder\Accounting Software\MoneyExchanger\MoneyExchanger\Controllers\ReportController.cs:line 841

@@ -1,0 +1,160 @@
+﻿@*export pdf with image and table start*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/Content/assets/js/tableExport.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="~/Scripts/jspdf/jspdf.plugin.autotable.js"></script>
+@*export pdf with image and table end*@
+
+@*export excel file start*@
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+@*export excel file end*@
+
+
+<style>
+    .table > :not(caption) > * > * {
+        box-shadow: none;
+    }
+</style>
+
+<script>
+    var actualyvalue = 80;
+    var actualfilenameext = ".pdf";
+    var actualfilenameexcel = ".";
+    var fileurl = window.location.toString();
+    if (fileurl.includes("Statement")) {
+        actualyvalue = 80;
+        actualfilenameext = '_statement.pdf';
+        actualfilenameexcel = '_statement.';
+    }
+
+    //global variable start
+    var cname = document.getElementById("CustomerName").innerHTML;
+    if (cname.includes(" ")) {
+        cname = cname.replace(/[-]/g, '_');
+        cname = cname.replace(/ /g, '_');
+
+    }
+    //global variable end
+</script>
+
+
+
+<script>
+    // invoice pdf js start
+    window.jsPDF = window.jspdf.jsPDF;
+    function Convert_HTML_To_PDF() {
+        try {
+            document.getElementById("printBtn").style.display = "none";
+        }
+        catch {
+
+        }
+
+        var accountcolumn = document.getElementsByClassName("hide-for-pdf");
+        for (let i = 0; i < accountcolumn.length; i++) {
+            accountcolumn[i].style.display = "none";
+        }
+
+        const thList = document.querySelectorAll("th");
+        for (let i = 0; i < thList.length; i++) {
+            thList[i].style.fontSize = "10px";
+            thList[i].style.border = "1px solid white";
+            thList[i].style.padding = "1px solid black";
+        }
+        const tdList = document.querySelectorAll("td");
+        for (let i = 0; i < tdList.length; i++) {
+            tdList[i].style.fontSize = "10px";
+            tdList[i].style.border = "1px solid white";
+            tdList[i].style.padding = "1px solid black";
+        }
+
+        const trList = document.querySelectorAll(".ledger-table-body tr");
+
+
+        var doc = new window.jsPDF();
+        const headerelement = document.querySelector("#headertemplate");
+        var cname = document.getElementById("CustomerName").innerHTML;
+
+        var heightffff = 80;
+        var logoimage = document.querySelector(".company-logo-img");
+        logoimage.style = "margin-right: 30px!important";
+
+        doc.html(headerelement, {
+            callback: function (doc) {
+                doc.autoTable({
+                    startX: -5,
+                    startY: heightffff,
+                    html: '#ledger-table', useCss: true,
+
+                    // Default for all columns
+
+                    didDrawPage: function (data) {
+                        doc.setFontSize(9);
+
+                        // Footer
+                        var str = 'Page ' + doc.internal.getNumberOfPages();
+
+                        // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+                        var pageSize = doc.internal.pageSize
+                        var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight()
+                        doc.text(str, data.settings.margin.right, pageHeight - 10)
+                    },
+                    margin: [4, 4, 4, 4],
+                })
+                doc.save(cname + "_statement.pdf");
+            },
+            margin: [2, 2, 15, 2],
+            autoPaging: "slice",
+            x: 0,
+            y: 0,
+            width: 210, // Target width in the PDF document
+            windowWidth: 1213, // Window width in CSS pixels
+        });
+
+        setTimeout(() => {
+            location.reload();
+        }, 3000);
+    }
+    // invoice pdf js end
+</script>
+
+
+
+<script>
+    // invoice print js start
+    function invoicePrint() {
+        var restorepage = document.body.innerHTML;
+        try {
+            document.getElementById("printBtn").style.display = "none";
+            document.querySelector("#invoiceInfo").classList.add("col-6");
+            document.querySelector("#clientDetails").classList.add("col-4");
+            document.querySelector(".invoice-area").style.padding = "0";
+        }
+        catch {
+
+        }
+        var printcontent = document.getElementById("contentToPrint").innerHTML;
+        document.body.innerHTML = printcontent;
+        window.print();
+        document.body.innerHTML = restorepage;
+        location.reload();
+    }
+    // invoice print js end
+</script>
+
+<script>
+    //export excel js start
+
+    function htmlTableToExcel(type) {
+        var data = document.getElementById("ledger-table");
+        var excelFile = XLSX.utils.table_to_book(data, { sheet: "sheet1" });
+        XLSX.write(excelFile, {
+            bookType: type,
+            bookSST: true,
+            type: "base64",
+        });
+        XLSX.writeFile(excelFile, cname + actualfilenameexcel + type);
+    }
+
+    //export excel js end
+</script>

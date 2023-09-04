@@ -1,0 +1,6 @@
+2023-07-08 16:09:04,650 [123] FATAL WasteManagement.DataLayer.WasteManagementDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at WasteManagement.DataLayer.WasteManagementDBAccess.GetLastLedgerCode() in D:\WasteManagement\WasteManagement\DataLayer\MoneyExchangerDBAccess.cs:line 2643
+2023-07-08 16:09:27,892 [137] FATAL WasteManagement.DataLayer.WasteManagementDBAccess [(null)] - log4net Fatal Level
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at WasteManagement.DataLayer.WasteManagementDBAccess.GetLastBankNumber() in D:\WasteManagement\WasteManagement\DataLayer\MoneyExchangerDBAccess.cs:line 2053

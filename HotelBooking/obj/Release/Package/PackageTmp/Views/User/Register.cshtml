@@ -1,0 +1,297 @@
+﻿@model InvoiceSoftware.DataLayer.ViewModels.Register.RegisterView
+@{
+    ViewBag.Title = "Create User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .displayBadge {
+        display: none;
+        text-align: center;
+        color: white !important;
+    }
+</style>
+<script src="~/Content/modules/jquery/jquery-3.2.1.min.js"></script>
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">Users</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-right">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Users</li>
+            </ol>
+            @*<button type="button" class="btn btn-info d-none d-lg-block m-l-15">
+                    <i class="fa fa-plus-circle"></i> Create New
+                </button>*@
+            <a class="btn btn-info d-none d-lg-block m-l-15" href="@Url.Action("Index", "User")"><i class="fa fa-plus-circle"></i>User List</a>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="mb-0 text-white"><img id="customicons" src="~/Content/assets/icons/customicons/add-button.png" />New User Entry</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="wrapper">
+    <div class="login-register">
+        <div class="login-box card">
+            <div class="card-body">
+                @using (Html.BeginForm("Register", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken();
+
+                <form class="form-horizontal form-material" id="loginform">
+
+
+                    <br />
+                    @if (ViewBag.message != null && ViewBag.message != "")
+
+                    {
+                        string alertType = "";
+                        string signType = "";
+                        string alertMsg = "";
+                        if (ViewBag.message.Contains("Success:"))
+                        {
+                            alertType = "success";
+                            signType = "fa fa-check-circle";
+                            alertMsg = "Success";
+                        }
+                        else
+                        {
+                            alertType = "danger";
+                            signType = "fa fa-exclamation-triangle";
+                            alertMsg = "Warning";
+                        }
+                        <div class="alert alert-@alertType">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                            <h3 class="text-success"><i class="@signType"></i> @alertMsg</h3>
+                            @ViewBag.message
+                        </div>
+                    }
+
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">Username <span class="require-symbol">*</span></lable>
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control eveninput", @placeholder = "e.g. Mohammad", @type = "text", required = "required" })
+                            <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.UserName) </small>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">Full Name <span class="require-symbol">*</span></lable>
+                            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control eveninput", @placeholder = "e.g. mohammad@gmail.com", @type = "text", required = "required" })
+                            <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.FullName) </small>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+                    @*@Html.DropDownListFor(model => model.GenderID, Model., "Select Tax", new { @class = "select2 form-control custom-select", required = "required" })
+        @Html.ValidationMessageFor(m => m.GenderID)*@
+
+
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">Nick Name <span class="require-symbol">*</span></lable>
+                            @Html.TextBoxFor(m => m.NickName, new { @class = "form-control eveninput", @placeholder = "e.g. abc", @type = "text" })
+                            <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.NickName) </small>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">Email <span class="require-symbol">*</span></lable>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control eveninput", @placeholder = "e.g. mohammad@gmail.com", @type = "email", required="required" })
+                            <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.FullName) </small>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">User Type <span class="require-symbol">*</span></lable>
+                            @Html.DropDownListFor(m => m.UserTypeID, Model.AllUserTypes, "Select User Type", new { @class = "select2 form-control custom-select",required = "required" })
+
+                            <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.UserTypeID) </small>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">Gender <span class="require-symbol">*</span></lable>
+                            @Html.DropDownListFor(model => model.GenderID, Model.AllGenders, "Select Gender", new { @class = "select2 form-control custom-select", required = "required" })
+
+                            <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.GenderID) </small>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">Country <span class="require-symbol">*</span></lable>
+                            @Html.DropDownListFor(model => model.CountryID, Model.AllCountries, "Select Country", new { @class = "select2 form-control custom-select", required = "required" })
+
+                            <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.CountryID) </small>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">Currency <span class="require-symbol">*</span></lable>
+                            @Html.DropDownListFor(model => model.CurrencyID, Model.AllCurrencies, "Select Currency", new { @class = "select2 form-control custom-select", required = "required" })
+                            <small class="form-control-feedback" style="display:block;"> @Html.ValidationMessageFor(m => m.CurrencyID) </small>
+                        </div>
+                        <div class="col-lg-1">
+                            <br />
+                            <a class="nav-link waves-effect waves-dark" href="" data-toggle="modal" data-target="#currencyaddmodal"><img id="customicons" src="~/Content/assets/icons/customicons/add-button.png" /></a>
+                            <!-- sample modal content -->
+                            <div id="currencyaddmodal" class="modal"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="myModalLabel">New Currency</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group row">
+
+                                                <div class="col-lg-12">
+                                                    <label>Currency Name</label><br />
+                                                    @Html.TextBoxFor(model => model.createcurrency.CurrencyName, new { @class = "form-control eveninput" })
+                                                    <small class="form-control-feedback" style="display: block; color: red;"> @Html.ValidationMessageFor(m => m.createcurrency.CurrencyName) </small>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                <div class="col-lg-12">
+                                                    <label class="input-lable">Currency Symbol</label><br />
+                                                    @Html.TextBoxFor(model => model.createcurrency.CurrencySymbol, new { @class = "form-control eveninput" })
+                                                    <small class="form-control-feedback" style="display: block; color: red;"> @Html.ValidationMessageFor(m => m.createcurrency.CurrencySymbol) </small>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                <div class="col-lg-12">
+                                                    <label class="input-lable">Decimal Places</label><br />
+                                                    @Html.TextBoxFor(model => model.createcurrency.DecimalPlaces, new { @class = "form-control eveninput" })
+                                                    <small class="form-control-feedback" style="display: block; color: red;"> @Html.ValidationMessageFor(m => m.createcurrency.DecimalPlaces) </small>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                <div class="col-lg-12">
+                                                    <label class="input-lable">Convertion Rate</label><br />
+                                                    @Html.TextBoxFor(model => model.createcurrency.ConversionRate, new { @class = "form-control eveninput" })
+                                                    <small class="form-control-feedback" style="display: block; color: red;"> @Html.ValidationMessageFor(m => m.createcurrency.ConversionRate) </small>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-info waves-effect" name="savecurrency" value="savecurrency">Save</button>
+                                            <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+                        </div>
+                    </div>
+                    @*<div class="form-group row">
+            <div class="col-lg-3">
+            </div>
+            <div class="col-lg-6">
+                <lable class="input-lable">Time Zone <span class="require-symbol">*</span></lable>
+                @Html.DropDownListFor(model => model.TimeZoneID, Model.AllTimeZones, "Select Time Zone", new { @class = "select2 form-control custom-select", required = "required" })
+
+                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.TimeZoneID) </small>
+            </div>
+            <div class="col-lg-3">
+            </div>
+        </div>*@
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">Organization <span class="require-symbol">*</span></lable>
+                            @Html.DropDownListFor(model => model.OrganizationID, Model.AllOrganizations, "Select Organization", new { @class = "select2 form-control custom-select", required = "required" })
+
+                            <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.OrganizationID) </small>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <lable class="input-lable">Profile Image <span class="require-symbol">*</span></lable>
+                            @Html.TextBoxFor(m => m.ProfileImage, new { @class = "form-control eveninput", @type = "file" })
+                            <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.ProfileImage) </small>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center p-b-20 row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <button name="Create" ID="Create" type="submit" class="btn btn-info btn-lg btn-block btn-rounded text-uppercase waves-effect waves-light" value="Create">Create</button>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                    </div>
+
+                </form>
+
+                }
+            </div>
+        </div>
+    </div>
+
+</section>

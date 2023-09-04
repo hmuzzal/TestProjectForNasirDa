@@ -1,0 +1,372 @@
+﻿@model InvoiceSoftware.DataLayer.ViewModels.Item.ItemViewModel
+@{
+    ViewBag.Title = "AllCurrencies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Content/assets/js/InvoiceSoftware.js"></script>
+
+@* datatable export to pdf script start*@
+@Html.Partial("_succesorfailuremodal")
+@* datatable export to pdf script end*@
+<script>
+    $(document).ready(function () {
+        try {
+            var currencyid = document.getElementById("updateitem_PkItemId").value;
+            if (currencyid != 0) {
+                $('#EditModal').modal('show');
+            }
+        } catch {
+
+        }
+
+    });
+</script>
+
+<div class="content-heading-wrap">
+    <div class="d-flex w-100 justify-content-between align-items-center page-titles">
+        <div class="col-lg-4 col-md-3 align-self-center">
+            <h5 class="text-themecolor">All Profiles</h5>
+        </div>
+        <div class="col-lg-8 col-md-9  align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ul class="mx-2 path-link">
+                    <li class="d-inline-block">
+                        <a href="@Url.Action("Index", "Home")"> Dashboard</a>
+                    </li>
+                    &nbsp; &gt; &nbsp;
+                    <li class="d-inline-block active">Profiles</li>
+                </ul>
+                <a class="btn btn-primary"
+                   data-toggle="modal"
+                   href="#AddModal">
+                    <i class="fa fa-plus-circle"></i> <span class="create-btn"> Create Profiles</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    <div class="content-wrap">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="toolbar">
+
+
+                            @*data table name.pdf start*@
+
+                            <div id="dataTableName" style="display:none;">Profiles</div>
+
+                            @*data table name.pdf end*@
+
+
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table display table-bordered table-striped no-wrap no-wrap table-bordered table-hover table" id="ledger-table" data-toolbar="#toolbar" data-search="true"
+                                   data-show-refresh="true" data-show-toggle="true" data-show-fullscreen="true" data-show-print="true"
+                                   data-show-columns="true" data-show-export="true"
+                                   data-detail-formatter="detailFormatter" data-minimum-count-columns="2"
+                                   data-show-pagination-switch="true" data-pagination="true" data-id-field="id"
+                                   data-show-footer="false">
+                                <thead>
+                                    <tr>
+
+                                        <th>#</th>
+                                        <th scope="col" class="border text-start">
+                                            Profile Name
+                                        </th>
+                                        <th scope="col" class="border text-start">
+                                            Profile No
+                                        </th>
+                                        <th scope="col" class="border  text-start">Buying Price</th>
+                                        <th scope="col" class="border  text-start">Selling Price</th>
+
+                                        <th scope="col" class="border  text-start">Modified By</th>
+
+                                        <th scope="col" class="border text-center">Operation</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="checkall-target">
+                                    @{
+                                        int i = 0;
+                                    }
+                                    @foreach (var item in Model.allcurrencies)
+                                    {
+                                        i++;
+                                        <tr>
+
+                                            <td>
+                                                @i
+                                            </td>
+                                            <td class="text-start">
+                                                @item.ProfileName
+                                            </td>
+                                            <td class="text-start">@item.ProfileCode</td>
+                                            <td class="text-start">@item.BuyingPrice</td>
+                                            
+                                            <td class="text-start">@item.SellingPrice</td>
+                                            <td class="text-start">@item.UpdatedBy</td>
+
+
+                                            <td style="text-align: center">
+
+
+                                                <div class="action-btn-dropdown">
+                                                    <span onclick="showorhidenextelements(@i)"
+                                                          class="showorhidenextelements">
+                                                        <i class="fa fa-tasks dropbtnstas" aria-hidden="true"></i>
+                                                    </span>
+                                                    <ul style="visibility:collapse;" class="action-dropdown" id="level@(i)">
+                                                        <li>
+
+                                                            <a title="update" class="" id="updateitem@(i)"
+                                                               href="@Url.Action("AllItems", "Configuration", new { id = item.PkItemId })">
+                                                                <img src="~/Content/assets/img/icon/edit.png" />  Update
+                                                            </a>
+
+                                                        </li>
+                                                       
+                                                    </ul>
+                                                </div>
+                                            </td>
+
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div class="card" style="margin:0">
+        <div class="card-body" style="padding:0">
+            <div id="AddModal"
+                 class="modal fade bd-example-modal-lg"
+                 role="dialog"
+                 aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Create Profiles
+                            </h5>
+                          
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="col-form-label">Profile Name : <span class="required">*</span> </label>
+
+                                                @Html.TextBoxFor(model => model.createitem.ProfileName, new { @class = "form-control", @placeholder = "Profile  Name", @type = "text", @required = "required", oninvalid = "this.setCustomValidity('Enter Currency Name Here')", oninput = "this.setCustomValidity('')" })
+                                                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createitem.ProfileName) </small>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="col-form-label">Profile Code : <span class="required">*</span> </label>
+
+                                                @Html.TextBoxFor(model => model.createitem.ProfileCode, new { @class = "form-control", @placeholder = "Profile  Code", @type = "text", @required = "required", oninvalid = "this.setCustomValidity('Enter Currency Name Here')", oninput = "this.setCustomValidity('')" })
+                                                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createitem.ProfileCode) </small>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="col-form-label">Buying Price :</label>
+
+                                                @Html.TextBoxFor(model => model.createitem.BuyingPrice, new { @class = "form-control", @type = "number", @step = "any" })
+                                                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createitem.BuyingPrice) </small>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="col-form-label">Selling Price :</label>
+
+                                                @Html.TextBoxFor(model => model.createitem.SellingPrice, new { @class = "form-control", @type = "number", @step = "any", @required = "required", oninvalid = "this.setCustomValidity('Enter Selling Price Here')", oninput = "this.setCustomValidity('')", min = "0.0001", })
+                                                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createitem.SellingPrice) </small>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="col-form-label">Profile Weight : <span class="required">*</span> </label>
+
+                                                @Html.TextBoxFor(model => model.createitem.ProfileWeight, new { @class = "form-control", @placeholder = "Profile  Weight", @type = "text" })
+                                                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createitem.ProfileWeight) </small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="col-form-label">Profile No : <span class="required">*</span> </label>
+
+                                                @Html.TextBoxFor(model => model.createitem.ProfileNo, new { @class = "form-control", @placeholder = "Profile  No", @type = "text" })
+                                                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.createitem.ProfileNo) </small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="modal-footer">
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-dismiss="modal">
+                                Close
+                            </button>
+                            <button id="createitem" type="submit" class="btn btn-primary" name="Create" value="Create">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div class="card" style="margin:0">
+        <div class="card-body" style="padding:0">
+            <div id="EditModal"
+                 class="modal fade bd-example-modal-lg"
+                 role="dialog"
+                 aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Update Profiles
+                            </h5>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group">
+                                    @Html.HiddenFor(model => model.updateitem.PkItemId)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="col-form-label">Profile Name : <span class="required">*</span> </label>
+
+                                                @Html.TextBoxFor(model => model.updateitem.ProfileName, new { @class = "form-control", @placeholder = "Profile  Name", @type = "text", @required = "required", oninvalid = "this.setCustomValidity('Enter Currency Name Here')", oninput = "this.setCustomValidity('')" })
+                                                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updateitem.ProfileName) </small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="col-form-label">Profile Code : <span class="required">*</span> </label>
+
+                                                @Html.TextBoxFor(model => model.updateitem.ProfileCode, new { @class = "form-control", @placeholder = "Profile  Code", @type = "text", @required = "required", oninvalid = "this.setCustomValidity('Enter Currency Name Here')", oninput = "this.setCustomValidity('')" })
+                                                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updateitem.ProfileCode) </small>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="col-form-label">Buying Price :</label>
+
+                                                @Html.TextBoxFor(model => model.updateitem.BuyingPrice, new { @class = "form-control", @type = "number", @step = "any", @required = "required", oninvalid = "this.setCustomValidity('Enter Conversion Rate Here')", oninput = "this.setCustomValidity('')", min = "0.0001", })
+                                                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updateitem.BuyingPrice) </small>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="col-form-label">Selling Price :</label>
+
+                                                @Html.TextBoxFor(model => model.updateitem.SellingPrice, new { @class = "form-control", @type = "number", @step = "any", @required = "required", oninvalid = "this.setCustomValidity('Enter Conversion Rate Here')", oninput = "this.setCustomValidity('')", min = "0.0001", })
+                                                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updateitem.SellingPrice) </small>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="col-form-label">Profile Weight : <span class="required">*</span> </label>
+
+                                                @Html.TextBoxFor(model => model.updateitem.ProfileWeight, new { @class = "form-control", @placeholder = "Profile  Weight", @type = "text" })
+                                                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updateitem.ProfileWeight) </small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="col-form-label">Profile No : <span class="required">*</span> </label>
+
+                                                @Html.TextBoxFor(model => model.updateitem.ProfileNo, new { @class = "form-control", @placeholder = "Profile  No", @type = "text" })
+                                                <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.updateitem.ProfileNo) </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="modal-footer">
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-dismiss="modal" onclick='closeModal()'>
+                                Close
+                            </button>
+                            <button id="updateitem" type="submit" class="btn btn-primary" name="Update" value="Update">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+<span class="text-right text-bold" id="CustomerName" style="display:none;">Profiles</span>
+<script src="~/Content/assets/js/currency-table.init.js"></script>
+
+
+
+

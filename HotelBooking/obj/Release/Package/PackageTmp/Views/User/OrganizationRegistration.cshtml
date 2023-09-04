@@ -1,0 +1,256 @@
+﻿@model InvoiceSoftware.DataLayer.ViewModels.Organization.OrganizationCreateViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon"
+          type="image/x-icon"
+          href="~/Content/assets/img/icon/icon.png" />
+    <title>Registration </title>
+
+
+    @*<link rel="stylesheet" href="~/Content/login/css/bootstrap.min.css" />*@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/Content/login/css/spacing.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    @*<link rel="stylesheet" href="~/Content/login/css/style.css" />*@
+    <link rel="stylesheet" href="~/Content/assets/css/style.css" />
+    <link rel="stylesheet" href="~/Content/assets/css/responsive.css" />
+    <style>
+        .header-area {
+            background: transparent;
+        }
+
+        .overflow-container {
+            overflow-y: auto;
+            height: calc(100vh - 72px);
+        }
+
+        input{
+            background:#fff !important; 
+            color:#333 !important;
+        }
+        input:active, input.active, input::placeholder, input:focus,input:focus-visible{
+            background:#fff !important; 
+            color:#333 !important;
+        }
+    </style>
+
+    <title>Registration</title>
+
+
+
+</head>
+<body class="bgBody">
+
+    <!-- Header End -->
+    <main>
+        <!-- login area start  -->
+        @using (Html.BeginForm("OrganizationRegistration", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken();
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="header-logo text-center">
+                                <a href="#">
+                                    <img src="~/Content/logo.png"
+                                         alt="logo"
+                                         class="logo-img" />
+                                </a>
+                            </div>
+                            <div class="header-title text-center">
+                                <h1 class="mb-2" style="font-family: Britannic; color: #83EEFD">Organization</h1>
+                                <h3>Account Management System</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="login-area">
+                    <div class="container">
+
+                        <div class="row">
+                            
+                            <div class="col-md-12 col-12">
+
+                                <div class="login-form-wrapper">
+                                    <div class="login-form-wrap">
+                                        <div class="login-title">
+                                            <h2>Organization Information</h2>
+                                        </div>
+                                        <div class="row login-form-group">
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label for="" class="col-form-label">Organization Name : <span class="required">*</span></label>
+
+                                                    @Html.TextBoxFor(model => model.OrganisationName, new { @class = "form-control", @placeholder = "Organization Name", @type = "text" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.OrganisationName) </small>
+
+
+                                                </div>
+                                            </div>
+                                            
+
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Registration Date <span class="required">*</span></label>
+                                                    @Html.TextBoxFor(model => model.RegistrationDate, new { @class = "form-control", @type = "date" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.RegistrationDate) </small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Phone <span class="required">*</span></label>
+                                                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @type = "text" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.Phone) </small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Mobile <span class="required">*</span></label>
+                                                    @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", @type = "text" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.Mobile) </small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Organization Email <span class="required">*</span></label>
+                                                    @Html.TextBoxFor(model => model.OrganizationEmail, new { @class = "form-control", @type = "email" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.OrganizationEmail) </small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Address <span class="required">*</span></label>
+                                                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @type = "text" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.Address) </small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Currency <span class="required">*</span></label>
+                                                    @Html.TextBoxFor(model => model.Currency, new { @class = "form-control", @type = "text" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.Currency) </small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Currency Symbol <span class="required">*</span></label>
+                                                    @Html.TextBoxFor(model => model.CurrencySymbol, new { @class = "form-control", @type = "text" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.CurrencySymbol) </small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Organization Logo <span class="required">*</span></label>
+                                                    @Html.TextBoxFor(model => model.OrganizationLogo, new { @class = "form-control", @type = "file" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.OrganizationLogo) </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+                                    <div class="login-form-wrap">
+                                        <div class="login-title">
+                                            <h2>Admin Information</h2>
+                                        </div>
+                                        <div class="row login-form-group">
+
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Full Name <span class="required">*</span></label>
+                                                    @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", @type = "text", @placeholder = "Full Name" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.FullName) </small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Email <span class="required">*</span></label>
+                                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @type = "email", @placeholder = "Email" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.Email) </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Password <span class="required">*</span></label>
+                                                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @type = "password", @placeholder = "Password" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.Password) </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Gender</label>
+                                                    @Html.DropDownListFor(model => model.GenderID, Model.AllGenders, "Gender", new { @class = "form-select" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.GenderID) </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group login-form-input">
+                                                    <label class="col-form-label">Profile Image</label>
+                                                    @Html.TextBoxFor(model => model.ProfileImage, new { @class = "form-control", @type = "file" })
+                                                    <small class="form-control-feedback" style="display:block;color:red;"> @Html.ValidationMessageFor(m => m.ProfileImage) </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                    </div>
+
+                                    <div class="login-form-btn">
+                                        <div class="col-md-12">
+                                            <div class="login-submit-btn text-end">
+                                                <button name="signin" id="signin" class="btn btn-primary" type="submit">Register</button>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        }
+
+
+        <!-- login area end -->
+    </main>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="~/Content/login/js/jquery-3.6.1.min.js"></script>
+    <script src="~/Content/login/js/popper.min.js"></script>
+    <script src="~/Content/login/js/bootstrap.min.js"></script>
+    <script src="~/Content/login/js/toggle-password.js"></script>
+    <script src="~/Content/login/js/script.js"></script>
+</body>
+</html>
+
+
+
